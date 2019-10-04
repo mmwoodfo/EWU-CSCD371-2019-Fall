@@ -90,11 +90,32 @@ namespace PrincessBrideTrivia
                 question.Answers[2] = answer3;
                 question.CorrectAnswerIndex = correctAnswerIndex;
 
-                questions[i] = question;
-                /*Issue 1: Function never added the populated question object to the questions array.*/
-
+                /*Bonus:*/
+                questions[i] = RandomizeQuestionAnswersOrder(question);
             }
             return questions;
+        }
+
+        /*Bonus - Using Knuth shuffle*/
+        public static Question RandomizeQuestionAnswersOrder(Question question)
+        {
+            string correctAnswer = question.Answers[Convert.ToInt32(question.CorrectAnswerIndex) - 1];
+
+            Random rand = new Random();
+
+            for (int i = 0; i < question.Answers.Length; i++)
+            {
+                string temp = question.Answers[i];
+
+                int randIndex = rand.Next(i, question.Answers.Length);
+
+                question.Answers[i] = question.Answers[randIndex];
+                question.Answers[randIndex] = temp;
+            }
+
+            question.CorrectAnswerIndex = (Array.IndexOf(question.Answers, correctAnswer) + 1).ToString();
+
+            return question;
         }
     }
 }
