@@ -89,6 +89,10 @@ namespace PrincessBrideTrivia
                 question.Answers[1] = answer2;
                 question.Answers[2] = answer3;
                 question.CorrectAnswerIndex = correctAnswerIndex;
+
+                questions[i] = question;
+                /*Issue 1: Function never added the populated question object to the questions array.*/
+
             }
             return questions;
         }
