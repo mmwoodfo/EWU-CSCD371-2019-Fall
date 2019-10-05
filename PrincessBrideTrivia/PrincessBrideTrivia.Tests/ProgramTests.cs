@@ -60,13 +60,13 @@ namespace PrincessBrideTrivia.Tests
         {
             //Arrange
             Question question = GenerateAQuestion();
-            Question questionCopy = question;
+            Question question2 = GenerateAQuestion();
 
             //Act
             question = Program.RandomizeQuestionAnswersOrder(question);
 
             //Assert
-            CollectionAssert.AreEqual(question.Answers, questionCopy.Answers);
+            CollectionAssert.AreNotEqual(question.Answers, question2.Answers);
         }
 
         /*Bonus*/
@@ -128,7 +128,6 @@ namespace PrincessBrideTrivia.Tests
             // Assert
             Assert.AreEqual(expectedString, percentage);
         }
-
 
         private static void GenerateQuestionsFile(string filePath, int numberOfQuestions)
         {
