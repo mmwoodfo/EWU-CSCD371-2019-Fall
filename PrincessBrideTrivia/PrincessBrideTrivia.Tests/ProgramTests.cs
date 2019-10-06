@@ -61,9 +61,10 @@ namespace PrincessBrideTrivia.Tests
             //Arrange
             Question question = GenerateAQuestion();
             Question question2 = GenerateAQuestion();
+            Random rand = new Random();
 
             //Act
-            question = Program.RandomizeQuestionAnswersOrder(question);
+            question = Program.RandomizeQuestionAnswersOrder(question, rand);
 
             //Assert
             CollectionAssert.AreNotEqual(question.Answers, question2.Answers);
@@ -76,9 +77,10 @@ namespace PrincessBrideTrivia.Tests
             //Arrange
             Question question = GenerateAQuestion();
             string correctAnswer = question.Answers[Convert.ToInt32(question.CorrectAnswerIndex) - 1];
+            Random rand = new Random();
 
             //Act
-            question = Program.RandomizeQuestionAnswersOrder(question);
+            question = Program.RandomizeQuestionAnswersOrder(question, rand);
 
             //Assert
             Assert.AreEqual(question.Answers[Convert.ToInt32(question.CorrectAnswerIndex) - 1], correctAnswer);

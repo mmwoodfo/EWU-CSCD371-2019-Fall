@@ -91,17 +91,16 @@ namespace PrincessBrideTrivia
                 question.CorrectAnswerIndex = correctAnswerIndex;
 
                 /*Bonus:*/
-                questions[i] = RandomizeQuestionAnswersOrder(question);
+                Random rand = new Random();
+                questions[i] = RandomizeQuestionAnswersOrder(question, rand);
             }
             return questions;
         }
 
         /*Bonus - Using Knuth shuffle*/
-        public static Question RandomizeQuestionAnswersOrder(Question question)
+        public static Question RandomizeQuestionAnswersOrder(Question question, Random rand)
         {
             string correctAnswer = question.Answers[Convert.ToInt32(question.CorrectAnswerIndex) - 1];
-
-            Random rand = new Random();
 
             for (int i = 0; i < question.Answers.Length; i++)
             {
