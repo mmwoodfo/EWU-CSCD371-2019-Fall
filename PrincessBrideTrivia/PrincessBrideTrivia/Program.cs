@@ -24,7 +24,7 @@ namespace PrincessBrideTrivia
 
         public static string GetPercentCorrect(int numberCorrectAnswers, int numberOfQuestions)
         {
-            return Math.Floor((float)numberCorrectAnswers / (float)numberOfQuestions * 100) + "%";
+            return Math.Round((float)numberCorrectAnswers / (float)numberOfQuestions * 100) + "%";
             /*Issue 2: Integer division cannot be used here, that is why the function would only return 0% or 100%, 
              *because the number calculated would be floored to 0 every time n/7 questions were answered correctly where n < 7.*/
         }
