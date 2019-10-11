@@ -20,11 +20,11 @@ namespace Logger
         public override void Log(LogLevel logLevel, string message)
         {
             string log = $"{DateTime.Now.ToString()} {ClassName} {logLevel} {message}";
-            StreamWriter sw = new StreamWriter(filePath);
 
-            sw.WriteLine(log);
-            sw.Flush();
-            sw.Close();
+            using (StreamWriter sw = new StreamWriter(filePath))
+            {
+                sw.WriteLine(log);
+            }
         }
     }
 }
