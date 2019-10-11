@@ -62,7 +62,7 @@ namespace Logger.Tests
             var logger = new TestLogger();
 
             // Act
-            //logger.Error("Message {0}", 42);
+            logger.Error("Message {0}", 42);
 
             // Assert
             Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -77,7 +77,7 @@ namespace Logger.Tests
             var logger = new TestLogger();
 
             // Act
-            //logger.Warning("Message {0}", 42);
+            logger.Warning("Message {0}", 42);
 
             // Assert
             Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -92,7 +92,7 @@ namespace Logger.Tests
             var logger = new TestLogger();
 
             // Act
-            //logger.Information("Message {0}", 42);
+            logger.Information("Message {0}", 42);
 
             // Assert
             Assert.AreEqual(1, logger.LoggedMessages.Count);
@@ -107,7 +107,7 @@ namespace Logger.Tests
             var logger = new TestLogger();
 
             // Act
-            //logger.Debug("Message {0}", 42);
+            logger.Debug("Message {0}", 42);
 
             // Assert
             Assert.AreEqual(1, logger.LoggedMessages.Count);
