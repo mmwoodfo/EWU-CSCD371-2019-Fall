@@ -41,11 +41,5 @@ namespace Logger.Tests
 
             File.Delete(filePath);
         }
-
-        [TestMethod]
-        public void LogMessage_DidAddLog_Correctly()
-        {
-
-        }
     }
 }
