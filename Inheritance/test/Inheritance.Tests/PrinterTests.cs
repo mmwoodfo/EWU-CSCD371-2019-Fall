@@ -41,7 +41,7 @@ namespace Inheritance.Tests
 
         public override string PrintInfo()
         {
-            throw new NotImplementedException();
+            return Name;
         }
     }
 }
