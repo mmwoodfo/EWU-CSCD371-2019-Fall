@@ -11,12 +11,13 @@ namespace Inheritance.Tests
         {
             //Arrange
             Actor raj = new Raj(true);
+            string expected = "Raj : ";
 
             //Act
-            raj.Speak();
+            string says = raj.Speak("Hello");
 
             //Assert
-            throw new NotImplementedException();
+            Assert.AreEqual(expected, says);
         }
 
         [TestMethod]
@@ -24,12 +25,13 @@ namespace Inheritance.Tests
         {
             //Arrange
             Actor raj = new Raj(false);
+            string expected = "Raj : I don't like bugs, okay. They freak me out.";
 
             //Act
-            raj.Speak();
+            string says = raj.Speak("I don't like bugs, okay. They freak me out.");
 
             //Assert
-            throw new NotImplementedException();
+            Assert.AreEqual(expected, says);
         }
 
         [TestMethod]
@@ -37,12 +39,13 @@ namespace Inheritance.Tests
         {
             //Arrange
             Actor penny = new Penny();
+            string expected = "Penny : What up, shel-bot?";
 
             //Act
-            penny.Speak();
+            string says = penny.Speak("What up, shel-bot?");
 
             //Assert
-            throw new NotImplementedException();
+            Assert.AreEqual(expected, says);
         }
 
         [TestMethod]
@@ -50,12 +53,13 @@ namespace Inheritance.Tests
         {
             //Arrange
             Actor sheldon = new Sheldon();
+            string expected = "Sheldon : Interesting. You're afraid of insects and women. Ladybugs must render you catatonic.";
 
             //Act
-            sheldon.Speak();
+            string says = sheldon.Speak("Interesting. You're afraid of insects and women. Ladybugs must render you catatonic.");
 
             //Assert
-            throw new NotImplementedException();
+            Assert.AreEqual(expected, says);
         }
     }
 }
