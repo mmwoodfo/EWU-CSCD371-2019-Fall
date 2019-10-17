@@ -11,11 +11,11 @@ namespace Inheritance.Tests
             //Arrange
             Raj raj = new Raj(true);
 
-            string say = "Hello";
+            raj.Says = "Hello";
             string expected = "Raj : ";
 
             //Act
-            string says = raj.Speak(say);
+            string says = raj.Speak();
             
             //Assert
             Assert.AreEqual(expected, says);
@@ -27,11 +27,11 @@ namespace Inheritance.Tests
             //Arrange
             Raj raj = new Raj(false);
 
-            string say = "I don't like bugs, okay. They freak me out.";
+            raj.Says = "I don't like bugs, okay. They freak me out.";
             string expected = "Raj : I don't like bugs, okay. They freak me out.";
 
             //Act
-            string says = raj.Speak(say);
+            string says = raj.Speak();
 
             //Assert
             Assert.AreEqual(expected, says);
@@ -43,11 +43,11 @@ namespace Inheritance.Tests
             //Arrange
             Penny penny = new Penny();
 
-            string say = "What up, shel-bot?";
+            penny.Says = "What up, shel-bot?";
             string expected = "Penny : What up, shel-bot?";
 
             //Act
-            string says = penny.Speak(say);
+            string says = penny.Speak();
 
             //Assert
             Assert.AreEqual(expected, says);
@@ -59,11 +59,26 @@ namespace Inheritance.Tests
             //Arrange
             Sheldon sheldon = new Sheldon();
 
-            string say = "Interesting. You're afraid of insects and women. Ladybugs must render you catatonic.";
+            sheldon.Says = "Interesting. You're afraid of insects and women. Ladybugs must render you catatonic.";
             string expected = "Sheldon : Interesting. You're afraid of insects and women. Ladybugs must render you catatonic.";
 
             //Act
-            string says = sheldon.Speak(say);
+            string says = sheldon.Speak();
+
+            //Assert
+            Assert.AreEqual(expected, says);
+        }
+
+        [TestMethod]
+        public void NotReal_ActorTest()
+        {
+            //Arrange
+            Actor notReal = new Actor();
+
+            string expected = "";
+
+            //Act
+            string says = notReal.Speak();
 
             //Assert
             Assert.AreEqual(expected, says);
