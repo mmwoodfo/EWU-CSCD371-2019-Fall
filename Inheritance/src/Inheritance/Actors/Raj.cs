@@ -4,8 +4,7 @@ namespace Inheritance
 {
     public class Raj : Actor
     {
-        private bool WomenArePresent;
-        
+        public bool WomenArePresent { get; set; }
 
         public Raj(bool womenArePresent)
         {
@@ -22,6 +21,6 @@ namespace Inheritance
             {
                 return $"Raj : {say}";
             }
-        } 
+        }
     }
 }
