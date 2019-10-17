@@ -4,9 +4,9 @@ namespace Inheritance
 {
     public static class ActorExtensions
     {
-        public static void Speak(this Actor actor)
+        public static string Speak(this Actor actor, string says)
         {
-            throw new NotImplementedException();
+            return $"{actor.GetType().Name} : {says}";
         }
     }
 }
