@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 
 namespace Inheritance.Tests
 {
@@ -10,11 +9,15 @@ namespace Inheritance.Tests
         public void Raj_ActorTest_WomenPresent()
         {
             //Arrange
-            Actor raj = new Raj(true);
+            Raj raj = new Raj(true)
+            {
+                Say = "Hello"
+            };
+
             string expected = "Raj : ";
 
             //Act
-            string says = raj.Speak("Hello");
+            string says = raj.Speak(raj.Say);
 
             //Assert
             Assert.AreEqual(expected, says);
@@ -24,11 +27,15 @@ namespace Inheritance.Tests
         public void Raj_ActorTest_WomenNotPresent()
         {
             //Arrange
-            Actor raj = new Raj(false);
+            Raj raj = new Raj(false)
+            {
+                Say = "I don't like bugs, okay. They freak me out."
+            };
+
             string expected = "Raj : I don't like bugs, okay. They freak me out.";
 
             //Act
-            string says = raj.Speak("I don't like bugs, okay. They freak me out.");
+            string says = raj.Speak(raj.Say);
 
             //Assert
             Assert.AreEqual(expected, says);
@@ -38,11 +45,15 @@ namespace Inheritance.Tests
         public void Penny_ActorTest()
         {
             //Arrange
-            Actor penny = new Penny();
+            Penny penny = new Penny
+            {
+                Say = "What up, shel-bot?"
+            };
+
             string expected = "Penny : What up, shel-bot?";
 
             //Act
-            string says = penny.Speak("What up, shel-bot?");
+            string says = penny.Speak(penny.Say);
 
             //Assert
             Assert.AreEqual(expected, says);
@@ -52,11 +63,15 @@ namespace Inheritance.Tests
         public void Sheldon_ActorTest()
         {
             //Arrange
-            Actor sheldon = new Sheldon();
+            Sheldon sheldon = new Sheldon
+            {
+                Say = "Interesting. You're afraid of insects and women. Ladybugs must render you catatonic."
+            };
+
             string expected = "Sheldon : Interesting. You're afraid of insects and women. Ladybugs must render you catatonic.";
 
             //Act
-            string says = sheldon.Speak("Interesting. You're afraid of insects and women. Ladybugs must render you catatonic.");
+            string says = sheldon.Speak(sheldon.Say);
 
             //Assert
             Assert.AreEqual(expected, says);
