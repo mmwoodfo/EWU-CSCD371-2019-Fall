@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Inheritance.Tests
 {
@@ -75,13 +76,8 @@ namespace Inheritance.Tests
             //Arrange
             Actor notReal = new Actor();
 
-            string expected = "";
-
-            //Act
-            string says = notReal.Speak();
-
             //Assert
-            Assert.AreEqual(expected, says);
+            Assert.ThrowsException<ArgumentNullException>(() => notReal.Speak());
         }
     }
 }
