@@ -17,7 +17,7 @@ namespace Inheritance
                 case Sheldon sheldon:
                     return $"{actor.GetType().Name} : {sheldon.Says}";
                 default:
-                    return "";
+                    throw new ArgumentNullException(nameof(actor));
             }
         }
     }
