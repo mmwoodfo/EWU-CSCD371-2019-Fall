@@ -1,11 +1,11 @@
 ﻿namespace Inheritance
 {
-    public class Food : Item
+    public class Food : IItem
     {
         public string Upc { get; set; }
         public string Brand { get; set; }
 
-        public override string PrintInfo()
+        public string PrintInfo()
         {
             return $"{Upc} - {Brand}";
         }

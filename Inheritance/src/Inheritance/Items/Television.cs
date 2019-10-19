@@ -1,11 +1,11 @@
 ﻿namespace Inheritance
 {
-    public class Television : Item
+    public class Television : IItem
     {
         public string Manufacturer { get; set; }
         public string Size { get; set; }
 
-        public override string PrintInfo()
+        public string PrintInfo()
         {
             return $"{Manufacturer} - {Size}";
         }
