@@ -41,7 +41,7 @@ namespace Configuration
 
         ~EnvironmentConfig()
         {
-            foreach(string name in setNames)
+            foreach (string name in setNames)
             {
                 Environment.SetEnvironmentVariable(name, null);
             }
