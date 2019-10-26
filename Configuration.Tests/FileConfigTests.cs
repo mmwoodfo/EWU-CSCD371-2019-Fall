@@ -121,7 +121,7 @@ namespace Configuration.Tests
 
         private void GenerateTestFile(string filePath)
         {
-            using(StreamWriter sw = new StreamWriter(filePath, true))
+            using (StreamWriter sw = new StreamWriter(filePath, true))
             {
                 sw.WriteLine("NAME1=VALUE1");
                 sw.WriteLine("NAME2=VALUE2");

@@ -7,7 +7,7 @@ namespace Configuration
 {
     public class FileConfig
     {
-        private string filePath;
+        private readonly string filePath;
 
         public FileConfig(string filePath)
         {
@@ -34,21 +34,23 @@ namespace Configuration
 
         public void WriteConfig(string name, string? value)
         {
-            if(name is null || value is null)
+            if (name is null || value is null)
             {
                 throw new ArgumentNullException("Arguments cannot be null");
             }
 
-            using(StreamWriter sw = new StreamWriter(filePath, true))
+            using (StreamWriter sw = new StreamWriter(filePath, true))
             {
-                if(ValidateNameAndValue(name, value))
+                if (ValidateNameAndValue(name, value))
                 {
                     sw.WriteLine($"{name}={value}");
                 }
             }
         }
 
+#pragma warning disable CA1822 // Mark members as static
         public bool ValidateNameAndValue(string name, string? value)
+#pragma warning restore CA1822 // Mark members as static
         {
             if (name is null || value is null)
             {
@@ -58,7 +60,7 @@ namespace Configuration
             {
                 return false;
             }
-            else if(value.Contains(' ') || value.Contains('='))
+            else if (value.Contains(' ') || value.Contains('='))
             {
                 return false;
             }
