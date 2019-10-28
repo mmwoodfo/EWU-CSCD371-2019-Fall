@@ -55,12 +55,17 @@ namespace Configuration
 
         public bool SetConfigValue(string name, string? value)
         {
-            ValidateNameAndValue(name, value);
-
-            using (StreamWriter sw = new StreamWriter(filePath, true))
+            if (ValidateNameAndValue(name, value))
             {
-                sw.WriteLine($"{name}={value}");
-                return true;
+                using (StreamWriter sw = new StreamWriter(filePath, true))
+                {
+                    sw.WriteLine($"{name}={value}");
+                    return true;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 
