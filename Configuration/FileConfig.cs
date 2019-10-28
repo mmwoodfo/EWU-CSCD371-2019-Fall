@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -18,11 +17,11 @@ namespace Configuration
         {
             string[] lines = File.ReadLines(filePath).ToArray();
 
-            foreach(string line in lines)
+            foreach (string line in lines)
             {
                 Console.WriteLine($"* {line}\n");
                 string[] parsedLine = ParseLine(line);
-                if(string.Equals(name, parsedLine[0]))
+                if (string.Equals(name, parsedLine[0]))
                 {
                     value = parsedLine[1];
                     return true;
@@ -37,13 +36,13 @@ namespace Configuration
         public string[] ParseLine(string line)
 #pragma warning restore CA1822 // Mark members as static
         {
-            if(line is null)
+            if (line is null)
             {
                 throw new ArgumentNullException();
             }
 
             string[] parsedLine = line.Split("=");
-            if(parsedLine.Length != 2)
+            if (parsedLine.Length != 2)
             {
                 throw new ArgumentException("There can only be one equals sign on the line");
             }
@@ -81,11 +80,11 @@ namespace Configuration
             {
                 throw new ArgumentException($"{nameof(value)} should not be null or empty");
             }
-            if(name.Contains(' ') || name.Contains('='))
+            if (name.Contains(' ') || name.Contains('='))
             {
                 throw new ArgumentException($"{nameof(name)} is invalid formatting = and whitespace is not allowed");
             }
-            if(value.Contains(' ') || value.Contains('='))
+            if (value.Contains(' ') || value.Contains('='))
             {
                 throw new ArgumentException($"{nameof(value)} is invalid formatting = and whitespace is not allowed");
             }

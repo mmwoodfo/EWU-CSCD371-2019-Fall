@@ -1,8 +1,4 @@
-﻿using Configuration;
-using System;
-using System.Collections.Generic;
-
-namespace SampleApp
+﻿namespace SampleApp
 {
     internal class Program
     {

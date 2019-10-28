@@ -39,7 +39,7 @@ namespace MockConfig
 
         public bool SetConfigValue(string name, string? value)
         {
-            if(ValidateNameAndValue(name, value))
+            if (ValidateNameAndValue(name, value))
             {
                 Tuple<string, string?> configItem = new Tuple<string, string?>(name, value);
                 configList.Add(configItem);

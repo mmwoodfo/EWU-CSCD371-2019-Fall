@@ -27,7 +27,7 @@ namespace Configuration
 
         public bool SetConfigValue(string name, string? value)
         {
-            if(value is null)
+            if (value is null)
             {
                 return false;
             }
