@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Configuration
 {
-    public sealed class EnvironmentConfig : IConfig
+    public sealed class EnvironmentConfigAsync : IConfig
     {
         private List<string> setNames;
 
-        public EnvironmentConfig()
+        public EnvironmentConfigAsync()
         {
             setNames = new List<string>();
         }
@@ -39,7 +39,7 @@ namespace Configuration
             }
         }
 
-        ~EnvironmentConfig()
+        ~EnvironmentConfigAsync()
         {
             foreach (string name in setNames)
             {

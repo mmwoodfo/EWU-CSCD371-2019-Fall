@@ -12,7 +12,7 @@ namespace Configuration.Tests
             //arrange
             string name = "Wrong Path Name";
             string? value = "TESTVALUE";
-            EnvironmentConfig testSystem = new EnvironmentConfig();
+            EnvironmentConfigAsync testSystem = new EnvironmentConfigAsync();
 
             //act
             bool tf = testSystem.GetConfigValue(name, out value);
@@ -28,7 +28,7 @@ namespace Configuration.Tests
             //arrange
             string name = "TEMP";
             string? value = "TESTVALUE";
-            EnvironmentConfig testSystem = new EnvironmentConfig();
+            EnvironmentConfigAsync testSystem = new EnvironmentConfigAsync();
 
             //act
             bool tf = testSystem.GetConfigValue(name, out value);
@@ -44,7 +44,7 @@ namespace Configuration.Tests
             //arrange
             string name = "Wrong Path Name";
             string? value = null;
-            EnvironmentConfig testSystem = new EnvironmentConfig();
+            EnvironmentConfigAsync testSystem = new EnvironmentConfigAsync();
 
             //act
             bool tf = testSystem.SetConfigValue(name, value);
@@ -59,7 +59,7 @@ namespace Configuration.Tests
             //arrange
             string name = "TEMP", value = "TESTVALUE";
             string? valueOut;
-            EnvironmentConfig testSystem = new EnvironmentConfig();
+            EnvironmentConfigAsync testSystem = new EnvironmentConfigAsync();
 
             //act
             bool tf = testSystem.SetConfigValue(name, value);

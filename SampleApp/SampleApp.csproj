@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Configuration\Configuration.csproj" />
+    <ProjectReference Include="..\MockConfig\MockConfiguration.csproj" />
   </ItemGroup>
 
 </Project>

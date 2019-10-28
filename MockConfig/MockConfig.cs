@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MockConfig
+namespace MockConfiguration
 {
     public class MockConfig : IConfig
     {
