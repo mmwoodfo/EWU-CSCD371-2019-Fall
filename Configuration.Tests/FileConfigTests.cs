@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,79 +11,124 @@ namespace Configuration.Tests
     public class FileConfigTests
     {
         [TestMethod()]
-        public void FileConfig_ReadConfig()
+        public void GetConfigValueTest_ReturnFalse()
         {
             //Arrange
-            string filePath = Path.GetRandomFileName();
-            List<Tuple<string, string?>> expectedConfigList = new List<Tuple<string, string?>>();
-            expectedConfigList.Add(new Tuple<string, string?>("NAME1", "VALUE1"));
-            expectedConfigList.Add(new Tuple<string, string?>("NAME2", "VALUE2"));
-            expectedConfigList.Add(new Tuple<string, string?>("NAME3", "VALUE3"));
-
-            try
-            {
-                GenerateTestFile(filePath);
-                FileConfig fileConfig = new FileConfig(filePath);
-
-                //Act
-                var configList = fileConfig.ReadConfig();
-
-                //Assert
-                CollectionAssert.AreEqual(expectedConfigList, configList);
-                CollectionAssert.AreEqual(expectedConfigList, configList);
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [TestMethod()]
-        public void FileConfig_WriteConfig()
-        {
-            //Arrange
-            string filePath = Path.GetRandomFileName();
-
-            try
-            {
-                FileConfig fileConfig = new FileConfig(filePath);
-
-                //Act
-                fileConfig.WriteConfig("NAME1", "VALUE1");
-                fileConfig.WriteConfig("NAME2", "VALUE2");
-                string[] fileLines = File.ReadLines(filePath).ToArray();
-
-                //Assert
-                Assert.AreEqual(fileLines.Length, 2);
-                Assert.AreEqual(fileLines[0], "NAME1=VALUE1");
-                Assert.AreEqual(fileLines[1], "NAME2=VALUE2");
-            }
-            finally
-            {
-                File.Delete(filePath);
-            }
-        }
-
-        [TestMethod()]
-        public void FileConfig_ValidateNameAndValue_ValueFail()
-        {
-            //Arrange
-            string name = "PATHTEST", value = "VALUE=value";
-            FileConfig fileConfig = new FileConfig("unnecessary");
+            string filePath = CreateTestFile();
+            FileConfig fileConfig = new FileConfig(filePath);
+            string name = "SomeNameNotInFile";
+            string? value;
 
             //Act
-            bool tf = fileConfig.ValidateNameAndValue(name, value);
+            bool tf = fileConfig.GetConfigValue(name, out value);
 
             //Assert
             Assert.IsFalse(tf);
+            Assert.AreEqual(null, value);
+
+            File.Delete(filePath);
         }
 
         [TestMethod()]
-        public void FileConfig_ValidateNameAndValue_VaLuePass()
+        public void GetConfigValueTest_ReturnTrue()
         {
             //Arrange
-            string name = "PATHTEST", value = "value";
-            FileConfig fileConfig = new FileConfig("unnecessary");
+            string filePath = CreateTestFile();
+            FileConfig fileConfig = new FileConfig(filePath);
+            string name = "NAME1";
+            string? value;
+
+            //Act
+            bool tf = fileConfig.GetConfigValue(name, out value);
+
+            //Assert
+            Assert.IsTrue(tf);
+            Assert.AreEqual("VALUE1", value);
+
+            File.Delete(filePath);
+        }
+
+        [TestMethod()]
+        public void ParseLineTest_NoException()
+        {
+            //Arrange
+            string line = "NAME=VALUE";
+            string expectedName = "NAME", expectedValue = "VALUE";
+            FileConfig fileConfig = new FileConfig("");
+
+            //Act
+            string[] parsedLine = fileConfig.ParseLine(line);
+
+            //Assert
+            Assert.AreEqual(expectedName, parsedLine[0]);
+            Assert.AreEqual(expectedValue, parsedLine[1]);
+        }
+
+        [TestMethod()]
+        public void ParseLineTest_NullException()
+        {
+            //Arrange
+            FileConfig fileConfig = new FileConfig("");
+
+            //Act & Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            Assert.ThrowsException<ArgumentNullException>(() => fileConfig.ParseLine(null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+        }
+
+        [TestMethod()]
+        public void SetConfigValueTest_ReturnTrue()
+        {
+            //Arrange
+            string filePath = Path.GetRandomFileName();
+            FileConfig fileConfig = new FileConfig(filePath);
+            string name = "NAME";
+            string? value = "VALUE";
+
+            //Act
+            bool tf = fileConfig.SetConfigValue(name, value);
+            string[] lines = File.ReadLines(filePath).ToArray();
+
+            //Assert
+            Assert.IsTrue(tf);
+            Assert.AreEqual(1, lines.Length);
+            Assert.AreEqual("NAME=VALUE", lines[0]);
+
+            File.Delete(filePath);
+        }
+
+        [DataTestMethod]
+        [DataRow(null, "TESTVALUE")]
+        [DataRow("NAME", null)]
+        [DataRow("N AM E", "TESTVALUE")]
+        [DataRow("NAME ", "TESTVALUE")]
+        [DataRow("N=AME", "TESTVALUE")]
+        [DataRow("=N=A=M=E", "TESTVALUE")]
+        [DataRow("NAME", "TEST VALUE")]
+        [DataRow("NAME", "TEST VALUE ")]
+        [DataRow("NAME", "TEST=VALUE")]
+        [DataRow("NAME", "TEST=VALUE=")]
+        [DataRow("N AME", "TEST=VALUE")]
+        [TestMethod()]
+        public void ValidateNameAndValueTest_ThrowsArgumentException(string name, string? value)
+        {
+            //Arrange
+            FileConfig fileConfig = new FileConfig("");
+
+            //Act & Assert
+            Assert.ThrowsException<ArgumentException>(() => fileConfig.ValidateNameAndValue(name, value));
+
+        }
+
+        [DataTestMethod]
+        [DataRow("NAME", "TESTVALUE")]
+        [DataRow("name", "testValue")]
+        [DataRow("Name", "testvalue")]
+        [TestMethod()]
+        public void ValidateNameAndValueTest_NoException(string name, string? value)
+        {
+            //Arrange
+            FileConfig fileConfig = new FileConfig("");
 
             //Act
             bool tf = fileConfig.ValidateNameAndValue(name, value);
@@ -91,42 +137,21 @@ namespace Configuration.Tests
             Assert.IsTrue(tf);
         }
 
-        [TestMethod()]
-        public void FileConfig_ValidateNameAndValue_NameFail()
+#pragma warning disable CA1822 // Mark members as static
+        public string CreateTestFile()
+#pragma warning restore CA1822 // Mark members as static
         {
-            //Arrange
-            string name = "TEMP PATH", value = "VALUE";
-            FileConfig fileConfig = new FileConfig("unnecessary");
+            string filePath = Path.GetRandomFileName();
 
-            //Act
-            bool tf = fileConfig.ValidateNameAndValue(name, value);
-
-            //Assert
-            Assert.IsFalse(tf);
-        }
-
-        [TestMethod()]
-        public void FileConfig_ValidateNameAndValue_NamePass()
-        {
-            //Arrange
-            string name = "path", value = "VALUE";
-            FileConfig fileConfig = new FileConfig("unnecessary");
-
-            //Act
-            bool tf = fileConfig.ValidateNameAndValue(name, value);
-
-            //Assert
-            Assert.IsTrue(tf);
-        }
-
-        private void GenerateTestFile(string filePath)
-        {
             using (StreamWriter sw = new StreamWriter(filePath, true))
             {
                 sw.WriteLine("NAME1=VALUE1");
                 sw.WriteLine("NAME2=VALUE2");
                 sw.WriteLine("NAME3=VALUE3");
+                sw.WriteLine("NAME4=VALUE4");
             }
+
+            return filePath;
         }
     }
 }

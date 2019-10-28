@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Configuration
 {
-    public class FileConfig
+    public class FileConfig : IConfig
     {
         private readonly string filePath;
 
@@ -14,37 +14,53 @@ namespace Configuration
             this.filePath = filePath;
         }
 
-        public List<Tuple<string, string?>> ReadConfig()
+        public bool GetConfigValue(string name, out string? value)
         {
             string[] lines = File.ReadLines(filePath).ToArray();
-            List<Tuple<string, string?>> configList = new List<Tuple<string, string?>>();
 
-            foreach (string line in lines)
+            foreach(string line in lines)
             {
-                string[] lineValues = line.Split('=');
-                if (lineValues.Length != 2)
+                Console.WriteLine($"* {line}\n");
+                string[] parsedLine = ParseLine(line);
+                if(string.Equals(name, parsedLine[0]))
                 {
-                    throw new ArgumentException("Multiple values on the same file line");
+                    value = parsedLine[1];
+                    return true;
                 }
-                Tuple<string, string?> configItem = new Tuple<string, string?>(lineValues[0], lineValues[1]);
-                configList.Add(configItem);
             }
-            return configList;
+
+            value = null;
+            return false;
         }
 
-        public void WriteConfig(string name, string? value)
+#pragma warning disable CA1822 // Mark members as static
+        public string[] ParseLine(string line)
+#pragma warning restore CA1822 // Mark members as static
         {
-            if (name is null || value is null)
+            if(line is null)
             {
-                throw new ArgumentNullException("Arguments cannot be null");
+                throw new ArgumentNullException();
             }
+
+            string[] parsedLine = line.Split("=");
+            if(parsedLine.Length != 2)
+            {
+                throw new ArgumentException("There can only be one equals sign on the line");
+            }
+            else
+            {
+                return parsedLine;
+            }
+        }
+
+        public bool SetConfigValue(string name, string? value)
+        {
+            ValidateNameAndValue(name, value);
 
             using (StreamWriter sw = new StreamWriter(filePath, true))
             {
-                if (ValidateNameAndValue(name, value))
-                {
-                    sw.WriteLine($"{name}={value}");
-                }
+                sw.WriteLine($"{name}={value}");
+                return true;
             }
         }
 
@@ -52,23 +68,23 @@ namespace Configuration
         public bool ValidateNameAndValue(string name, string? value)
 #pragma warning restore CA1822 // Mark members as static
         {
-            if (name is null || value is null)
+            if (String.IsNullOrEmpty(name))
             {
-                return false;
+                throw new ArgumentException($"{nameof(name)} should not be null or empty");
             }
-            else if (name.Contains(' ') || name.Contains('='))
+            if (string.IsNullOrEmpty(value))
             {
-                return false;
+                throw new ArgumentException($"{nameof(value)} should not be null or empty");
             }
-            else if (value.Contains(' ') || value.Contains('='))
+            if(name.Contains(' ') || name.Contains('='))
             {
-                return false;
+                throw new ArgumentException($"{nameof(name)} is invalid formatting = and whitespace is not allowed");
             }
-            else
+            if(value.Contains(' ') || value.Contains('='))
             {
-                return true;
+                throw new ArgumentException($"{nameof(value)} is invalid formatting = and whitespace is not allowed");
             }
+            return true;
         }
-
     }
 }
