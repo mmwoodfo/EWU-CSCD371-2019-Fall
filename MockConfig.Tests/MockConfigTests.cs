@@ -50,7 +50,7 @@ namespace MockConfig.Tests
         [DataRow("NAME", "TEST=VALUE=")]
         [DataRow("N AME", "TEST=VALUE")]
         [TestMethod()]
-        public void ValidateNameAndValueTest_ThrowsArgumentException(string name, string? value)
+        public void ValidateNameAndValueTest_ThrowsArgumentException(string name, string value)
         {
             //Arrange
             MockConfig testSystem = new MockConfig(false);
@@ -65,7 +65,7 @@ namespace MockConfig.Tests
         [DataRow("name", "testValue")]
         [DataRow("Name", "testvalue")]
         [TestMethod()]
-        public void ValidateNameAndValueTest_NoException(string name, string? value)
+        public void ValidateNameAndValueTest_NoException(string name, string value)
         {
             //Arrange
             MockConfig testSystem = new MockConfig(false);
