@@ -1,6 +1,5 @@
 ﻿using MockConfiguration;
 using System;
-using System.Collections.Generic;
 
 namespace SampleApp
 {
@@ -14,7 +13,7 @@ namespace SampleApp
             {
                 string? valueOut;
                 mockConfig.GetConfigValue($"NAME{i + 1}", out valueOut);
-                Console.WriteLine($"NAME{i+1} = {valueOut}");
+                Console.WriteLine($"NAME{i + 1} = {valueOut}");
             }
         }
     }
