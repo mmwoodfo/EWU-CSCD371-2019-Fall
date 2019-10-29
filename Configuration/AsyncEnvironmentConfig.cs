@@ -1,45 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Configuration
 {
-    public sealed class EnvironmentConfig : IConfig
+    public class AsyncEnvironmentConfig : IConfigAsync
     {
-        private List<string> setNames;
+        private System.Collections.Generic.List<string> setNames;
 
-        public EnvironmentConfig()
+        public AsyncEnvironmentConfig()
         {
             setNames = new List<string>();
         }
 
-        public bool GetConfigValue(string name, out string? value)
+        public Task<bool> GetConfigValue(string name, out string? value)
         {
             value = Environment.GetEnvironmentVariable(name);
             if (value is null)
             {
-                return false;
+                return Task.FromResult<bool>(false);
             }
             else
             {
-                return true;
+                return Task.FromResult<bool>(true);
             }
         }
 
-        public bool SetConfigValue(string name, string? value)
+        public Task<bool> SetConfigValue(string name, string? value)
         {
             if (value is null)
             {
-                return false;
+                return Task.FromResult<bool>(false);
             }
             else
             {
                 setNames.Add(name);
                 Environment.SetEnvironmentVariable(name, value);
-                return true;
+                return Task.FromResult<bool>(true);
             }
         }
 
-        ~EnvironmentConfig()
+        ~AsyncEnvironmentConfig()
         {
             foreach (string name in setNames)
             {
