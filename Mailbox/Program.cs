@@ -42,9 +42,9 @@ namespace Mailbox
                         Console.WriteLine("Enter the last name");
                         string lastName = Console.ReadLine();
                         Console.WriteLine("What size?");
-                        if (!Enum.TryParse(Console.ReadLine(), out Size size))
+                        if (!Enum.TryParse(Console.ReadLine(), out Sizes size))
                         {
-                            size = Size.Small;
+                            size = Sizes.Small;
                         }
 
                         if (AddNewMailbox(boxes, firstName, lastName, size) is MailBox mailbox)
@@ -96,7 +96,7 @@ namespace Mailbox
             throw new NotImplementedException();
         }
 
-        public static MailBox AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Size size)
+        public static MailBox AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Sizes size)
         {
             throw new NotImplementedException();
         }
