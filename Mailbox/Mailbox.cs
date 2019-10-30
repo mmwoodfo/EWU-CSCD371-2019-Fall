@@ -31,12 +31,9 @@ namespace Mailbox
 
         private void ValidateLocation(ValueTuple<int, int> location)
         {
-            int x = 30;
-            int y = 10;
-
-            if (location.Item1 <= 0 || location.Item2 <= 0 || location.Item1 > 30 || location.Item2 > 10)
+            if (location.Item1 <= 0 || location.Item2 <= 0)
             {
-                throw new ArgumentException($"The location of the mailbox must be somewhere within a {x}x{y} grid");
+                throw new ArgumentOutOfRangeException($"The location of the mailbox must be greater than 0");
             }
 
         }
