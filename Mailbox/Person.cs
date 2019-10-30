@@ -9,8 +9,15 @@ namespace Mailbox
 
         public Person(string firstName, string lastName)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
+            if(firstName is null || lastName is null)
+            {
+                throw new ArgumentNullException("Name cannot be null");
+            }
+            else
+            {
+                this.firstName = firstName;
+                this.lastName = lastName;
+            }
         }
 
         public bool Equals([AllowNull] Person other)
