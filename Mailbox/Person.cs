@@ -7,9 +7,22 @@ namespace Mailbox
     {
         public string firstName, lastName;
 
+        public Person(string firstName, string lastName)
+        {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+
         public bool Equals([AllowNull] Person other)
         {
-            throw new NotImplementedException();
+            if(ReferenceEquals(other, null))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
 
         public override string ToString()

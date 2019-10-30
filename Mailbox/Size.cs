@@ -3,7 +3,7 @@
 namespace Mailbox
 {
     [Flags]
-    internal enum Size
+    public enum Size
     {
         Unspecfied = 0,
         Small,
