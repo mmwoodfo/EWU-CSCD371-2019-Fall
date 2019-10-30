@@ -23,7 +23,7 @@ namespace Mailbox
             }
             else
             {
-                return $"{Owner.ToString()} : {Location} : {MailSize}";
+                return $"Mailbox Owner: {Owner.ToString()}\nLocation: x = {Location.Item1}, y = {Location.Item2}\nBoxSize: {MailSize}";
             }
         }
     }
