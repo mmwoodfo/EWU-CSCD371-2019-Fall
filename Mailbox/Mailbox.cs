@@ -10,8 +10,6 @@ namespace Mailbox
 
         public MailBox(Sizes size, ValueTuple<int, int> location, Person owner)
         {
-            ValidateLocation(location);
-
             if (size.Equals(Sizes.Premium))
             {
                 size = Sizes.Unspecfied;
@@ -24,18 +22,8 @@ namespace Mailbox
 
         public MailBox(ValueTuple<int, int> location, Person owner)
         {
-            ValidateLocation(location);
             Location = location;
             Owner = owner;
-        }
-
-        private void ValidateLocation(ValueTuple<int, int> location)
-        {
-            if (location.Item1 <= 0 || location.Item2 <= 0)
-            {
-                throw new ArgumentOutOfRangeException($"The location of the mailbox must be greater than 0");
-            }
-
         }
 
         public override string ToString()

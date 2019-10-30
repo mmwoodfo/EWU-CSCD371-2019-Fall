@@ -9,52 +9,6 @@ namespace Mailbox.Tests
     [TestClass()]
     public class MailBoxTests
     {
-        [DataTestMethod]
-        [DataRow(100,100)]
-        [DataRow(31,5)]
-        [DataRow(5,11)]
-        [DataRow(0,5)]
-        [DataRow(5,0)]
-        [DataRow(5,-1)]
-        [DataRow(-1,5)]
-        [TestMethod()]
-        public void MailBoxConstructorTest_InvalidLocation(int x, int y)
-        {
-            //Arrange
-            Sizes size = Sizes.Small;
-            ValueTuple<int, int> location = new ValueTuple<int,int>(x, y);
-            Person person = new Person("First Name", "Last Name");
-
-            //Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => new MailBox(size, location, person));
-            Assert.ThrowsException<ArgumentException>(() => new MailBox(location, person));
-        }
-
-        [DataTestMethod]
-        [DataRow(30,10)]
-        [DataRow(10,5)]
-        [DataRow(1,1)]
-        [DataRow(30,9)]
-        [DataRow(29,10)]
-        [DataRow(1, 2)]
-        [DataRow(2,1)]
-        [TestMethod()]
-        public void MailBoxConstructorTest_ValidLocation(int x, int y)
-        {
-            //Arrange
-            Sizes size = Sizes.Small;
-            ValueTuple<int, int> location = new ValueTuple<int, int>(x, y);
-            Person person = new Person("First Name", "Last Name");
-
-            //Act
-            MailBox mailbox1 = new MailBox(size, location, person);
-            MailBox mailbox2 = new MailBox(location, person);
-
-            //Assert
-            Assert.AreEqual(mailbox1.Location, (x, y));
-            Assert.AreEqual(mailbox2.Location, (x, y));
-        }
-
         [TestMethod]
         public void MailBoxConstrucotrTest_SizePremium()
         {
