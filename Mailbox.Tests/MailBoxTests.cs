@@ -15,7 +15,9 @@ namespace Mailbox.Tests
             //Arrange
             Person owner = new Person("John", "Doe");
             MailBox mailBox = new MailBox(Size.Small, (1,3), owner);
-            string expectedString = $"{owner.ToString()} : (1, 3) : Small";
+            string expectedString = $@"Mailbox Owner: {owner.ToString()}\n 
+                                    Location: x = 1, y = 3\n
+                                    BoxSize: Small";
 
             //Act
             string receivedString = mailBox.ToString();
@@ -30,7 +32,9 @@ namespace Mailbox.Tests
             //Arrange
             Person owner = new Person("John", "Doe");
             MailBox mailBox = new MailBox(Size.Small | Size.Premium, (1, 3), owner);
-            string expectedString = $"{owner.ToString()} : (1, 3) : Small, Premium";
+            string expectedString = $@"Mailbox Owner: {owner.ToString()}\n 
+                                    Location: x = 1, y = 3\n
+                                    BoxSize: Premium Small";
 
             //Act
             string receivedString = mailBox.ToString();
