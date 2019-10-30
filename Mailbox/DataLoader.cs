@@ -1,21 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Mailbox
 {
-    public class DataLoader
+    public class DataLoader : IDisposable
     {
         public DataLoader(Stream source)
         {
         }
 
-        public List<Mailbox> Load()
+        public void Dispose()
         {
+            throw new NotImplementedException();
         }
 
-        public void Save(List<Mailbox> mailboxes)
+        public List<MailBox> Load()
         {
-            
+            throw new NotImplementedException();
+        }
+
+        public void Save(List<MailBox> mailboxes)
+        {
+            throw new NotImplementedException();
         }
     }
 }

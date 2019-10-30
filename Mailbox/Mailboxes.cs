@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Mailbox
 {
-    public class Mailboxes : List<Mailbox>
+    public class Mailboxes : List<MailBox>
     {
-        public Mailboxes(IEnumerable<Mailbox> collection, int width, int height) 
+        public Mailboxes(IEnumerable<MailBox> collection, int width, int height)
             : base(collection)
-        { 
+        {
             if (width < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(width));
@@ -28,7 +28,7 @@ namespace Mailbox
             adjacentPeople = new HashSet<Person>();
             bool isOccupied = false;
 
-            foreach(Mailbox mailbox in this)
+            foreach (MailBox mailbox in this)
             {
                 //current
                 if (mailbox.Location == (x, y))

@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 
 namespace Mailbox
 {
-    class Program
+    internal class Program
     {
         private const int Width = 50;
         private const int Height = 10;
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //Main does not need to be unit tested.
             using var dataLoader = new DataLoader(File.Open("Mailboxes.json", FileMode.OpenOrCreate, FileAccess.ReadWrite));
 
-            Mailboxes boxes = new Mailboxes(dataLoader.Load() ?? new List<Mailbox>(), Width, Height);
+            Mailboxes boxes = new Mailboxes(dataLoader.Load() ?? new List<MailBox>(), Width, Height);
 
             while (true)
             {
@@ -48,7 +47,7 @@ namespace Mailbox
                             size = Size.Small;
                         }
 
-                        if (AddNewMailbox(boxes, firstName, lastName, size) is Mailbox mailbox)
+                        if (AddNewMailbox(boxes, firstName, lastName, size) is MailBox mailbox)
                         {
                             boxes.Add(mailbox);
                             Console.WriteLine("New mailbox added");
@@ -89,17 +88,17 @@ namespace Mailbox
 
         public static string GetOwnersDisplay(Mailboxes mailboxes)
         {
-            
+            throw new NotImplementedException();
         }
 
         public static string GetMailboxDetails(Mailboxes mailboxes, int x, int y)
         {
-            
+            throw new NotImplementedException();
         }
 
-        public static Mailbox AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Size size)
+        public static MailBox AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Size size)
         {
-            
+            throw new NotImplementedException();
         }
     }
 }
