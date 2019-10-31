@@ -9,7 +9,7 @@ namespace Mailbox
 
         public Person(string firstName, string lastName)
         {
-            this.firstName = firstName ?? throw new ArgumentException("Name cannot be null");
+            this.firstName = firstName ?? throw new ArgumentNullException("Name cannot be null");
             this.lastName = lastName ?? throw new ArgumentNullException("Name cannot be null");
         }
 
