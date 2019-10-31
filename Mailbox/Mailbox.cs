@@ -28,7 +28,7 @@ namespace Mailbox
 
         public override string ToString()
         {
-            if(MailSize == Sizes.Unspecfied)
+            if (MailSize == Sizes.Unspecfied)
             {
                 return $"Mailbox Owner: {Owner.ToString()}, Location: x = {Location.Item1}, y = {Location.Item2}";
             }

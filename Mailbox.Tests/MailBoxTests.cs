@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Mailbox;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Mailbox.Tests
 {
@@ -44,7 +41,7 @@ namespace Mailbox.Tests
         {
             //Arrange
             Person owner = new Person("John", "Doe");
-            MailBox mailBox = new MailBox(Sizes.Small, (1,3), owner);
+            MailBox mailBox = new MailBox(Sizes.Small, (1, 3), owner);
             string expectedString = $"Mailbox Owner: {owner.ToString()}, Location: x = 1, y = 3, BoxSize: Small";
 
             //Act

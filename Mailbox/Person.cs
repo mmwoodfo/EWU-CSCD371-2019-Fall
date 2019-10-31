@@ -9,7 +9,7 @@ namespace Mailbox
 
         public Person(string firstName, string lastName)
         {
-            if(firstName is null || lastName is null)
+            if (firstName is null || lastName is null)
             {
                 throw new ArgumentNullException("Name cannot be null");
             }
@@ -22,7 +22,7 @@ namespace Mailbox
 
         public bool Equals([AllowNull] Person other)
         {
-            if(ReferenceEquals(other, null))
+            if (ReferenceEquals(other, null))
             {
                 return false;
             }
