@@ -20,11 +20,11 @@ namespace Mailbox
             Owner = owner;
         }
 
-        public MailBox(ValueTuple<int, int> location, Person owner)
-        {
-            Location = location;
-            Owner = owner;
-        }
+        //public MailBox(ValueTuple<int, int> location, Person owner)
+        //{
+        //    Location = location;
+        //    Owner = owner;
+        //}
 
         public override string ToString()
         {
