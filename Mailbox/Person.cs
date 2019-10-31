@@ -9,15 +9,8 @@ namespace Mailbox
 
         public Person(string firstName, string lastName)
         {
-            if (firstName is null || lastName is null)
-            {
-                throw new ArgumentNullException("Name cannot be null");
-            }
-            else
-            {
-                this.firstName = firstName;
-                this.lastName = lastName;
-            }
+            this.firstName = firstName ?? throw new ArgumentException("Name cannot be null");
+            this.lastName = lastName ?? throw new ArgumentNullException("Name cannot be null");
         }
 
         public bool Equals([AllowNull] Person other)
@@ -26,10 +19,14 @@ namespace Mailbox
             {
                 return false;
             }
-            else
+
+            if(ReferenceEquals(this, other))
             {
                 return true;
             }
+
+            return firstName == other.firstName &&
+            lastName == other.lastName;
         }
 
         public override string ToString()
