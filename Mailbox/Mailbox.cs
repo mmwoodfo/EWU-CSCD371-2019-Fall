@@ -28,13 +28,14 @@ namespace Mailbox
 
         public override string ToString()
         {
+            string mailboxString = $"Mailbox Owner: {Owner.ToString()}, Location: x = {Location.Item1}, y = {Location.Item2}";
             if (MailSize == Sizes.Unspecfied)
             {
-                return $"Mailbox Owner: {Owner.ToString()}, Location: x = {Location.Item1}, y = {Location.Item2}";
+                return mailboxString;
             }
             else
             {
-                return $"Mailbox Owner: {Owner.ToString()}, Location: x = {Location.Item1}, y = {Location.Item2}, BoxSize: {MailSize}";
+                return mailboxString+$", BoxSize: {MailSize}";
             }
         }
     }
