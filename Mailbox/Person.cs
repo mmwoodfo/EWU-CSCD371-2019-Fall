@@ -5,7 +5,7 @@ namespace Mailbox
 {
     public struct Person : IEquatable<Person>
     {
-        public string firstName, lastName;
+        private string firstName, lastName;
 
         public Person(string firstName, string lastName)
         {
@@ -27,6 +27,16 @@ namespace Mailbox
 
             return firstName == other.firstName &&
             lastName == other.lastName;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return Equals(obj as Person?);
+        }
+
+        public override int GetHashCode()
+        {
+            return (firstName, lastName).GetHashCode();
         }
 
         public override string ToString()
