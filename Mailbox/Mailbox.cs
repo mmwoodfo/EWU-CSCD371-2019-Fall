@@ -4,27 +4,21 @@ namespace Mailbox
 {
     public class MailBox
     {
-        public Sizes MailSize { get; set; }
-        public ValueTuple<int, int> Location { get; set; }
+        public Sizes MailSize { get; }
+        public (int x, int y) Location { get; set; }
         public Person Owner { get; set; }
 
         public MailBox(Sizes size, ValueTuple<int, int> location, Person owner)
         {
             if (size.Equals(Sizes.Premium))
             {
-                size = Sizes.Unspecfied;
+                throw new ArgumentException("Mailbox size must be set as a premium size, not just as premium");
             }
 
             MailSize = size;
             Location = location;
             Owner = owner;
         }
-
-        //public MailBox(ValueTuple<int, int> location, Person owner)
-        //{
-        //    Location = location;
-        //    Owner = owner;
-        //}
 
         public override string ToString()
         {

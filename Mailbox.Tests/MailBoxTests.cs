@@ -14,11 +14,8 @@ namespace Mailbox.Tests
             ValueTuple<int, int> location = new ValueTuple<int, int>(15, 5);
             Person person = new Person("First Name", "Last Name");
 
-            //Act
-            MailBox mailbox = new MailBox(size, location, person);
-
-            //Assert
-            Assert.AreEqual(mailbox.MailSize, Sizes.Unspecfied);
+            //Act & Assert
+            Assert.ThrowsException<ArgumentException>(() => new MailBox(size, location, person));
         }
 
         [TestMethod]
@@ -65,20 +62,5 @@ namespace Mailbox.Tests
             //Assert
             Assert.AreEqual(expectedString, receivedString);
         }
-
-        //[TestMethod()]
-        //public void ToStringTest_NoSize()
-        //{
-        //    //Arrange
-        //    Person owner = new Person("John", "Doe");
-        //    MailBox mailBox = new MailBox((1, 3), owner);
-        //    string expectedString = $"Mailbox Owner: {owner.ToString()}, Location: x = 1, y = 3";
-
-        //    //Act
-        //    string receivedString = mailBox.ToString();
-
-        //    //Assert
-        //    Assert.AreEqual(expectedString, receivedString);
-        //}
     }
 }

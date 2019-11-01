@@ -68,10 +68,8 @@ namespace Mailbox.Tests
                 string[] lines = File.ReadLines(filePath).ToArray();
 
                 //Assert
-                Assert.AreEqual(3, lines.Length);
-                Assert.AreEqual(lines[0], JsonConvert.SerializeObject(mailboxes[0]));
-                Assert.AreEqual(lines[1], JsonConvert.SerializeObject(mailboxes[1]));
-                Assert.AreEqual(lines[2], JsonConvert.SerializeObject(mailboxes[2]));
+                Assert.AreEqual(1, lines.Length);
+                Assert.AreEqual(lines[0], JsonConvert.SerializeObject(mailboxes));
 
             }
             finally

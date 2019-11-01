@@ -5,28 +5,18 @@ namespace Mailbox
 {
     public struct Person : IEquatable<Person>
     {
-        private string firstName, lastName;
+        private string _FirstName, _LastName;
 
         public Person(string firstName, string lastName)
         {
-            this.firstName = firstName ?? throw new ArgumentNullException("Name cannot be null");
-            this.lastName = lastName ?? throw new ArgumentNullException("Name cannot be null");
+            this._FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
+            this._LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
         }
 
         public bool Equals([AllowNull] Person other)
         {
-            if (ReferenceEquals(other, null))
-            {
-                return false;
-            }
-
-            if(ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return firstName == other.firstName &&
-            lastName == other.lastName;
+            return _FirstName == other._FirstName &&
+            _LastName == other._LastName;
         }
 
         public override bool Equals(object? obj)
@@ -36,12 +26,12 @@ namespace Mailbox
 
         public override int GetHashCode()
         {
-            return (firstName, lastName).GetHashCode();
+            return (_FirstName, _LastName).GetHashCode();
         }
 
         public override string ToString()
         {
-            return $"{firstName} {lastName}";
+            return $"{_FirstName} {_LastName}";
         }
     }
 }

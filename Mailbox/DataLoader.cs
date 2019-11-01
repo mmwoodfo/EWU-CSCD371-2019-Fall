@@ -7,61 +7,56 @@ namespace Mailbox
 {
     public class DataLoader : IDisposable
     {
-        private readonly Stream source;
+        private readonly Stream _Source;
 
         public DataLoader(Stream source)
         {
-            if (source is null)
-            {
-                throw new ArgumentNullException("DataLoader Stream cannot be null");
-            }
-            else
-            {
-                this.source = source;
-            }
+            _Source = source ?? throw new ArgumentNullException(nameof(source));
         }
 
         public void Dispose()
         {
-            source.Dispose();
+            _Source.Dispose();
         }
 
         public List<MailBox>? Load()
         {
-            List<MailBox> mailboxes = new List<MailBox>();
-            source.Position = 0;
-
-            using (StreamReader sr = new StreamReader(source))
+            if(_Source is null)
             {
-                try
+                throw new ArgumentNullException(nameof(_Source));
+            }
+
+            List<MailBox> mailboxes = new List<MailBox>();
+            _Source.Position = 0;
+
+            try
+            {
+                using (StreamReader sr = new StreamReader(_Source))
                 {
-                    string? jsonMailBox = sr.ReadLine();
-                    MailBox mailbox = JsonConvert.DeserializeObject<MailBox>(jsonMailBox);
-                    mailboxes.Add(mailbox);
-                    return mailboxes;
-                }
-                catch (JsonReaderException)
-                {
-                    return null;
-                }
-                catch (ArgumentNullException)
-                {
-                    return null;
+                    string? jsonLine;
+                    while ((jsonLine = sr.ReadLine()) != null)
+                    {
+                        MailBox mailbox = JsonConvert.DeserializeObject<MailBox>(jsonLine);
+                        mailboxes.Add(mailbox);
+                    }
                 }
             }
+            catch (JsonReaderException)
+            {
+                return null;
+            }
+
+            return mailboxes;
         }
 
         public void Save(List<MailBox> mailboxes)
         {
-            source.Position = 0;
+            _Source.Position = 0;
 
-            using (StreamWriter sw = new StreamWriter(source))
+            using (StreamWriter sw = new StreamWriter(_Source))
             {
-                foreach (MailBox mailbox in mailboxes)
-                {
-                    string jsonMailBox = JsonConvert.SerializeObject(mailbox);
-                    sw.WriteLine(jsonMailBox);
-                }
+                string json = JsonConvert.SerializeObject(mailboxes);
+                sw.WriteLine(json);
             }
         }
     }
