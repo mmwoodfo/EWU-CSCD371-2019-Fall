@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,25 +9,31 @@ namespace Mailbox.Tests
     [TestClass()]
     public class DataLoaderTests
     {
+        List<MailBox> testMailboxes = new List<MailBox>()
+        {
+            new MailBox(Sizes.PremiumLarge, (1, 1), new Person("John", "Doe")),
+            new MailBox(Sizes.PremiumLarge, (15, 5), new Person("Jane", "Doe")),
+            new MailBox(Sizes.PremiumLarge, (30, 10), new Person("Indiana", "Jones"))
+        };
+
         [TestMethod()]
         public void LoadTest_Exception()
         {
-            ////Arrange
+            //Arrange
             
 
             //Act
 
 
             //Assert
-            
+
         }
 
         [TestMethod()]
         public void LoadTest_NoException()
         {
             //Arrange
-            string filePath = Path.GetRandomFileName();
-            DataLoader dataLoader = new DataLoader(CreateTestJsonFile(filePath));
+            DataLoader dataLoader = new DataLoader(GetMemoryStream());
 
             try
             {
@@ -37,10 +42,10 @@ namespace Mailbox.Tests
 
                 //Assert
                 Assert.IsNotNull(mailboxes);
+                Assert.AreEqual(testMailboxes.Count, mailboxes?.Count);
             }
             finally
             {
-                File.Delete(filePath);
                 dataLoader.Dispose();
             }
 
@@ -50,53 +55,46 @@ namespace Mailbox.Tests
         public void SaveTest()
         {
             //Arrange
-            List<MailBox> mailboxes = new List<MailBox>(){
-                new MailBox(Sizes.Small, (1,1), new Person("John", "Doe")),
-                new MailBox(Sizes.PremiumLarge, (15, 5), new Person("Jane", "Doe")),
-                new MailBox(Sizes.PremiumLarge, (30, 10), new Person("Indiana", "Jones"))
-            };
-
-            string filePath = Path.GetRandomFileName();
-            Stream fileStream = File.Open(filePath, FileMode.Create);
+            List<MailBox> mailboxes = new List<MailBox>();
+            var ms = new MemoryStream();
+            DataLoader dataLoader = new DataLoader(ms);
 
             try
             {
-                DataLoader dataLoader = new DataLoader(fileStream);
-
                 //Act
-                dataLoader.Save(mailboxes);
-                string[] lines = File.ReadLines(filePath).ToArray();
+                dataLoader.Save(testMailboxes);
+                string? jsonLine;
+
+                ms.Position = 0;
+                using (StreamReader sr = new StreamReader(ms))
+                {
+                    while((jsonLine = sr.ReadLine()) != null)
+                    {
+                        mailboxes.Add(JsonConvert.DeserializeObject<MailBox>(jsonLine));
+                    }
+                }
 
                 //Assert
-                Assert.AreEqual(1, lines.Length);
-                Assert.AreEqual(lines[0], JsonConvert.SerializeObject(mailboxes));
-
+                Assert.AreEqual(3, mailboxes.Count);
             }
             finally
             {
-                File.Delete(filePath);
-                fileStream.Dispose();
+                dataLoader.Dispose();
             }
 
         }
 
-        public Stream CreateTestJsonFile(string filePath)
+        public Stream GetMemoryStream()
         {
-            Stream fileStream = File.Open(filePath, FileMode.Create);
-
-            using (StreamWriter sw = new StreamWriter(fileStream, leaveOpen:true))
+            var ms = new MemoryStream();
+            using (StreamWriter sw = new StreamWriter(ms, leaveOpen: true))
             {
-                MailBox mailbox1 = new MailBox(Sizes.PremiumLarge, (1,1), new Person("John", "Doe"));
-                MailBox mailbox2 = new MailBox(Sizes.PremiumLarge, (15, 5), new Person("Jane", "Doe"));
-                MailBox mailbox3 = new MailBox(Sizes.PremiumLarge, (30, 10), new Person("Indiana", "Jones"));
-                sw.WriteLine(JsonConvert.SerializeObject(mailbox1));
-                sw.WriteLine(JsonConvert.SerializeObject(mailbox2));
-                sw.WriteLine(JsonConvert.SerializeObject(mailbox3));
+                foreach (MailBox mailbox in testMailboxes)
+                    sw.WriteLine(JsonConvert.SerializeObject(mailbox));
             }
+            ms.Position = 0;
 
-            fileStream.Position = 0;
-
-            return fileStream;
+            return ms;
         }
     }
 }
