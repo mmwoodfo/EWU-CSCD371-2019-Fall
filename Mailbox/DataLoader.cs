@@ -7,31 +7,21 @@ namespace Mailbox
 {
     public class DataLoader : IDisposable
     {
-        private readonly Stream _Source;
+        private Stream Source { get; }
 
         public DataLoader(Stream source)
         {
-            _Source = source ?? throw new ArgumentNullException(nameof(source));
-        }
-
-        public void Dispose()
-        {
-            _Source.Dispose();
+            Source = source ?? throw new ArgumentNullException(nameof(source));
         }
 
         public List<MailBox>? Load()
         {
-            if(_Source is null)
-            {
-                throw new ArgumentNullException(nameof(_Source));
-            }
-
             List<MailBox> mailboxes = new List<MailBox>();
-            _Source.Position = 0;
+            Source.Position = 0;
 
             try
             {
-                using (StreamReader sr = new StreamReader(_Source))
+                using (StreamReader sr = new StreamReader(Source))
                 {
                     string? jsonLine;
                     while ((jsonLine = sr.ReadLine()) != null)
@@ -51,13 +41,43 @@ namespace Mailbox
 
         public void Save(List<MailBox> mailboxes)
         {
-            _Source.Position = 0;
+            Source.Position = 0;
 
-            using (StreamWriter sw = new StreamWriter(_Source))
+            using (StreamWriter sw = new StreamWriter(Source, leaveOpen:true))
             {
-                string json = JsonConvert.SerializeObject(mailboxes);
-                sw.WriteLine(json);
+                foreach (MailBox mailbox in mailboxes)
+                    sw.WriteLine(JsonConvert.SerializeObject(mailbox));
             }
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    Source.Dispose();
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        ~DataLoader()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(false);
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
