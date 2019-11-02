@@ -27,10 +27,8 @@ namespace Mailbox
             {
                 return mailboxString;
             }
-            else
-            {
-                return mailboxString+$", BoxSize: {MailSize}";
-            }
+
+            return mailboxString+$", BoxSize: {MailSize}";
         }
     }
 }
