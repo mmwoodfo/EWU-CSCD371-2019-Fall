@@ -5,7 +5,7 @@ namespace Mailbox
     public class MailBox
     {
         public Sizes MailSize { get; }
-        public (int x, int y) Location { get; }
+        public (int X, int Y) Location { get; }
         public Person Owner { get; }
 
         public MailBox(Sizes size, ValueTuple<int, int> location, Person owner)
