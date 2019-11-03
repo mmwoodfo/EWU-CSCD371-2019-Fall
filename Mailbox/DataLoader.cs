@@ -7,7 +7,7 @@ namespace Mailbox
 {
     public class DataLoader : IDisposable
     {
-        private Stream Source { get; }
+        public Stream Source { get; }
 
         public DataLoader(Stream source)
         {

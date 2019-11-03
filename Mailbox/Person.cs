@@ -5,8 +5,8 @@ namespace Mailbox
 {
     public struct Person : IEquatable<Person>
     {
-        private string FirstName { get; }
-        private string LastName { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
 
         public Person(string firstName, string lastName)
         {
