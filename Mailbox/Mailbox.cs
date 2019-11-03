@@ -19,7 +19,7 @@ namespace Mailbox
 
         public override string ToString()
         {
-            string mailboxString = $"Mailbox Owner: {Owner.ToString()}, Location: x = {Location.Item1}, y = {Location.Item2}";
+            string mailboxString = $"Mailbox Owner: {Owner.ToString()}, Location: x = {Location.X}, y = {Location.Y}";
             if (MailSize == Sizes.Unspecfied)
             {
                 return mailboxString;

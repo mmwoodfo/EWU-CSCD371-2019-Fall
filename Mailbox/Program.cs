@@ -116,9 +116,28 @@ namespace Mailbox
             return null;
         }
 
-        public static MailBox AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Sizes size)
+        public static MailBox? AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Sizes size)
         {
-            throw new NotImplementedException();
+            //Still debugging this method
+
+            if(mailboxes.Count == 0) return new MailBox(size, (mailboxes.Height, mailboxes.Width), new Person(firstName, lastName));
+
+            for(int i = 0; i < mailboxes.Height; i++)
+            {
+                for(int j = 0; j < mailboxes.Width; j++)
+                {
+                    bool isOccupied = mailboxes.GetAdjacentPeople(i, j, out HashSet<Person> adjacentPeople);
+                    if(adjacentPeople.Count != 0)
+                    {
+                        foreach (Person person in adjacentPeople)
+                            if (person.FirstName != firstName || person.LastName != lastName && isOccupied == false)
+                                return new MailBox(size, (mailboxes.Height, mailboxes.Width), new Person(firstName, lastName));
+                    }
+                    else if(isOccupied == false)
+                        return new MailBox(size, (mailboxes.Height, mailboxes.Width), new Person(firstName, lastName));
+                }
+            }
+            return null;
         }
     }
 }
