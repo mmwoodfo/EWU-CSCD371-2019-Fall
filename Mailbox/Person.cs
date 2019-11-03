@@ -10,8 +10,8 @@ namespace Mailbox
 
         public Person(string firstName, string lastName)
         {
-            this.FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
-            this.LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
+            FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
+            LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
         }
 
         public bool Equals([AllowNull] Person other)

@@ -1,15 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace Mailbox.Tests
 {
     [TestClass()]
     public class DataLoaderTests
     {
-        List<MailBox> testMailboxes = new List<MailBox>()
+        private List<MailBox> testMailboxes = new List<MailBox>()
         {
             new MailBox(Sizes.PremiumLarge, (1, 1), new Person("John", "Doe")),
             new MailBox(Sizes.PremiumLarge, (15, 5), new Person("Jane", "Doe")),
@@ -17,15 +17,34 @@ namespace Mailbox.Tests
         };
 
         [TestMethod()]
-        public void LoadTest_Exception()
+        public void DataLoader_Exception()
+        {
+            //Arrange, Act & Assert
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            Assert.ThrowsException<ArgumentNullException>(() => new DataLoader(null));
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+
+        }
+
+        [TestMethod()]
+        public void LoadTest_ExceptionReturnsNull()
         {
             //Arrange
-            
+            var ms = new MemoryStream();
+            using (StreamWriter sw = new StreamWriter(ms, leaveOpen: true))
+            {
+                foreach (MailBox mailbox in testMailboxes)
+                    sw.WriteLine(mailbox.ToString());
+            }
+            ms.Position = 0;
 
-            //Act
+            DataLoader dataLoader = new DataLoader(ms);
 
 
-            //Assert
+            //Act & Assert
+            Assert.IsNull(dataLoader.Load());
+
+            dataLoader.Dispose();
 
         }
 
@@ -68,7 +87,7 @@ namespace Mailbox.Tests
                 ms.Position = 0;
                 using (StreamReader sr = new StreamReader(ms))
                 {
-                    while((jsonLine = sr.ReadLine()) != null)
+                    while ((jsonLine = sr.ReadLine()) != null)
                     {
                         mailboxes.Add(JsonConvert.DeserializeObject<MailBox>(jsonLine));
                     }

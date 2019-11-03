@@ -68,7 +68,7 @@ namespace Mailbox
                     case 4:
                         Console.WriteLine("Enter box number as x,y");
                         string boxNumber = Console.ReadLine();
-                        string[] parts = boxNumber?.Split(',');
+                        string[]? parts = boxNumber?.Split(',');
                         if (parts?.Length == 2 &&
                             int.TryParse(parts[0], out int x) &&
                             int.TryParse(parts[1], out int y))
@@ -88,14 +88,14 @@ namespace Mailbox
 
         public static string GetOwnersDisplay(Mailboxes mailboxes)
         {
-            if(mailboxes is null)
+            if (mailboxes is null)
             {
                 throw new ArgumentNullException(nameof(mailboxes));
             }
 
             string ownersList = "";
 
-            foreach(MailBox mailbox in mailboxes)
+            foreach (MailBox mailbox in mailboxes)
             {
                 ownersList += mailbox.Owner.ToString() + "\n";
             }
@@ -105,9 +105,9 @@ namespace Mailbox
 
         public static string? GetMailboxDetails(Mailboxes mailboxes, int x, int y)
         {
-            foreach(MailBox mailbox in mailboxes)
+            foreach (MailBox mailbox in mailboxes)
             {
-                if(mailbox.Location == (x, y))
+                if (mailbox.Location == (x, y))
                 {
                     return mailbox.ToString();
                 }

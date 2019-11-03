@@ -43,7 +43,7 @@ namespace Mailbox
         {
             Source.Position = 0;
 
-            using (StreamWriter sw = new StreamWriter(Source, leaveOpen:true))
+            using (StreamWriter sw = new StreamWriter(Source, leaveOpen: true))
             {
                 foreach (MailBox mailbox in mailboxes)
                     sw.WriteLine(JsonConvert.SerializeObject(mailbox));
