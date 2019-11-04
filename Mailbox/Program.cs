@@ -118,21 +118,16 @@ namespace Mailbox
 
         public static MailBox? AddNewMailbox(Mailboxes mailboxes, string firstName, string lastName, Sizes size)
         {
-            if (mailboxes.Count == 0) return new MailBox(size, (mailboxes.Height, mailboxes.Width), new Person(firstName, lastName));
+            Person person = new Person(firstName, lastName);
 
             for (int i = 0; i < mailboxes.Height; i++)
             {
                 for (int j = 0; j < mailboxes.Width; j++)
                 {
                     bool isOccupied = mailboxes.GetAdjacentPeople(i, j, out HashSet<Person> adjacentPeople);
-                    if (adjacentPeople.Count != 0)
-                    {
-                        foreach (Person person in adjacentPeople)
-                            if (person.FirstName != firstName || person.LastName != lastName && isOccupied == false)
-                                return new MailBox(size, (i, j), new Person(firstName, lastName));
-                    }
-                    else if (isOccupied == false)
-                        return new MailBox(size, (i, j), new Person(firstName, lastName));
+
+                    if (!adjacentPeople.Contains(person) && isOccupied == false)
+                        return new MailBox(size, (i, j), person);
                 }
             }
             return null;
