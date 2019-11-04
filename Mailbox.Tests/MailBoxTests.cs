@@ -54,7 +54,7 @@ namespace Mailbox.Tests
             //Arrange
             Person owner = new Person("John", "Doe");
             MailBox mailBox = new MailBox(Sizes.MediumPremium, (1, 3), owner);
-            string expectedString = $"Mailbox Owner: {owner.ToString()}, Location: x = 1, y = 3, BoxSize: PremiumSmall";
+            string expectedString = $"Mailbox Owner: {owner.ToString()}, Location: x = 1, y = 3, BoxSize: MediumPremium";
 
             //Act
             string receivedString = mailBox.ToString();
