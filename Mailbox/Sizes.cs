@@ -11,8 +11,8 @@ namespace Mailbox
         Large = 0b_0100,
         Premium = 0b_1000,
 
-        PremiumSmall = Small | Premium,
-        PremiumMedium = Medium | Premium,
-        PremiumLarge = Large | Premium
+        SmallPremium = Small | Premium,
+        MediumPremium = Medium | Premium,
+        LargePremium = Large | Premium
     }
 }

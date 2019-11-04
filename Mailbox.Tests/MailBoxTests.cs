@@ -22,7 +22,7 @@ namespace Mailbox.Tests
         public void MailBoxConstrucotrTest_SizeNotPremium()
         {
             //Arrange
-            Sizes size = Sizes.PremiumSmall;
+            Sizes size = Sizes.SmallPremium;
             ValueTuple<int, int> location = new ValueTuple<int, int>(15, 5);
             Person person = new Person("First Name", "Last Name");
 
@@ -30,7 +30,7 @@ namespace Mailbox.Tests
             MailBox mailbox = new MailBox(size, location, person);
 
             //Assert
-            Assert.AreEqual(mailbox.MailSize, Sizes.PremiumSmall);
+            Assert.AreEqual(mailbox.MailSize, Sizes.SmallPremium);
         }
 
         [TestMethod()]
@@ -53,7 +53,7 @@ namespace Mailbox.Tests
         {
             //Arrange
             Person owner = new Person("John", "Doe");
-            MailBox mailBox = new MailBox(Sizes.PremiumSmall, (1, 3), owner);
+            MailBox mailBox = new MailBox(Sizes.MediumPremium, (1, 3), owner);
             string expectedString = $"Mailbox Owner: {owner.ToString()}, Location: x = 1, y = 3, BoxSize: PremiumSmall";
 
             //Act

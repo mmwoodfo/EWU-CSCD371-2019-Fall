@@ -11,9 +11,9 @@ namespace Mailbox.Tests
     {
         private List<MailBox> testMailboxes = new List<MailBox>()
         {
-            new MailBox(Sizes.PremiumLarge, (1, 1), new Person("John", "Doe")),
-            new MailBox(Sizes.PremiumLarge, (15, 5), new Person("Jane", "Doe")),
-            new MailBox(Sizes.PremiumLarge, (30, 10), new Person("Indiana", "Jones"))
+            new MailBox(Sizes.LargePremium, (1, 1), new Person("John", "Doe")),
+            new MailBox(Sizes.Small, (15, 5), new Person("Jane", "Doe")),
+            new MailBox(Sizes.Medium, (30, 10), new Person("Indiana", "Jones"))
         };
 
         [TestMethod()]
