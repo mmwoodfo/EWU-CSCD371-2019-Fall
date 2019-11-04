@@ -68,8 +68,8 @@ namespace Mailbox
                     case 4:
                         Console.WriteLine("Enter box number as x,y");
                         string boxNumber = Console.ReadLine();
-                        string[]? parts = boxNumber?.Split(',');
-                        if (parts?.Length == 2 &&
+                        string[] parts = boxNumber.Split(',');
+                        if (parts.Length == 2 &&
                             int.TryParse(parts[0], out int x) &&
                             int.TryParse(parts[1], out int y))
                         {
