@@ -21,7 +21,7 @@ namespace Mailbox
 
             try
             {
-                using (StreamReader sr = new StreamReader(Source))
+                using (StreamReader sr = new StreamReader(Source, leaveOpen: true))
                 {
                     string? jsonLine;
                     while ((jsonLine = sr.ReadLine()) != null)
