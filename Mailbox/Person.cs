@@ -22,7 +22,7 @@ namespace Mailbox
 
         public override bool Equals(object? obj)
         {
-            return Equals(obj as Person?);
+            return base.Equals(obj);
         }
 
         public override int GetHashCode()
