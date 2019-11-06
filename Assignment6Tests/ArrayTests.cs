@@ -11,7 +11,7 @@ namespace Assignment6.Tests
         public void ArrayTest()
         {
             //Arrange
-            Array<int> items = new Array<int>(10);
+            ArrayCollection<int> items = new ArrayCollection<int>(10);
 
             //Act
 
