@@ -6,21 +6,46 @@ namespace Assignment6
 {
     public class ArrayCollection<TCollection> : ICollection<TCollection>
     {
-        private TCollection[] _Items;
+        private ICollection<TCollection> _Items;
+
         public int Capacity { get; set; }
+
+        public ArrayCollection(int capacity)
+        {
+            if(capacity <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(capacity));
+            }
+            Capacity = capacity;
+            _Items = new TCollection[Capacity];
+        }
+
+        public ArrayCollection(ICollection<TCollection> collection)
+        {
+            if (collection is null)
+            {
+                throw new ArgumentNullException(nameof(collection));
+            }
+            if(collection.Count == 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(collection));
+            }
+            
+            _Items = collection;
+            Capacity = _Items.Count;
+        }
 
         public int Count => ((ICollection<TCollection>)_Items).Count;
 
         public bool IsReadOnly => ((ICollection<TCollection>)_Items).IsReadOnly;
 
-        public ArrayCollection(int width)
-        {
-            Capacity = width;
-            _Items = new TCollection[Capacity];
-        }
-
         public void Add(TCollection item)
         {
+            if(item is null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
             ((ICollection<TCollection>)_Items).Add(item);
         }
 
