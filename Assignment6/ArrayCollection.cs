@@ -4,54 +4,54 @@ using System.Collections.Generic;
 
 namespace Assignment6
 {
-    public class ArrayCollection<T> : ICollection<T>
+    public class ArrayCollection<TCollection> : ICollection<TCollection>
     {
-        private T[] _Items;
+        private TCollection[] _Items;
         public int Capacity { get; set; }
 
-        public int Count => ((ICollection<T>)_Items).Count;
+        public int Count => ((ICollection<TCollection>)_Items).Count;
 
-        public bool IsReadOnly => ((ICollection<T>)_Items).IsReadOnly;
+        public bool IsReadOnly => ((ICollection<TCollection>)_Items).IsReadOnly;
 
         public ArrayCollection(int width)
         {
             Capacity = width;
-            _Items = new T[Capacity];
+            _Items = new TCollection[Capacity];
         }
 
-        public void Add(T item)
+        public void Add(TCollection item)
         {
-            ((ICollection<T>)_Items).Add(item);
+            ((ICollection<TCollection>)_Items).Add(item);
         }
 
         public void Clear()
         {
-            ((ICollection<T>)_Items).Clear();
+            ((ICollection<TCollection>)_Items).Clear();
         }
 
-        public bool Contains(T item)
+        public bool Contains(TCollection item)
         {
-            return ((ICollection<T>)_Items).Contains(item);
+            return ((ICollection<TCollection>)_Items).Contains(item);
         }
 
-        public void CopyTo(T[] array, int arrayIndex)
+        public void CopyTo(TCollection[] array, int arrayIndex)
         {
-            ((ICollection<T>)_Items).CopyTo(array, arrayIndex);
+            ((ICollection<TCollection>)_Items).CopyTo(array, arrayIndex);
         }
 
-        public bool Remove(T item)
+        public bool Remove(TCollection item)
         {
-            return ((ICollection<T>)_Items).Remove(item);
+            return ((ICollection<TCollection>)_Items).Remove(item);
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<TCollection> GetEnumerator()
         {
-            return ((ICollection<T>)_Items).GetEnumerator();
+            return ((ICollection<TCollection>)_Items).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((ICollection<T>)_Items).GetEnumerator();
+            return ((ICollection<TCollection>)_Items).GetEnumerator();
         }
     }
 }
