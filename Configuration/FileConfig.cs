@@ -32,6 +32,7 @@ namespace Configuration
             return false;
         }
 
+// MMM Comment: Why not just mark it as static if it doesn't access any instance members?
 #pragma warning disable CA1822 // Mark members as static
         public string[] ParseLine(string line)
 #pragma warning restore CA1822 // Mark members as static
@@ -68,6 +69,7 @@ namespace Configuration
             }
         }
 
+        /// MMM Comment: Great refactoring
 #pragma warning disable CA1822 // Mark members as static
         public bool ValidateNameAndValue(string name, string? value)
 #pragma warning restore CA1822 // Mark members as static

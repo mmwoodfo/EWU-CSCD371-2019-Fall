@@ -3,6 +3,7 @@ using System;
 
 namespace SampleApp
 {
+    // MMM Comment: Program is never tested?  :(
     internal class Program
     {
         private static void Main()

@@ -15,6 +15,8 @@ namespace Configuration
         public bool GetConfigValue(string name, out string? value)
         {
             value = Environment.GetEnvironmentVariable(name);
+
+            // MMM Comment: Why not just return "(value is object)" (or !(value is null)).
             if (value is null)
             {
                 return false;
@@ -39,6 +41,8 @@ namespace Configuration
             }
         }
 
+
+        // MMM Comment: This needs to also implement IDisposable
         ~EnvironmentConfig()
         {
             foreach (string name in setNames)

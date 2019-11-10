@@ -69,6 +69,8 @@ namespace Configuration.Tests
             FileConfig fileConfig = new FileConfig("");
 
             //Act & Assert
+            // MMM Comment: Instead use the null forgiveness operator on null: 
+            //      fileConfig.ParseLine(null!)
 #pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             Assert.ThrowsException<ArgumentNullException>(() => fileConfig.ParseLine(null));
 #pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
@@ -95,6 +97,7 @@ namespace Configuration.Tests
             File.Delete(filePath);
         }
 
+        // Good to see DataRow.  
         [DataTestMethod]
         [DataRow(null, "TESTVALUE")]
         [DataRow("NAME", null)]
@@ -135,6 +138,7 @@ namespace Configuration.Tests
             Assert.IsTrue(tf);
         }
 
+        // Preferably, just make the method static. :)
 #pragma warning disable CA1822 // Mark members as static
         public string CreateTestFile()
 #pragma warning restore CA1822 // Mark members as static

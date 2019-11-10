@@ -4,8 +4,14 @@ using System.Threading.Tasks;
 
 namespace Configuration
 {
+    // MMM Comment: I love the fact that you attempted this.  Great job!  
+    // The usage isn't quite right but that is mostly becuse Evironment 
+    // doesn't make for a good Async API.  The better choice would have been File.
+    // Also, why not put these methods on EnvironmentConfig rather than an entirely
+    // new class?
     public class AsyncEnvironmentConfig : IConfigAsync
     {
+        /// MMM Comment: Should be _SetNames (or _setNames)
         private System.Collections.Generic.List<string> setNames;
 
         public AsyncEnvironmentConfig()

@@ -6,11 +6,13 @@ namespace Configuration.Tests
     [TestClass()]
     public class AsyncEnvironmentConfigTests
     {
+        // MMM Comment: Wow... async tests.  Cool!
         [TestMethod()]
         public async Task GetConfigValueTest_ReturnFalseAsync()
         {
             //arrange
             string name = "Wrong Path Name";
+            // MMM Commenet: Assigment is pointless here as it is reassigned.s
             string? value = "TESTVALUE";
             AsyncEnvironmentConfig testSystem = new AsyncEnvironmentConfig();
 
