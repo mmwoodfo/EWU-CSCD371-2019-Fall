@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Assignment6;
 using System;
 
 namespace Assignment6.Tests
@@ -7,7 +6,7 @@ namespace Assignment6.Tests
     [TestClass()]
     public class ArrayTests
     {
-/*------------------------------ Array Constructor Tests -------------------------------------------------*/
+        /*------------------------------ Array Constructor Tests -------------------------------------------------*/
         [DataTestMethod]
         //Arrange
         [DataRow(0)]
@@ -62,10 +61,10 @@ namespace Assignment6.Tests
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => new ArrayCollection<int>(intArray));
         }
 
-/*------------------------------ Array Count Test -------------------------------------------------*/
+        /*------------------------------ Array Count Test -------------------------------------------------*/
         [DataTestMethod]
         //Arrange
-        [DataRow (new int[] { 1, 2, 3, 4})]
+        [DataRow(new int[] { 1, 2, 3, 4 })]
         [DataRow(new int[] { 1 })]
         [DataRow(new int[] { 1, 2, 3, 4, 20, 12, 35, 343, 11 })]
         [TestMethod()]
@@ -78,7 +77,7 @@ namespace Assignment6.Tests
             Assert.AreEqual(intArray.Length, items.Count);
         }
 
-/*------------------------------ Array ReadOnly Test -------------------------------------------------*/
+        /*------------------------------ Array ReadOnly Test -------------------------------------------------*/
         [TestMethod()]
         public void IsReadOnlyTest()
         {
@@ -89,7 +88,7 @@ namespace Assignment6.Tests
             Assert.IsFalse(items.IsReadOnly);
         }
 
-/*------------------------------ Array Add Item Tests -------------------------------------------------*/
+        /*------------------------------ Array Add Item Tests -------------------------------------------------*/
         [TestMethod()]
         public void AddTest_ItemIsNotNull_NoException()
         {
@@ -114,7 +113,7 @@ namespace Assignment6.Tests
             Assert.ThrowsException<ArgumentNullException>(() => items.Add(null));
         }
 
-/*------------------------------ Array Clear Test -------------------------------------------------*/
+        /*------------------------------ Array Clear Test -------------------------------------------------*/
         [DataTestMethod]
         [DataRow(new double[] { 1.0, 2.1, 3.14, 4.215 })]
         [DataRow(new double[] { 1.5 })]
@@ -132,7 +131,7 @@ namespace Assignment6.Tests
             Assert.AreEqual(0, items.Count);
         }
 
-/*------------------------------ Array Contains Tests -------------------------------------------------*/
+        /*------------------------------ Array Contains Tests -------------------------------------------------*/
         [DataTestMethod]
         [DataRow(new string[] { "Hello", "World" })]
         [DataRow(new string[] { "This", "IS", "an", "ARrAy" })]
@@ -188,7 +187,7 @@ namespace Assignment6.Tests
             items.CopyTo(destinationArray, 0);
 
             //Assert
-            for(int i = 0; i < items.Capacity; i++)
+            for (int i = 0; i < items.Capacity; i++)
             {
                 Assert.AreEqual(destinationArray[i], stringArray[i]);
             }
@@ -203,7 +202,7 @@ namespace Assignment6.Tests
             string[] destinationArray = new string[stringArray.Length];
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => items.CopyTo(destinationArray, items.Capacity+1));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => items.CopyTo(destinationArray, items.Capacity + 1));
         }
 
         [TestMethod()]
@@ -227,7 +226,7 @@ namespace Assignment6.Tests
             string[] destinationArray = new string[stringArray.Length];
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => items.CopyTo(destinationArray, stringArray.Length+1));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => items.CopyTo(destinationArray, stringArray.Length + 1));
         }
 
         [TestMethod()]
@@ -241,7 +240,7 @@ namespace Assignment6.Tests
             Assert.ThrowsException<ArgumentNullException>(() => items.CopyTo(null, 0));
         }
 
-/*------------------------------ Array Remove Test -------------------------------------------------*/
+        /*------------------------------ Array Remove Test -------------------------------------------------*/
         [DataTestMethod]
         [DataRow(new string[] { "Hello", "World" })]
         [DataRow(new string[] { "This", "IS", "an", "ARrAy" })]
@@ -293,7 +292,7 @@ namespace Assignment6.Tests
         public void GetEnumeratorTest()
         {
             //Arrange
-            string[] stringArray = new string[]{ "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+            string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
             ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
 
             //Act
@@ -301,7 +300,7 @@ namespace Assignment6.Tests
 
             //Assert
             int i = 0;
-            foreach(string item in items)
+            foreach (string item in items)
             {
                 Assert.IsTrue(items.Contains(stringArray[i++]));
             }

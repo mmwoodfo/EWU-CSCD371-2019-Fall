@@ -12,7 +12,7 @@ namespace Assignment6
 
         public ArrayCollection(int capacity)
         {
-            if(capacity <= 0)
+            if (capacity <= 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(capacity));
             }
@@ -26,37 +26,37 @@ namespace Assignment6
             {
                 throw new ArgumentNullException(nameof(collection));
             }
-            if(collection.Count == 0)
+            if (collection.Count == 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(collection));
             }
-            
+
             _Items = new List<TCollection>(collection);
             Capacity = _Items.Count;
         }
 
-        public int Count => ((ICollection<TCollection>)_Items).Count;
+        public int Count => _Items.Count;
 
-        public bool IsReadOnly => ((ICollection<TCollection>)_Items).IsReadOnly;
+        public bool IsReadOnly => _Items.IsReadOnly;
 
         public void Add(TCollection item)
         {
-            if(item is null)
+            if (item is null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
 
-            ((ICollection<TCollection>)_Items).Add(item);
+            _Items.Add(item);
         }
 
         public void Clear()
         {
-            ((ICollection<TCollection>)_Items).Clear();
+            _Items.Clear();
         }
 
         public bool Contains(TCollection item)
         {
-            return ((ICollection<TCollection>)_Items).Contains(item);
+            return _Items.Contains(item);
         }
 
         public void CopyTo(TCollection[] array, int arrayIndex)
@@ -67,23 +67,23 @@ namespace Assignment6
             if (arrayIndex > Capacity || arrayIndex < 0 || arrayIndex > array.Length)
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex));
 
-            ((ICollection<TCollection>)_Items).CopyTo(array, arrayIndex);
+            _Items.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(TCollection item)
         {
-            return ((ICollection<TCollection>)_Items).Remove(item);
+            return _Items.Remove(item);
         }
 
         public IEnumerator<TCollection> GetEnumerator()
         {
-            foreach(TCollection item in _Items)
+            foreach (TCollection item in _Items)
                 yield return item;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((ICollection<TCollection>)_Items).GetEnumerator();
+            return _Items.GetEnumerator();
         }
     }
 }
