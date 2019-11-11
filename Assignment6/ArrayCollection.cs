@@ -85,5 +85,39 @@ namespace Assignment6
         {
             return _Items.GetEnumerator();
         }
+
+        public static explicit operator ArrayCollection<TCollection>(Array array)
+        {
+            if (array is null)
+            {
+                throw new ArgumentNullException(nameof(array));
+            }
+
+            ArrayCollection<TCollection> items = new ArrayCollection<TCollection>(array.Length);
+            foreach (var obj in array)
+            {
+                items.Add((TCollection)obj);
+            }
+
+            return items;
+        }
+
+        public static explicit operator Array(ArrayCollection<TCollection> items)
+        {
+            if (items is null)
+            {
+                throw new ArgumentNullException(nameof(items));
+            }
+
+            Object[] array = new Object[items.Capacity];
+
+            int i = 0;
+            foreach (var item in items)
+            {
+                array[i++] = item!;
+            }
+
+            return array;
+        }
     }
 }

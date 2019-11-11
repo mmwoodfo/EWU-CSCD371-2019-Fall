@@ -306,5 +306,39 @@ namespace Assignment6.Tests
             }
 
         }
+
+        /*------------------------------ Array Conversion Tests -------------------------------------------------*/
+        [TestMethod()]
+        public void ConvertTo_SystemArray()
+        {
+            //Arrange
+            string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
+
+            //Act
+            Array array = (Array)items;
+
+            int i = 0;
+            foreach (var item in array)
+            {
+                Assert.AreEqual(stringArray[i++], item);
+            }
+        }
+
+        [TestMethod()]
+        public void ConvertTo_ArrayCollection()
+        {
+            //Arrange
+            string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+
+            //Act
+            ArrayCollection<string> items = (ArrayCollection<string>)stringArray;
+
+            int i = 0;
+            foreach (var item in items)
+            {
+                Assert.AreEqual(stringArray[i++], item);
+            }
+        }
     }
 }
