@@ -61,6 +61,12 @@ namespace Assignment6
 
         public void CopyTo(TCollection[] array, int arrayIndex)
         {
+            if (array is null)
+                throw new ArgumentNullException(nameof(array));
+
+            if (arrayIndex > Capacity || arrayIndex < 0 || arrayIndex > array.Length)
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex));
+
             ((ICollection<TCollection>)_Items).CopyTo(array, arrayIndex);
         }
 

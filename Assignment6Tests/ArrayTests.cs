@@ -7,6 +7,7 @@ namespace Assignment6.Tests
     [TestClass()]
     public class ArrayTests
     {
+/*------------------------------ Array Constructor Tests -------------------------------------------------*/
         [DataTestMethod]
         //Arrange
         [DataRow(0)]
@@ -61,6 +62,7 @@ namespace Assignment6.Tests
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => new ArrayCollection<int>(intArray));
         }
 
+/*------------------------------ Array Count Test -------------------------------------------------*/
         [DataTestMethod]
         //Arrange
         [DataRow (new int[] { 1, 2, 3, 4})]
@@ -73,11 +75,10 @@ namespace Assignment6.Tests
             ArrayCollection<int> items = new ArrayCollection<int>(intArray);
 
             //Assert
-#pragma warning disable CA1062 // Validate arguments of public methods
             Assert.AreEqual(intArray.Length, items.Count);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
+/*------------------------------ Array ReadOnly Test -------------------------------------------------*/
         [TestMethod()]
         public void IsReadOnlyTest()
         {
@@ -88,6 +89,7 @@ namespace Assignment6.Tests
             Assert.IsFalse(items.IsReadOnly);
         }
 
+/*------------------------------ Array Add Item Tests -------------------------------------------------*/
         [TestMethod()]
         public void AddTest_ItemIsNotNull_NoException()
         {
@@ -112,6 +114,7 @@ namespace Assignment6.Tests
             Assert.ThrowsException<ArgumentNullException>(() => items.Add(null));
         }
 
+/*------------------------------ Array Clear Test -------------------------------------------------*/
         [DataTestMethod]
         [DataRow(new double[] { 1.0, 2.1, 3.14, 4.215 })]
         [DataRow(new double[] { 1.5 })]
@@ -129,53 +132,128 @@ namespace Assignment6.Tests
             Assert.AreEqual(0, items.Count);
         }
 
+/*------------------------------ Array Contains Tests -------------------------------------------------*/
         [DataTestMethod]
         [DataRow(new string[] { "Hello", "World" })]
         [DataRow(new string[] { "This", "IS", "an", "ARrAy" })]
         [DataRow(new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" })]
         [TestMethod()]
-        public void ContainsTest(string[] stringArray)
+        public void ContainsTest_True(string[] stringArray)
         {
             //Arrange
             ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
 
             //Act & Assert
-#pragma warning disable CA1062 // Validate arguments of public methods
             foreach (string str in stringArray)
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 Assert.IsTrue(items.Contains(str));
             }
         }
 
         [TestMethod()]
-        public void CopyToTest()
+        public void ContainsTest_FalseNull()
         {
             //Arrange
+            string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
 
-
-            //Act
-
-
-            //Assert
-
+            //Act & Assert
+            Assert.IsFalse(items.Contains(null));
         }
 
+        [TestMethod()]
+        public void ContainsTest_False()
+        {
+            //Arrange
+            string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
 
+            //Act & Assert
+            Assert.IsFalse(items.Contains("Three Point One"));
+        }
+
+        /*------------------------------ Array CopyTo Tests -------------------------------------------------*/
         [DataTestMethod]
         [DataRow(new string[] { "Hello", "World" })]
         [DataRow(new string[] { "This", "IS", "an", "ARrAy" })]
         [DataRow(new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" })]
         [TestMethod()]
-        public void RemoveTest(string[] stringArray)
+        public void CopyToTest_NoException(string[] stringArray)
+        {
+            //Arrange
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
+            string[] destinationArray = new string[stringArray.Length];
+
+            //Act
+            items.CopyTo(destinationArray, 0);
+
+            //Assert
+            for(int i = 0; i < items.Capacity; i++)
+            {
+                Assert.AreEqual(destinationArray[i], stringArray[i]);
+            }
+        }
+
+        [TestMethod()]
+        public void CopyToTest_ArrayIndexGreaterThanCapacity_ThrowException()
+        {
+            //Arrange
+            string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
+            string[] destinationArray = new string[stringArray.Length];
+
+            //Act & Assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => items.CopyTo(destinationArray, items.Capacity+1));
+        }
+
+        [TestMethod()]
+        public void CopyToTest_ArrayIndexLessThan0_ThrowException()
+        {
+            //Arrange
+            string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
+            string[] destinationArray = new string[stringArray.Length];
+
+            //Act & Assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => items.CopyTo(destinationArray, -1));
+        }
+
+        [TestMethod()]
+        public void CopyToTest_ArrayIndexGreaterThanArrayLength_ThrowException()
+        {
+            //Arrange
+            string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
+            string[] destinationArray = new string[stringArray.Length];
+
+            //Act & Assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => items.CopyTo(destinationArray, stringArray.Length+1));
+        }
+
+        [TestMethod()]
+        public void CopyToTest_ArrayIsNull_ThrowException()
+        {
+            //Arrange
+            string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
+
+            //Act & Assert
+            Assert.ThrowsException<ArgumentNullException>(() => items.CopyTo(null, 0));
+        }
+
+/*------------------------------ Array Remove Test -------------------------------------------------*/
+        [DataTestMethod]
+        [DataRow(new string[] { "Hello", "World" })]
+        [DataRow(new string[] { "This", "IS", "an", "ARrAy" })]
+        [DataRow(new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" })]
+        [TestMethod()]
+        public void RemoveTest_True(string[] stringArray)
         {
             //Arrange
             ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
 
             //Act
-#pragma warning disable CA1062 // Validate arguments of public methods
             bool tf = items.Remove(stringArray[0]);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             //Assert
             Assert.IsTrue(tf);
@@ -183,15 +261,50 @@ namespace Assignment6.Tests
         }
 
         [TestMethod()]
+        public void RemoveTest_FalseNull()
+        {
+            //Arrange
+            string[] stringArray = new string[] { "Hello", "World" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
+
+            //Act
+            bool tf = items.Remove(null);
+
+            //Assert
+            Assert.IsFalse(tf);
+        }
+
+        [TestMethod()]
+        public void RemoveTest_False()
+        {
+            //Arrange
+            string[] stringArray = new string[] { "Hello", "World" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
+
+            //Act
+            bool tf = items.Remove("Hello World");
+
+            //Assert
+            Assert.IsFalse(tf);
+        }
+
+        /*------------------------------ Array GetEnumerator Test -------------------------------------------------*/
+        [TestMethod()]
         public void GetEnumeratorTest()
         {
             //Arrange
-
+            string[] stringArray = new string[]{ "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
 
             //Act
-
+            var enumerator = items.GetEnumerator();
 
             //Assert
+            int i = 0;
+            foreach(string item in items)
+            {
+                Assert.IsTrue(items.Contains(stringArray[i++]));
+            }
 
         }
     }
