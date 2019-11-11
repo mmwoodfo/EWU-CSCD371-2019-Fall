@@ -86,6 +86,9 @@ namespace Assignment6
             return _Items.GetEnumerator();
         }
 
+        /************************************************************************************/
+        //----------------------- EXTRA CREDIT ---------------------------------------------//
+        /************************************************************************************/
         public static explicit operator ArrayCollection<TCollection>(Array array)
         {
             if (array is null)
