@@ -5,11 +5,10 @@ using System.Collections.Generic;
 namespace Assignment6
 {
     public class ArrayCollection<TCollection> : ICollection<TCollection>
-        where TCollection : ICollection
     {
         private ICollection<TCollection> _Items;
 
-        public int Capacity { get; set; }
+        public int Capacity { get; }
 
         public ArrayCollection(int capacity)
         {
@@ -18,7 +17,7 @@ namespace Assignment6
                 throw new ArgumentOutOfRangeException(nameof(capacity));
             }
             Capacity = capacity;
-            _Items = new TCollection[Capacity];
+            _Items = new List<TCollection>(Capacity);
         }
 
         public ArrayCollection(ICollection<TCollection> collection)
@@ -32,7 +31,7 @@ namespace Assignment6
                 throw new ArgumentOutOfRangeException(nameof(collection));
             }
             
-            _Items = collection;
+            _Items = new List<TCollection>(collection);
             Capacity = _Items.Count;
         }
 
@@ -72,7 +71,8 @@ namespace Assignment6
 
         public IEnumerator<TCollection> GetEnumerator()
         {
-            return ((ICollection<TCollection>)_Items).GetEnumerator();
+            foreach(TCollection item in _Items)
+                yield return item;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
