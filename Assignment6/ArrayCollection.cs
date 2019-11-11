@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace Assignment6
 {
     public class ArrayCollection<TCollection> : ICollection<TCollection>
+        where TCollection : ICollection
     {
         private ICollection<TCollection> _Items;
 
