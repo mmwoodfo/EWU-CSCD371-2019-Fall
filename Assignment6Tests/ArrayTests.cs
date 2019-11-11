@@ -85,59 +85,67 @@ namespace Assignment6.Tests
             ArrayCollection<string> items = new ArrayCollection<string>(5);
 
             //Assert
-            Assert.IsTrue(items.IsReadOnly);
+            Assert.IsFalse(items.IsReadOnly);
         }
 
         [TestMethod()]
         public void AddTest_ItemIsNotNull_NoException()
         {
             //Arrange
-
+            ArrayCollection<int> items = new ArrayCollection<int>(10);
 
             //Act
-
+            int item = 3;
+            items.Add(item);
 
             //Assert
-
+            Assert.IsTrue(items.Contains(item));
         }
 
         [TestMethod()]
         public void AddTest_ItemIsNull_ArgumentNullException()
         {
             //Arrange
+            ArrayCollection<string> items = new ArrayCollection<string>(10);
 
-
-            //Act
-
-
-            //Assert
-
+            //Act & Assert
+            Assert.ThrowsException<ArgumentNullException>(() => items.Add(null));
         }
 
+        [DataTestMethod]
+        [DataRow(new double[] { 1.0, 2.1, 3.14, 4.215 })]
+        [DataRow(new double[] { 1.5 })]
+        [DataRow(new double[] { 1.3, 2.0, 3.0, 4.4, 20.125, 12.1132, 35.001, 343.0, 11.11119 })]
         [TestMethod()]
-        public void ClearTest()
+        public void ClearTest(double[] doubleArray)
         {
             //Arrange
-
+            ArrayCollection<double> items = new ArrayCollection<double>(doubleArray);
 
             //Act
-
+            items.Clear();
 
             //Assert
-
+            Assert.AreEqual(0, items.Count);
         }
 
+        [DataTestMethod]
+        [DataRow(new string[] { "Hello", "World" })]
+        [DataRow(new string[] { "This", "IS", "an", "ARrAy" })]
+        [DataRow(new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" })]
         [TestMethod()]
-        public void ContainsTest()
+        public void ContainsTest(string[] stringArray)
         {
             //Arrange
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
 
-
-            //Act
-
-
-            //Assert
-
+            //Act & Assert
+#pragma warning disable CA1062 // Validate arguments of public methods
+            foreach (string str in stringArray)
+#pragma warning restore CA1062 // Validate arguments of public methods
+            {
+                Assert.IsTrue(items.Contains(str));
+            }
         }
 
         [TestMethod()]
@@ -153,17 +161,25 @@ namespace Assignment6.Tests
 
         }
 
+
+        [DataTestMethod]
+        [DataRow(new string[] { "Hello", "World" })]
+        [DataRow(new string[] { "This", "IS", "an", "ARrAy" })]
+        [DataRow(new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" })]
         [TestMethod()]
-        public void RemoveTest()
+        public void RemoveTest(string[] stringArray)
         {
             //Arrange
-
+            ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
 
             //Act
-
+#pragma warning disable CA1062 // Validate arguments of public methods
+            bool tf = items.Remove(stringArray[0]);
+#pragma warning restore CA1062 // Validate arguments of public methods
 
             //Assert
-
+            Assert.IsTrue(tf);
+            Assert.IsFalse(items.Contains(stringArray[0]));
         }
 
         [TestMethod()]
