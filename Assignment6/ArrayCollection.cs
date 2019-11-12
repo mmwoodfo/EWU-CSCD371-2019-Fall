@@ -46,6 +46,11 @@ namespace Assignment6
                 throw new ArgumentNullException(nameof(item));
             }
 
+            if (_Items.Count == Capacity)
+            {
+                throw new ArgumentOutOfRangeException(nameof(item));
+            }
+
             _Items.Add(item);
         }
 
