@@ -113,6 +113,19 @@ namespace Assignment6.Tests
             Assert.ThrowsException<ArgumentNullException>(() => items.Add(null));
         }
 
+        [TestMethod()]
+        public void AddTest_AddOverCapacity_ThrowException()
+        {
+            //Arrange
+            ArrayCollection<string> items = new ArrayCollection<string>(1);
+
+            //Act
+            items.Add("Item1");
+
+            //Assert
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => items.Add("Item2"));
+        }
+
         /*------------------------------ Array Clear Test -------------------------------------------------*/
         [DataTestMethod]
         [DataRow(new double[] { 1.0, 2.1, 3.14, 4.215 })]
