@@ -11,9 +11,9 @@ namespace Sorter
             int pivot = intArray[high],
                         smaller = low - 1;
 
-            for(int larger = low; larger < high; larger++)
+            for (int larger = low; larger < high; larger++)
             {
-                if(comparer(intArray[larger], pivot))
+                if (comparer(intArray[larger], pivot))
                 {
                     smaller++;
 
@@ -32,17 +32,17 @@ namespace Sorter
 
         public void QuickSort(int[] intArray, Compare comparer, int low, int high)
         {
-            if(intArray is null)
+            if (intArray is null)
             {
                 throw new ArgumentNullException(nameof(intArray));
             }
 
-            if(low < high)
+            if (low < high)
             {
                 int partitionIndex = QuickSortPartition(intArray, comparer, low, high);
 
-                QuickSort(intArray, comparer, low, partitionIndex-1);
-                QuickSort(intArray, comparer, partitionIndex+1, high);
+                QuickSort(intArray, comparer, low, partitionIndex - 1);
+                QuickSort(intArray, comparer, partitionIndex + 1, high);
             }
         }
 

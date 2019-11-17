@@ -13,7 +13,7 @@ namespace Sorter.Tests
             SortUtility sorter = new SortUtility();
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(()=> sorter.QuickSort(null!, ((int num1, int num2) => num1 < num2), 0, 0));
+            Assert.ThrowsException<ArgumentNullException>(() => sorter.QuickSort(null!, ((int num1, int num2) => num1 < num2), 0, 0));
         }
 
         [DataTestMethod]
