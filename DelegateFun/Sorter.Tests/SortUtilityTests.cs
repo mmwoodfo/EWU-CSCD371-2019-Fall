@@ -13,7 +13,7 @@ namespace Sorter.Tests
             SortUtility sorter = new SortUtility();
 
             //Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => sorter.QuickSort(null!, ((int num1, int num2) => num1 < num2), 0, 0));
+            Assert.ThrowsException<ArgumentNullException>(() => sorter.QuickSort(null!, ((int num1, int num2) => num1 < num2)));
         }
 
         [DataTestMethod]
@@ -31,7 +31,7 @@ namespace Sorter.Tests
             };
 
             //Act
-            sorter.QuickSort(intArray, compareNumbers, 0, intArray.Length - 1);
+            sorter.QuickSort(intArray, compareNumbers);
 
             //Assert
             CollectionAssert.AreEqual(expectedIntArray, intArray);
@@ -48,7 +48,7 @@ namespace Sorter.Tests
             SortUtility sorter = new SortUtility();
 
             //Act
-            sorter.QuickSort(intArray, ((int num1, int num2) => num1 < num2), 0, intArray.Length - 1);
+            sorter.QuickSort(intArray, ((int num1, int num2) => num1 < num2));
 
             //Assert
             CollectionAssert.AreEqual(expectedIntArray, intArray);
@@ -65,7 +65,7 @@ namespace Sorter.Tests
             SortUtility sorter = new SortUtility();
 
             //Act
-            sorter.QuickSort(intArray, ((int num1, int num2) => { return num1 < num2; }), 0, intArray.Length - 1);
+            sorter.QuickSort(intArray, ((int num1, int num2) => { return num1 < num2; }));
 
             //Assert
             CollectionAssert.AreEqual(expectedIntArray, intArray);
@@ -86,7 +86,7 @@ namespace Sorter.Tests
             };
 
             //Act
-            sorter.QuickSort(intArray, compareNumbers, 0, intArray.Length - 1);
+            sorter.QuickSort(intArray, compareNumbers);
 
             //Assert
             CollectionAssert.AreEqual(expectedIntArray, intArray);
@@ -103,7 +103,7 @@ namespace Sorter.Tests
             SortUtility sorter = new SortUtility();
 
             //Act
-            sorter.QuickSort(intArray, ((int num1, int num2) => num1 > num2), 0, intArray.Length - 1);
+            sorter.QuickSort(intArray, ((int num1, int num2) => num1 > num2));
 
             //Assert
             CollectionAssert.AreEqual(expectedIntArray, intArray);
@@ -120,7 +120,7 @@ namespace Sorter.Tests
             SortUtility sorter = new SortUtility();
 
             //Act
-            sorter.QuickSort(intArray, ((int num1, int num2) => { return num1 > num2; }), 0, intArray.Length - 1);
+            sorter.QuickSort(intArray, ((int num1, int num2) => { return num1 > num2; }));
 
             //Assert
             CollectionAssert.AreEqual(expectedIntArray, intArray);

@@ -6,7 +6,7 @@ namespace Sorter
 
     public class SortUtility
     {
-        private int QuickSortPartition(int[] intArray, Compare comparer, int low, int high)
+        private static int QuickSortPartition(int[] intArray, Compare comparer, int low, int high)
         {
             int pivot = intArray[high],
                         smaller = low - 1;
@@ -30,20 +30,25 @@ namespace Sorter
             return smaller + 1;
         }
 
-        public void QuickSort(int[] intArray, Compare comparer, int low, int high)
+        private void QuickSortRecursion(int[] intArray, Compare comparer, int low, int high)
+        {
+            if (low < high)
+            {
+                int partitionIndex = QuickSortPartition(intArray, comparer, low, high);
+
+                QuickSortRecursion(intArray, comparer, low, partitionIndex - 1);
+                QuickSortRecursion(intArray, comparer, partitionIndex + 1, high);
+            }
+        }
+
+        public void QuickSort(int[] intArray, Compare comparer)
         {
             if (intArray is null)
             {
                 throw new ArgumentNullException(nameof(intArray));
             }
 
-            if (low < high)
-            {
-                int partitionIndex = QuickSortPartition(intArray, comparer, low, high);
-
-                QuickSort(intArray, comparer, low, partitionIndex - 1);
-                QuickSort(intArray, comparer, partitionIndex + 1, high);
-            }
+            QuickSortRecursion(intArray, comparer, 0, intArray.Length - 1);
         }
 
     }
