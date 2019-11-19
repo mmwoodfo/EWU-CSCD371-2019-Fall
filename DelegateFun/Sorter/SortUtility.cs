@@ -44,9 +44,9 @@ namespace Sorter
         public void QuickSort(int[] intArray, Compare comparer)
         {
             if (intArray is null)
-            {
                 throw new ArgumentNullException(nameof(intArray));
-            }
+            if (comparer is null)
+                throw new ArgumentNullException(nameof(comparer));
 
             QuickSortRecursion(intArray, comparer, 0, intArray.Length - 1);
         }

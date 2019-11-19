@@ -16,6 +16,16 @@ namespace Sorter.Tests
             Assert.ThrowsException<ArgumentNullException>(() => sorter.QuickSort(null!, ((int num1, int num2) => num1 < num2)));
         }
 
+        [TestMethod]
+        public void QuickSort_NullComparer_ThrowNullException()
+        {
+            //Arrange
+            SortUtility sorter = new SortUtility();
+
+            //Act & Assert
+            Assert.ThrowsException<ArgumentNullException>(() => sorter.QuickSort(new int[] { 3, 2, 1 }, null!));
+        }
+
         [DataTestMethod]
         [DataRow(new int[] { 3, 2, 1 }, new int[] { 1, 2, 3 })]
         [DataRow(new int[] { 2, 1, 3, 10, 4, 32, 302, 3, 15 }, new int[] { 1, 2, 3, 3, 4, 10, 15, 32, 302 })]
