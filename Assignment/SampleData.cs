@@ -16,8 +16,10 @@ namespace Assignment
             _FilePath = filePath;
         }
 
-        public IEnumerable<string> CsvRows {
-            get {
+        public IEnumerable<string> CsvRows 
+        {
+            get 
+            {
                 string[] lines = File.ReadAllLines(_FilePath);
                 lines = lines.Skip(1).ToArray();
 
@@ -28,7 +30,14 @@ namespace Assignment
             }
         }
 
-        public IEnumerable<IPerson> People { get; }
+        public IEnumerable<IPerson> People 
+        { 
+            get
+            {
+                throw new NotImplementedException();
+            }
+                
+        }
 
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
         {

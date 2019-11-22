@@ -24,7 +24,7 @@ namespace Assignment.Tests
 
 
             //Assert
-
+            Assert.Fail();
         }
 
         [TestMethod()]
@@ -51,7 +51,7 @@ namespace Assignment.Tests
 
 
             //Assert
-
+            Assert.Fail();
         }
 
         [TestMethod()]
@@ -64,7 +64,7 @@ namespace Assignment.Tests
 
 
             //Assert
-
+            Assert.Fail();
         }
 
         [TestMethod()]
@@ -77,7 +77,7 @@ namespace Assignment.Tests
 
 
             //Assert
-
+            Assert.Fail();
         }
 
         [TestMethod()]
@@ -90,7 +90,7 @@ namespace Assignment.Tests
 
 
             //Assert
-
+            Assert.Fail();
         }
     }
 }
