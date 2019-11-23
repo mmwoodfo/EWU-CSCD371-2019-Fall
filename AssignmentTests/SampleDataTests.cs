@@ -143,7 +143,7 @@ namespace Assignment.Tests
             {
                 Assert.AreEqual(expectedPerson.FirstName, person.FirstName);
                 Assert.AreEqual(expectedPerson.LastName, person.LastName);
-                Assert.AreEqual(expectedPerson.Email, person.Email);
+                Assert.AreEqual(expectedPerson.EmailAddress, person.EmailAddress);
                 Assert.AreEqual(expectedPerson.Address.StreetAddress, person.Address.StreetAddress);
                 Assert.AreEqual(expectedPerson.Address.City, person.Address.City);
                 Assert.AreEqual(expectedPerson.Address.State, person.Address.State);
