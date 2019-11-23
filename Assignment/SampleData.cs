@@ -19,9 +19,9 @@ namespace Assignment
             FilePath = filePath;
         }
 
-        public IEnumerable<string> CsvRows 
+        public IEnumerable<string> CsvRows
         {
-            get 
+            get
             {
                 string[] lines = File.ReadAllLines(FilePath);
                 lines = lines.Skip(1).ToArray();
@@ -33,17 +33,17 @@ namespace Assignment
             }
         }
 
-        public IEnumerable<IPerson> People 
-        { 
+        public IEnumerable<IPerson> People
+        {
             get
             {
-                var people = 
+                var people =
                     from line in CsvRows
                     select ParsePerson(line);
 
                 return people;
             }
-                
+
         }
 
         public static Person ParsePerson(string row)
@@ -85,7 +85,7 @@ namespace Assignment
 
         public string GetAggregateSortedListOfStatesUsingCsvRows()
         {
-            return 
+            return
                 GetUniqueSortedListOfStatesGivenCsvRows()
                 .Aggregate((abbreviation1, abbreviation2) => $"{abbreviation1}, {abbreviation2}");
         }
@@ -97,7 +97,7 @@ namespace Assignment
                 .Select(row => ParsePerson(row))
                 .Select(p => p.Address.State);
 
-            return states.OrderBy(s =>s).Distinct();    
+            return states.OrderBy(s => s).Distinct();
         }
     }
 }

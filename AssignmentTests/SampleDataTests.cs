@@ -1,8 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Assignment;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Linq;
 
@@ -11,7 +9,7 @@ namespace Assignment.Tests
     [TestClass()]
     public class SampleDataTests
     {
-        string _FilePath = "TestData.csv";
+        private string _FilePath = "TestData.csv";
 
         //----------------- SAMPLE DATA TEST ----------------//
         [TestMethod()]
@@ -119,7 +117,7 @@ namespace Assignment.Tests
         {
             //Arrange
             string[] fileLines = File.ReadAllLines(_FilePath);
-            string[] expectedStates = { "AZ", "CA", "FL", "GA", "ID", "MT", "NC", "NY", "TX", "WA"};
+            string[] expectedStates = { "AZ", "CA", "FL", "GA", "ID", "MT", "NC", "NY", "TX", "WA" };
             SampleData sampleData = new SampleData(_FilePath);
 
             //Act
@@ -134,8 +132,8 @@ namespace Assignment.Tests
         {
             //Arrange
             string personLine = "1,Meghan,Woodford,mmwoodfo@asu.edu,1234 noneofyourbuisness lane,Tempe,AZ,35326";
-            Address address = new Address("1234 noneofyourbuisness lane","Tempe","AZ","35326");
-            Person expectedPerson = new Person("Meghan","Woodford","mmwoodfo@asu.edu",address);
+            Address address = new Address("1234 noneofyourbuisness lane", "Tempe", "AZ", "35326");
+            Person expectedPerson = new Person("Meghan", "Woodford", "mmwoodfo@asu.edu", address);
 
             //Act
             Person person = SampleData.ParsePerson(personLine);
