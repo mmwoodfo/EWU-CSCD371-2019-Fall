@@ -9,9 +9,6 @@ namespace Assignment
         public IAddress Address { get; set; }
         public string EmailAddress { get; set; }
 
-        public IAddress Address { get; set; }
-        public string EmailAddress { get; set; }
-
         public Person(string firstName, string lastName, string email, IAddress address)
         {
             if (string.IsNullOrEmpty(firstName))
