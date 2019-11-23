@@ -6,6 +6,7 @@ namespace Assignment
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+<<<<<<< HEAD
         public IAddress Address { get; set; }
         public string EmailAddress { get; set; }
 
@@ -25,5 +26,10 @@ namespace Assignment
             EmailAddress = email;
             Address = address;
         }
+=======
+        public IAddress Address { get;set; }
+
+        public string EmailAddress { get; set; }
+>>>>>>> Assignment8
     }
 }
