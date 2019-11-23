@@ -16,7 +16,7 @@ namespace Assignment.Tests
         public void SampleData_NullFilePath_ThrowsArgumentNullException()
         {
             //Arrange Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new SampleData(null));
+            Assert.ThrowsException<ArgumentNullException>(() => new SampleData(null!));
         }
 
         [TestMethod()]
@@ -149,10 +149,9 @@ namespace Assignment.Tests
                 Assert.AreEqual(expectedPerson.Address.State, person.Address.State);
                 Assert.AreEqual(expectedPerson.Address.Zip, person.Address.Zip);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-
-                throw e;
+                throw;
             }
         }
 
@@ -174,10 +173,9 @@ namespace Assignment.Tests
                 Assert.AreEqual(expectedAddress.State, address.State);
                 Assert.AreEqual(expectedAddress.Zip, address.Zip);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-
-                throw e;
+                throw;
             }
         }
     }
