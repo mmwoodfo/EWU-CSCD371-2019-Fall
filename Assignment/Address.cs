@@ -11,19 +11,10 @@ namespace Assignment
 
         public Address(string streetAddress, string city, string state, string zip)
         {
-            if (string.IsNullOrEmpty(streetAddress))
-                throw new ArgumentNullException(nameof(streetAddress));
-            if (string.IsNullOrEmpty(city))
-                throw new ArgumentNullException(nameof(city));
-            if (string.IsNullOrEmpty(state))
-                throw new ArgumentNullException(nameof(state));
-            if (string.IsNullOrEmpty(zip))
-                throw new ArgumentNullException(nameof(zip));
-
-            StreetAddress = streetAddress;
-            City = city;
-            State = state;
-            Zip = zip;
+            StreetAddress = streetAddress ?? throw new ArgumentNullException(nameof(streetAddress));
+            City = city ?? throw new ArgumentNullException(nameof(city));
+            State = state ?? throw new ArgumentNullException(nameof(state));
+            Zip = zip ?? throw new ArgumentNullException(nameof(zip));
         }
     }
 }

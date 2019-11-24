@@ -71,21 +71,31 @@ namespace Assignment.Tests
 
         //------------------ EMAIL ADDRESSES TESTS -------------------------//
         [TestMethod()]
-        public void FilterByEmailAddress()
+        public void FilterByEmailAddress_AsuEmailFilter_Return4Names()
         {
             //Arrange
-
+            string[] fileLines = File.ReadAllLines(_FilePath);
+            SampleData sampleData = new SampleData(_FilePath);
+            ValueTuple<string, string>[] expectedNames = new ValueTuple<string, string>[]{
+                ("Meghan", "Woodford"),
+                ("Delaney", "Kranz"),
+                ("Brandon", "Bayles"),
+                ("Pratik", "Panda")
+            };
 
             //Act
-
+            IEnumerable<(string FirstName, string LastName)> filteredNames = sampleData.FilterByEmailAddress(email => email.EndsWith("asu.edu"));
 
             //Assert
-
+            foreach(var expectedTuple in expectedNames)
+            {
+                Assert.IsTrue(filteredNames.Contains(expectedTuple));
+            }
         }
 
         //----------------------- STATES TESTS ------------------------//
         [TestMethod()]
-        public void GetAggregateListOfStatesGivenPeopleCollection()
+        public void GetAggregateListOfStatesGivenPeopleCollection_AllPeople_ReturnAllStatesAggregated()
         {
             //Arrange
             string expectedStates = "AZ, AZ, ID, AZ, AZ, AZ, ID, ID, CA, WA, NC, NY, NY, MT, FL, CA, GA, TX, GA, FL";
@@ -99,7 +109,7 @@ namespace Assignment.Tests
         }
 
         [TestMethod()]
-        public void GetAggregateSortedListOfStatesUsingCsvRows()
+        public void GetAggregateSortedListOfStatesUsingCsvRows_ValidCsvFile_ReturnAllAggregatedStatesSorted()
         {
             //Arrange
             string expectedStates = "AZ, AZ, AZ, AZ, AZ, CA, CA, FL, FL, GA, GA, ID, ID, ID, MT, NC, NY, NY, TX, WA";
@@ -113,7 +123,7 @@ namespace Assignment.Tests
         }
 
         [TestMethod()]
-        public void GetUniqueSortedListOfStatesGivenCsvRows()
+        public void GetUniqueSortedListOfStatesGivenCsvRows_ValidCsvFile_ReturnSortedUniqueList()
         {
             //Arrange
             string[] fileLines = File.ReadAllLines(_FilePath);
@@ -128,7 +138,7 @@ namespace Assignment.Tests
         }
 
         [TestMethod()]
-        public void ParsePerson()
+        public void ParsePerson_CsvLine_ParseSuccuss()
         {
             //Arrange
             string personLine = "1,Meghan,Woodford,mmwoodfo@asu.edu,1234 noneofyourbuisness lane,Tempe,AZ,35326";
@@ -156,7 +166,7 @@ namespace Assignment.Tests
         }
 
         [TestMethod()]
-        public void ParseAddress()
+        public void ParseAddress_AddressArray_ParseSuccuss()
         {
             //Arrange
             string[] addressArray = { "1234 noneofyourbuisness lane", "Tempe", "AZ", "35326" };
