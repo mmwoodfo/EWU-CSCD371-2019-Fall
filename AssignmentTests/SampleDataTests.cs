@@ -84,10 +84,10 @@ namespace Assignment.Tests
             };
 
             //Act
-            IEnumerable<(string FirstName, string LastName)> filteredNames = sampleData.FilterByEmailAddress(email => email.EndsWith("asu.edu"));
+            IEnumerable<(string FirstName, string LastName)> filteredNames = sampleData.FilterByEmailAddress(email => email.EndsWith("asu.edu", StringComparison.Ordinal));
 
             //Assert
-            foreach(var expectedTuple in expectedNames)
+            foreach (var expectedTuple in expectedNames)
             {
                 Assert.IsTrue(filteredNames.Contains(expectedTuple));
             }
