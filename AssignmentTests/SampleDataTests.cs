@@ -88,7 +88,7 @@ namespace Assignment.Tests
         public void GetAggregateListOfStatesGivenPeopleCollection()
         {
             //Arrange
-            string expectedStates = "AZ, ID, CA, WA, NC, NY, MT, FL, GA, TX";
+            string expectedStates = "AZ, AZ, ID, AZ, AZ, AZ, ID, ID, CA, WA, NC, NY, NY, MT, FL, CA, GA, TX, GA, FL";
             SampleData sampleData = new SampleData(_FilePath);
 
             //Act
@@ -102,7 +102,7 @@ namespace Assignment.Tests
         public void GetAggregateSortedListOfStatesUsingCsvRows()
         {
             //Arrange
-            string expectedStates = "AZ, CA, FL, GA, ID, MT, NC, NY, TX, WA";
+            string expectedStates = "AZ, AZ, AZ, AZ, AZ, CA, CA, FL, FL, GA, GA, ID, ID, ID, MT, NC, NY, NY, TX, WA";
             SampleData sampleData = new SampleData(_FilePath);
 
             //Act

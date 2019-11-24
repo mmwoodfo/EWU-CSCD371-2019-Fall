@@ -77,7 +77,6 @@ namespace Assignment
             var states =
                 people
                 .Select(p => p.Address.State)
-                .Distinct()
                 .Aggregate((abbreviation1, abbreviation2) => $"{abbreviation1}, {abbreviation2}");
 
             return states;
@@ -85,9 +84,15 @@ namespace Assignment
 
         public string GetAggregateSortedListOfStatesUsingCsvRows()
         {
-            return
-                GetUniqueSortedListOfStatesGivenCsvRows()
+            var states =
+                CsvRows
+                .Select(row => ParsePerson(row))
+                .Select(p => p.Address.State)
+                .OrderBy(s => s)
                 .Aggregate((abbreviation1, abbreviation2) => $"{abbreviation1}, {abbreviation2}");
+
+            return states;
+
         }
 
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
