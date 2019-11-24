@@ -88,7 +88,7 @@ namespace Assignment.Tests
 
             //Assert
             int i = 0;
-            foreach(IPerson person in people)
+            foreach (IPerson person in people)
             {
                 Assert.AreEqual(person.FirstName, expectedPeople[i].FirstName);
                 Assert.AreEqual(person.LastName, expectedPeople[i].LastName);

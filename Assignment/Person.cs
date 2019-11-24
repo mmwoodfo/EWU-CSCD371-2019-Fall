@@ -18,4 +18,4 @@ namespace Assignment
             Address = address ?? throw new ArgumentNullException(nameof(address));
         }
     }
- }
+}

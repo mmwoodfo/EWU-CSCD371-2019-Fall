@@ -1,8 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Assignment;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Assignment.Tests
 {
@@ -36,7 +33,7 @@ namespace Assignment.Tests
         public void Person_NullFirst_ThrowsArgumentNullException()
         {
             //Arrange, Act & Assert
-            Assert.ThrowsException<ArgumentNullException>(() => new Person(null!, "Last", "Email@email.com", new Address("street","city","state","zip")));
+            Assert.ThrowsException<ArgumentNullException>(() => new Person(null!, "Last", "Email@email.com", new Address("street", "city", "state", "zip")));
         }
 
         [TestMethod()]

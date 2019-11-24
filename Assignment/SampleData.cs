@@ -57,7 +57,7 @@ namespace Assignment
 
         public static Person ParsePerson(string row)
         {
-            if(row is null)
+            if (row is null)
                 throw new ArgumentNullException(nameof(row));
 
             string[] values = row.Split(',');
