@@ -152,10 +152,23 @@ namespace Assignment.Tests
 
         //Include a test that leverages a hard coded list of Spokane based addresses.
         [TestMethod()]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_HardCodedListOfAddresses_ReturnSortedUniqueList()
+        {
+            //Arrange
+            string[] expectedStates = { "WA" };
+            SampleData sampleData = new SampleData("SpokaneAddresses.csv");
+
+            //Act
+            IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+            //Assert
+            Assert.IsTrue(states.SequenceEqual(expectedStates));
+        }
+
+        [TestMethod()]
         public void GetUniqueSortedListOfStatesGivenCsvRows_HardCodedList_ReturnSortedUniqueList()
         {
             //Arrange
-            string[] fileLines = File.ReadAllLines(_FilePath);
             string[] expectedStates = { "AZ", "CA", "FL", "GA", "ID", "MT", "NC", "NY", "TX", "WA" };
             SampleData sampleData = new SampleData(_FilePath);
 
