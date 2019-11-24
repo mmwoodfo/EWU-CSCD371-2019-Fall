@@ -69,6 +69,34 @@ namespace Assignment.Tests
             }
         }
 
+        //--------------- PEOPLE PROPERTY TEST ----------------//
+        [TestMethod()]
+        public void People_ReadFile_ReturnSortedPeopleList()
+        {
+            //Arrange
+            SampleData sampleData = new SampleData("PeopleTestData.csv");
+            IPerson[] expectedPeople = new IPerson[]
+            {
+                new Person("Gregory","Woodford","gwoody@gmail.com",new Address("53 somewhere street","Cave Creek","AZ","94323")),
+                new Person("Meghan","Woodford","mmwoodfo@asu.edu",new Address("1234 noneofyourbuisness lane","Tempe","AZ","35326")),
+                new Person("Brandon","Bayles","whoknows@asu.edu",new Address("75 rural road","Tempe","AZ","61354")),
+                new Person("Melisa","Kerslake","mkerslake4@dion.ne.jp",new Address("283 Pawling Parkway","Dallas","TX","88632"))
+            };
+
+            //Act
+            IEnumerable<IPerson> people = sampleData.People;
+
+            //Assert
+            int i = 0;
+            foreach(IPerson person in people)
+            {
+                Assert.AreEqual(person.FirstName, expectedPeople[i].FirstName);
+                Assert.AreEqual(person.LastName, expectedPeople[i].LastName);
+                Assert.AreEqual(person.EmailAddress, expectedPeople[i].EmailAddress);
+                i++;
+            }
+        }
+
         //------------------ EMAIL ADDRESSES TESTS -------------------------//
         [TestMethod()]
         public void FilterByEmailAddress_AsuEmailFilter_Return4Names()
@@ -98,7 +126,7 @@ namespace Assignment.Tests
         public void GetAggregateListOfStatesGivenPeopleCollection_AllPeople_ReturnAllStatesAggregated()
         {
             //Arrange
-            string expectedStates = "GA, ID, AZ, NC, CA, NY, FL, MT, TX, WA";
+            string expectedStates = "AZ, CA, FL, GA, ID, MT, NC, NY, TX, WA";
             SampleData sampleData = new SampleData(_FilePath);
 
             //Act

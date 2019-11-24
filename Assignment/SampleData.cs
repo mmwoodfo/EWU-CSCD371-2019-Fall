@@ -47,8 +47,8 @@ namespace Assignment
                     CsvRows //Use ISampleData.CsvRows as the source of the data.
                     .Select(row => ParsePerson(row)) //Be sure that Person.Address is also populated.
                     .OrderBy(p => p.Address.State)
-                    .OrderBy(p => p.Address.City)
-                    .OrderBy(p => p.Address.Zip);
+                    .ThenBy(p => p.Address.City)
+                    .ThenBy(p => p.Address.Zip);
 
                 return people;
             }
