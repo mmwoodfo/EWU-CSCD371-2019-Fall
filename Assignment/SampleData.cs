@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-/*
-Please ignore the links throughout this project,
-I wanted to save the links where I found most of 
-the funcunality so I could review it later if
-need be. 
-*/
-
 namespace Assignment
 {
     public class SampleData : ISampleData
@@ -26,27 +19,36 @@ namespace Assignment
             FilePath = filePath;
         }
 
+        /*
+         Implement the ISampleData.CsvRows property, 
+        */
         public IEnumerable<string> CsvRows
         {
             get
             {
-                string[] lines = File.ReadAllLines(FilePath);
-                lines = lines.Skip(1).ToArray();
+                string[] lines = File.ReadAllLines(FilePath); //loading the data from the People.csv file
+                lines = lines.Skip(1).ToArray(); //Using LINQ, skip the first row in the People.csv.
 
                 foreach (String line in lines)
                 {
-                    yield return line;
+                    yield return line; //and returning each line as a single string.
                 }
             }
         }
 
+        /*
+         Implement the ISampleData.People property to return all the items in People.csv as Person objects
+        */
         public IEnumerable<IPerson> People
         {
             get
             {
                 var people =
-                    from line in CsvRows
-                    select ParsePerson(line);
+                    CsvRows //Use ISampleData.CsvRows as the source of the data.
+                    .Select(row => ParsePerson(row)) //Be sure that Person.Address is also populated.
+                    .OrderBy(p => p.Address.State)
+                    .OrderBy(p => p.Address.City)
+                    .OrderBy(p => p.Address.Zip);
 
                 return people;
             }
@@ -74,23 +76,31 @@ namespace Assignment
             return new Address(address[0], address[1], address[2], address[3]);
         }
 
+        /*
+         Implement ISampleDate.FilterByEmailAddress(Predicate<string> filter) to return a list of names where the email address matches the filter.
+        */
         //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/filtering-data
         //https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.where?view=netframework-4.8
         public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
         {
             var email =
-                from person in People
+                from person in People //Use ISampleData.People for your data source.
                 where filter(person.EmailAddress)
                 select (person.FirstName, person.LastName);
 
             return email;
         }
 
+        /*
+         Implement ISampleData.GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people) to return a string that contains 
+         a unique, comma separated list of states.
+        */
         public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
         {
             var states =
-                people
+                people //Use the people parameter from ISampleData.GetUniqueListOfStates for your data source.
                 .Select(p => p.Address.State)
+                .Distinct() //Don't forget the list should be unique.
                 .Aggregate((abbreviation1, abbreviation2) => $"{abbreviation1}, {abbreviation2}");
 
             return states;
@@ -98,28 +108,30 @@ namespace Assignment
 
         //https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.aggregate?view=netframework-4.8
         //https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/linq/sorting-data
+        /*
+         Implement ISampleData.GetAggregateSortedListOfStatesUsingCsvRows() to return a string that contains a unique, comma separated list of states.
+        */
         public string GetAggregateSortedListOfStatesUsingCsvRows()
         {
-            var states =
-                CsvRows
-                .Select(row => ParsePerson(row))
-                .Select(p => p.Address.State)
-                .OrderBy(s => s) //sorts ascending by default
-                .Aggregate((abbreviation1, abbreviation2) => $"{abbreviation1}, {abbreviation2}");
+            IEnumerable<string> uniqueSortedListOfStates = GetUniqueSortedListOfStatesGivenCsvRows(); //Use ISampleData.GetUniqueSortedListOfStatesGivenCsvRows for your data source.
 
-            return states;
+            string[] states = uniqueSortedListOfStates.ToArray(); //Consider "selecting" only the states and calling ToArray() to retrieve an array of all the state names.
 
+            return string.Join(",", states); //Given the array, consider using string.Join to combine the list into a single string.
         }
 
         //https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable.distinct?view=netframework-4.8
+        /*
+         Implement IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows() to return a sorted, unique list of states.
+        */
         public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
         {
             var states =
-                CsvRows
+                CsvRows //Use ISampleData.CsvRows for your data source.
                 .Select(row => ParsePerson(row))
                 .Select(p => p.Address.State);
 
-            return states.OrderBy(s => s).Distinct();
+            return states.OrderBy(s => s).Distinct(); //Don't forget the list should be unique. Sort the list alphabetically
         }
     }
 }

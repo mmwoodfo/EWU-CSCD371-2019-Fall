@@ -11,6 +11,7 @@ namespace Assignment
 
         public Person(string firstName, string lastName, string email, IAddress address)
         {
+            //Adding null validation to all the Person and Address properties is optional.
             FirstName = firstName ?? throw new ArgumentNullException(nameof(firstName));
             LastName = lastName ?? throw new ArgumentNullException(nameof(lastName));
             EmailAddress = email ?? throw new ArgumentNullException(nameof(email));
