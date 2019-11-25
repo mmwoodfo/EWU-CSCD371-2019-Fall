@@ -126,8 +126,24 @@ namespace Assignment.Tests
         public void GetAggregateListOfStatesGivenPeopleCollection_AllPeople_ReturnAllStatesAggregated()
         {
             //Arrange
-            string expectedStates = "AZ, CA, FL, GA, ID, MT, NC, NY, TX, WA";
+            string expectedStates = "AZ,CA,FL,GA,ID,MT,NC,NY,TX,WA";
             SampleData sampleData = new SampleData(_FilePath);
+
+            //Act
+            string states = sampleData.GetAggregateListOfStatesGivenPeopleCollection(sampleData.People);
+
+            //Assert
+            Assert.AreEqual(expectedStates, states);
+        }
+
+        [TestMethod()]
+        public void GetAggregateListOfStatesGivenPeopleCollection_AllPeople_ValidateWithGetUniqueSortedListOfStatesGivenCsvRows()
+        {
+            //Arrange
+            SampleData sampleData = new SampleData(_FilePath);
+            string[] uniqueSortedStates = sampleData.GetUniqueSortedListOfStatesGivenCsvRows().ToArray();
+
+            string expectedStates = string.Join(",", uniqueSortedStates);
 
             //Act
             string states = sampleData.GetAggregateListOfStatesGivenPeopleCollection(sampleData.People);
