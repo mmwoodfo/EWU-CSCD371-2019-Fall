@@ -39,7 +39,8 @@ namespace Assignment.Tests
             Assert.AreEqual(filePath, sampleData.FilePath);
         }
 
-        //--------------- CSV ROWS PROPERTY TEST ----------------//
+        //--------------- 1 : CsvRows Property ----------------//
+        //1.
         [TestMethod()]
         public void CsvRows_ReadFile_SkipsFirstLine()
         {
@@ -54,6 +55,7 @@ namespace Assignment.Tests
             Assert.IsFalse(row.Contains(fileLines[0]));
         }
 
+        //1.
         [TestMethod()]
         public void CsvRows_ReadFile_ReadsEachLine()
         {
@@ -69,7 +71,79 @@ namespace Assignment.Tests
             }
         }
 
-        //--------------- PEOPLE PROPERTY TEST ----------------//
+        //--------------- 2 : Get Unique Sorted List Of States Given CSV Rows ----------------//
+        //2.
+        [TestMethod()]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_HardCodedListOfAddresses_ReturnSortedUniqueList()
+        {
+            //Arrange
+            string[] expectedStates = { "WA" };
+            SampleData sampleData = new SampleData("SpokaneAddresses.csv");
+
+            //Act
+            IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+            //Assert
+            Assert.IsTrue(states.SequenceEqual(expectedStates));
+        }
+
+        //2.
+        [TestMethod()]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_HardCodedList_ReturnSortedUniqueList()
+        {
+            //Arrange
+            string[] expectedStates = { "AZ", "CA", "FL", "GA", "ID", "MT", "NC", "NY", "TX", "WA" };
+            SampleData sampleData = new SampleData(_FilePath);
+
+            //Act
+            IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+            //Assert
+            Assert.IsTrue(states.SequenceEqual(expectedStates));
+        }
+
+        //2.
+        [TestMethod()]
+        public void GetUniqueSortedListOfStatesGivenCsvRows_LinqVerification_ReturnSortedUniqueList()
+        {
+            //Arrange
+            string[] fileLines = File.ReadAllLines(_FilePath);
+
+            var expectedStates = fileLines
+                    .Skip(1)
+                    .Select(row => SampleData.ParsePerson(row))
+                    .Select(p => p.Address)
+                    .Select(address => address.State)
+                    .Distinct()
+                    .OrderBy(s => s);
+
+            SampleData sampleData = new SampleData(_FilePath);
+
+            //Act
+            IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
+
+            //Assert
+            Assert.IsTrue(states.SequenceEqual(expectedStates));
+        }
+
+        //--------------- 3 : Get Aggregated Sorted List Of States Using CSV Rows ----------------//
+        //3.
+        [TestMethod()]
+        public void GetAggregateSortedListOfStatesUsingCsvRows_ValidCsvFile_ReturnAllAggregatedStatesSorted()
+        {
+            //Arrange
+            string expectedStates = "AZ,CA,FL,GA,ID,MT,NC,NY,TX,WA"; //no spaces because join was used
+            SampleData sampleData = new SampleData(_FilePath);
+
+            //Act
+            string states = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
+
+            //Assert
+            Assert.AreEqual(expectedStates, states);
+        }
+
+        //--------------- 4 : People Property ----------------//
+        //4.
         [TestMethod()]
         public void People_ReadFile_ReturnSortedPeopleList()
         {
@@ -97,7 +171,8 @@ namespace Assignment.Tests
             }
         }
 
-        //------------------ EMAIL ADDRESSES TESTS -------------------------//
+        //--------------- 5 : Filter By Email Address ----------------//
+        //5.
         [TestMethod()]
         public void FilterByEmailAddress_AsuEmailFilter_Return4Names()
         {
@@ -121,7 +196,8 @@ namespace Assignment.Tests
             }
         }
 
-        //----------------------- STATES TESTS ------------------------//
+        //--------------- 6 : Get Aggregated List Of States Given People Collection ----------------//
+        //6.
         [TestMethod()]
         public void GetAggregateListOfStatesGivenPeopleCollection_AllPeople_ReturnAllStatesAggregated()
         {
@@ -136,6 +212,7 @@ namespace Assignment.Tests
             Assert.AreEqual(expectedStates, states);
         }
 
+        //6.
         [TestMethod()]
         public void GetAggregateListOfStatesGivenPeopleCollection_AllPeople_ValidateWithGetUniqueSortedListOfStatesGivenCsvRows()
         {
@@ -152,73 +229,7 @@ namespace Assignment.Tests
             Assert.AreEqual(expectedStates, states);
         }
 
-        [TestMethod()]
-        public void GetAggregateSortedListOfStatesUsingCsvRows_ValidCsvFile_ReturnAllAggregatedStatesSorted()
-        {
-            //Arrange
-            string expectedStates = "AZ,CA,FL,GA,ID,MT,NC,NY,TX,WA"; //no spaces because join was used
-            SampleData sampleData = new SampleData(_FilePath);
-
-            //Act
-            string states = sampleData.GetAggregateSortedListOfStatesUsingCsvRows();
-
-            //Assert
-            Assert.AreEqual(expectedStates, states);
-        }
-
-        //Include a test that leverages a hard coded list of Spokane based addresses.
-        [TestMethod()]
-        public void GetUniqueSortedListOfStatesGivenCsvRows_HardCodedListOfAddresses_ReturnSortedUniqueList()
-        {
-            //Arrange
-            string[] expectedStates = { "WA" };
-            SampleData sampleData = new SampleData("SpokaneAddresses.csv");
-
-            //Act
-            IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
-
-            //Assert
-            Assert.IsTrue(states.SequenceEqual(expectedStates));
-        }
-
-        [TestMethod()]
-        public void GetUniqueSortedListOfStatesGivenCsvRows_HardCodedList_ReturnSortedUniqueList()
-        {
-            //Arrange
-            string[] expectedStates = { "AZ", "CA", "FL", "GA", "ID", "MT", "NC", "NY", "TX", "WA" };
-            SampleData sampleData = new SampleData(_FilePath);
-
-            //Act
-            IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
-
-            //Assert
-            Assert.IsTrue(states.SequenceEqual(expectedStates));
-        }
-
-        //Include a test that uses LINQ to verify the data is sorted correctly (do not use a hard coded list).
-        [TestMethod()]
-        public void GetUniqueSortedListOfStatesGivenCsvRows_LinqVerification_ReturnSortedUniqueList()
-        {
-            //Arrange
-            string[] fileLines = File.ReadAllLines(_FilePath);
-
-            var expectedStates = fileLines
-                    .Skip(1)
-                    .Select(row => SampleData.ParsePerson(row))
-                    .Select(p => p.Address)
-                    .Select(address => address.State)
-                    .Distinct()
-                    .OrderBy(s => s);
-
-            SampleData sampleData = new SampleData(_FilePath);
-
-            //Act
-            IEnumerable<string> states = sampleData.GetUniqueSortedListOfStatesGivenCsvRows();
-
-            //Assert
-            Assert.IsTrue(states.SequenceEqual(expectedStates));
-        }
-
+        //-------------------- STATIC PARSE METHOD TESTS ------------------------//
         [TestMethod()]
         public void ParsePerson_CsvLine_ParseSuccuss()
         {

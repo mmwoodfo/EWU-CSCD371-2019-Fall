@@ -19,6 +19,7 @@ namespace Assignment
             FilePath = filePath;
         }
 
+        //--------------- 1 : CsvRows Property ----------------//
         public IEnumerable<string> CsvRows
         {
             get
@@ -33,6 +34,28 @@ namespace Assignment
             }
         }
 
+        //--------------- 2 : Get Unique Sorted List Of States Given CSV Rows ----------------//
+        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
+        {
+            var states =
+                CsvRows
+                .Select(row => ParsePerson(row))
+                .Select(p => p.Address.State);
+
+            return states.OrderBy(s => s).Distinct();
+        }
+
+        //--------------- 3 : Get Aggregated Sorted List Of States Using CSV Rows ----------------//
+        public string GetAggregateSortedListOfStatesUsingCsvRows()
+        {
+            IEnumerable<string> uniqueSortedListOfStates = GetUniqueSortedListOfStatesGivenCsvRows();
+
+            string[] states = uniqueSortedListOfStates.ToArray();
+
+            return string.Join(",", states);
+        }
+
+        //--------------- 4 : People Property ----------------//
         public IEnumerable<IPerson> People
         {
             get
@@ -46,9 +69,32 @@ namespace Assignment
 
                 return people;
             }
-
         }
 
+        //--------------- 5 : Filter By Email Address ----------------//
+        public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
+        {
+            var email =
+                from person in People
+                where filter(person.EmailAddress)
+                select (person.FirstName, person.LastName);
+
+            return email;
+        }
+
+        //--------------- 6 : Get Aggregated List Of States Given People Collection ----------------//
+        public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
+        {
+            var states =
+                people
+                .Select(p => p.Address.State)
+                .Distinct()
+                .Aggregate((abbreviation1, abbreviation2) => $"{abbreviation1},{abbreviation2}");
+
+            return states;
+        }
+
+        //Static Parsing functions
         public static Person ParsePerson(string row)
         {
             if (row is null)
@@ -68,46 +114,6 @@ namespace Assignment
                 throw new ArgumentException("", nameof(address));
 
             return new Address(address[0], address[1], address[2], address[3]);
-        }
-
-        public IEnumerable<(string FirstName, string LastName)> FilterByEmailAddress(Predicate<string> filter)
-        {
-            var email =
-                from person in People
-                where filter(person.EmailAddress)
-                select (person.FirstName, person.LastName);
-
-            return email;
-        }
-
-        public string GetAggregateListOfStatesGivenPeopleCollection(IEnumerable<IPerson> people)
-        {
-            var states =
-                people
-                .Select(p => p.Address.State)
-                .Distinct()
-                .Aggregate((abbreviation1, abbreviation2) => $"{abbreviation1},{abbreviation2}");
-
-            return states;
-        }
-
-        public string GetAggregateSortedListOfStatesUsingCsvRows()
-        {
-            IEnumerable<string> uniqueSortedListOfStates = GetUniqueSortedListOfStatesGivenCsvRows();
-
-            string[] states = uniqueSortedListOfStates.ToArray();
-
-            return string.Join(",", states);
-        }
-
-        public IEnumerable<string> GetUniqueSortedListOfStatesGivenCsvRows()
-        {
-            var states =
-                CsvRows
-                .Select(row => ParsePerson(row))
-                .Select(p => p.Address.State);
-
-            return states.OrderBy(s => s).Distinct();
         }
     }
 }
