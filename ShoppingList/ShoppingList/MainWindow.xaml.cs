@@ -11,5 +11,15 @@ namespace ShoppingList
         {
             InitializeComponent();
         }
+
+        private void listBoxChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
