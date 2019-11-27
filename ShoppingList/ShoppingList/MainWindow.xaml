@@ -20,8 +20,8 @@
                  SelectionMode="Single" SelectionChanged="listBoxChanged" Foreground="#FF28324B" FontSize="24" FontFamily="Ink Free"/>
 
         <!-- Column 2 LIST CONTROLS -->
-        <Button x:Name="btnAdd" Content="Add To List" Grid.Column="1" HorizontalAlignment="Left" Margin="281,42,0,0" VerticalAlignment="Top" Foreground="#FFFBDE44" Click="btnAdd_Click"/>
-        <TextBox x:Name="txtToAdd" Grid.Column="1" HorizontalAlignment="Left" Margin="20,46,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="247" SelectionBrush="#FFFBDE44" Foreground="#FF28324B"/>
+        <Button x:Name="btnAdd" Content="Add To List" Grid.Column="1" HorizontalAlignment="Left" Margin="281,42,0,0" VerticalAlignment="Top" Foreground="#FFFBDE44" Click="btnAdd_Click" Background="#FF28324B" BorderBrush="#FF28324B"/>
+        <TextBox x:Name="txtToAdd" Grid.Column="1" HorizontalAlignment="Left" Margin="20,46,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="247" SelectionBrush="#FFFBDE44" Foreground="#FF28324B" CaretBrush="#FF28324B"/>
 
     </Grid>
 </Window>
