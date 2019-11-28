@@ -7,21 +7,34 @@
         xmlns:local="clr-namespace:ShoppingList"
         mc:Ignorable="d"
         MinHeight="350"
-        MinWidth="800"
+        MinWidth="650"
+        TextElement.FontSize="24"
         Title="Shopping List" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Column 0 LIST BOX -->
-        <ListBox x:Name="listBox" Grid.Column="0" Background="#FFF65158"
-                 SelectionMode="Single" SelectionChanged="listBoxChanged" Foreground="#FF28324B" FontSize="24" FontFamily="Ink Free"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
+        <StackPanel Grid.Column="1"/>
+        <StackPanel Grid.Column="2"/>
+
+        <!-- Column 0 & Row 0-1 LIST BOX -->
+        <ListBox x:Name="ShoppingList" Grid.Column="0" Grid.RowSpan="2" Background="#FFF65158"
+                 SelectionMode="Single" SelectionChanged="listBoxChanged" Foreground="#FF28324B" FontFamily="Ink Free"/>
+
+        <!--   Row 0 LIST CONTROLS  -->
         <!-- Column 2 LIST CONTROLS -->
-        <Button x:Name="btnAdd" Content="Add To List" Grid.Column="1" HorizontalAlignment="Left" Margin="281,42,0,0" VerticalAlignment="Top" Foreground="#FFFBDE44" Click="btnAdd_Click" Background="#FF28324B" BorderBrush="#FF28324B"/>
-        <TextBox x:Name="txtToAdd" Grid.Column="1" HorizontalAlignment="Left" Margin="20,46,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="247" SelectionBrush="#FFFBDE44" Foreground="#FF28324B" CaretBrush="#FF28324B"/>
+        <TextBox x:Name="TxtToAddToList" Grid.Column="1" Text="" TextWrapping="Wrap" SelectionBrush="#FFFBDE44" Foreground="#FF28324B" CaretBrush="#FF28324B" Margin="10,10,10,10"/>
+
+        <!-- Column 3 LIST CONTROLS -->
+        <Button x:Name="BtnAddToList" Content="Add To List" Grid.Column="2" Foreground="#FFFBDE44" Click="btnAdd_Click" Background="#FF28324B" BorderBrush="#FF28324B" Margin="10,10,10,10"/>
 
     </Grid>
 </Window>
