@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace ShoppingList
@@ -14,10 +12,7 @@ namespace ShoppingList
             Method = method ?? throw new ArgumentNullException(nameof(method));
         }
 
-        public bool CanExecute(object parameter)
-        {
-            return true;
-        }
+        public bool CanExecute(object parameter) => true;
 
         public void Execute(object parameter) => Method?.Invoke();
 
