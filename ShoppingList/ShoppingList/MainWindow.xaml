@@ -28,7 +28,7 @@
         <StackPanel Grid.Column="2"/>
 
     <!-- Column 0 & Row 0-* LIST BOX -->
-        <ListBox x:Name="ShoppingList" ItemsSource="{Binding ShoppingList}" Grid.Column="0" Grid.RowSpan="3" Background="#FFF65158"
+        <ListBox ItemsSource="{Binding ShoppingList}" Grid.Column="0" Grid.RowSpan="3" Background="{Binding Tomato}"
                  SelectionMode="Single" Foreground="White" FontFamily="Ink Free">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type local:Item}">
@@ -39,19 +39,13 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <!-- Column 2 LIST CONTROLS -->
+    <!-- Column 2 LIST CONTROLS -->
         <!-- Row 0 LIST CONTROLS -->
-        <TextBox x:Name="TxtToAddToList" Grid.Column="1" Text="" TextWrapping="Wrap" SelectionBrush="#FFFBDE44" Foreground="#FF28324B" CaretBrush="#FF28324B" Margin="10,10,10,10"/>
-        
-        <!-- Row 1 LIST CONTROLS -->
-        <TextBox x:Name="TxtToChange" Grid.Column="1" Grid.Row="1" Text="" TextWrapping="Wrap" SelectionBrush="#FFFBDE44" Foreground="#FF28324B" CaretBrush="#FF28324B" Margin="10,10,10,10"/>
-        
-    <!-- Column 3 LIST CONTROLS -->
-        <!-- Row 0 LIST CONTROLS -->
-        <Button x:Name="BtnAddToList" Content="Add To List" Grid.Column="2" Foreground="#FFFBDE44" Command="{Binding AddItemCommand}" Background="#FF28324B" BorderBrush="#FF28324B" Margin="10,10,10,10"/>
+        <TextBox Grid.Column="1" Text="{Binding TextToAddToList}" TextWrapping="Wrap" SelectionBrush="{Binding Sandy}" Foreground="{Binding SlateGray}" Margin="{Binding Margins}"/>
 
-        <!-- Row 1 LIST CONTROLS -->
-        <Button x:Name="BtnUpdateList" Content="Update List" Grid.Column="2" Grid.Row="1" Foreground="#FFFBDE44" Background="#FF28324B" BorderBrush="#FF28324B" Margin="10,10,10,10"/>
+        <!-- Column 3 LIST CONTROLS -->
+        <!-- Row 0 LIST CONTROLS -->
+        <Button Command="{Binding AddItemCommand}" Content="Add To List" Grid.Column="2" Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
 
     </Grid>
 </Window>
