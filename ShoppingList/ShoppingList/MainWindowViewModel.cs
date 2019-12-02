@@ -16,14 +16,15 @@ namespace ShoppingList
         public string SlateGray { get; } = "#FF28324B";
         public short SpanAll { get; } = Int16.MaxValue; //32767
 
+        //--------- COMMAND BINDINGS ------------//
+        public ICommand AddItemCommand { get; }
+
         //--------- OTHER BINDINGS --------------//
-        public ObservableCollection<string> ShoppingList { get; } = new ObservableCollection<string>();
+        public ObservableCollection<Item> ShoppingList { get; } = new ObservableCollection<Item>();
         public string TextToAddToList { get; set; } = "";
         public string SelectedItem { get; set; } = "";
-        public ICommand AddItemCommand { get; }
-        public string DeleteBtnVisiblity { get; set; } = "Hidden";
-        public string UpdateBtnVisibility { get; set; } = "Hidden";
-        public string UpdateTxtVisibility { get; set; } = "Hidden";
+        public string AddItemControls { get; set; } = "Visible";
+        public string SelectedItemControls { get; set; } = "Hidden";
 
         //------------ CONSTRUCTOR -------------//
         public MainWindowViewModel()
@@ -31,12 +32,12 @@ namespace ShoppingList
             AddItemCommand = new Command(OnAddItem);
         }
 
-        //---------- BINDING COMMANDS ------------//
+        //---------- BINDING FUNCTIONS -----------//
         private void OnAddItem()
         {
             if (!string.IsNullOrEmpty(TextToAddToList))
             {
-                ShoppingList.Add($"• {TextToAddToList}");
+                ShoppingList.Add(new Item($"• {TextToAddToList}"));
                 TextToAddToList = "";
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TextToAddToList)));

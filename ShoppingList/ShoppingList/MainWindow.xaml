@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         MinHeight="350"
         MinWidth="650"
-        TextElement.FontSize="24"
+        TextElement.FontSize="20"
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
         Title="Shopping List" Height="450" Width="800">
     <Grid>
@@ -21,8 +21,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -32,25 +30,55 @@
     <!-- Column 0 LIST BOX -->
         <!--R0-R*-->
         <ListBox 
-            ItemsSource="{Binding ShoppingList}" Grid.Column="0" Grid.RowSpan="{Binding SpanAll}" Background="{Binding Tomato}"
-            SelectionMode="Single" SelectedItem="{Binding SelectedItem}" ScrollViewer.HorizontalScrollBarVisibility="Auto" Foreground="White" FontFamily="Ink Free">
+            ItemsSource="{Binding ShoppingList}" 
+            SelectedItem="{Binding SelectedItem}"
+            Grid.Column="0" Grid.RowSpan="{Binding SpanAll}"
+            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+            Background="{Binding Tomato}" Foreground="White" FontFamily="Ink Free">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type local:Item}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
         </ListBox>
 
     <!-- Column 1 LIST CONTROLS -->
         <!--R0-->
-        <TextBox Grid.Column="1" Text="{Binding TextToAddToList}" TextWrapping="Wrap" SelectionBrush="{Binding Sandy}" Foreground="{Binding SlateGray}" Margin="{Binding Margins}"/>
+        <TextBox Text="{Binding TextToAddToList}" 
+                 Grid.Column="1"
+                 Visibility="{Binding AddItemControls}" 
+                 TextWrapping="Wrap" SelectionBrush="{Binding Sandy}" Foreground="{Binding SlateGray}" Margin="{Binding Margins}"/>
+
+        <Button Content="Delete Item" 
+                Command="" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="{Binding SpanAll}" 
+                Visibility="{Binding SelectedItemControls}" 
+                Foreground="{Binding SlateGray}" Background="{Binding Tomato}" Margin="{Binding Margins}"/>
+        
         <!--R1-->
-        <TextBlock Grid.Column="1" Grid.Row="1"/>
-        <!--R2-->
-        <Button Command="" Content="Delete Item" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="{Binding SpanAll}" Visibility="{Binding DeleteBtnVisiblity}" Foreground="{Binding SlateGray}" Background="{Binding Tomato}" Margin="{Binding Margins}"/>
-        <!--R3-->
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding TextToAddToList}" TextWrapping="Wrap" Visibility="{Binding UpdateTxtVisibility}" SelectionBrush="{Binding Sandy}" Foreground="{Binding SlateGray}" Margin="{Binding Margins}"/>
+        <TextBox Text="{Binding TextToAddToList}" 
+                 Grid.Column="1" Grid.Row="1" 
+                 Visibility="{Binding SelectedItemControls}" 
+                 TextWrapping="Wrap" SelectionBrush="{Binding Sandy}" Foreground="{Binding SlateGray}" Margin="{Binding Margins}"/>
 
         <!-- Column 2 LIST CONTROLS -->
         <!--R0-->
-        <Button Command="{Binding AddItemCommand}" Content="Add To List" Grid.Column="2" Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
-        <!--R3-->
-        <Button Command="" Content="Update Item" Grid.Column="2" Grid.Row="3" Visibility="{Binding UpdateBtnVisibility}" Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
+        <Button Content="Add To List" 
+                Command="{Binding AddItemCommand}" 
+                Grid.Column="2" Grid.ColumnSpan="{Binding SpanAll}" 
+                Visibility="{Binding AddItemControls}" 
+                Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
+
+        <!--R1-->
+        <Button Content="Update Item" 
+                Command="" 
+                Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="{Binding SpanAll}" 
+                Visibility="{Binding SelectedItemControls}" 
+                Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
+
 
     </Grid>
 </Window>
