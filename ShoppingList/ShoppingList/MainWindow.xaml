@@ -33,7 +33,7 @@
         <!--R0-R*-->
         <ListBox 
             ItemsSource="{Binding ShoppingList}" Grid.Column="0" Grid.RowSpan="{Binding SpanAll}" Background="{Binding Tomato}"
-            SelectionMode="Single" SelectedItem="{Binding SelectedItem}" Foreground="White" FontFamily="Ink Free">
+            SelectionMode="Single" SelectedItem="{Binding SelectedItem}" ScrollViewer.HorizontalScrollBarVisibility="Auto" Foreground="White" FontFamily="Ink Free">
         </ListBox>
 
     <!-- Column 1 LIST CONTROLS -->
