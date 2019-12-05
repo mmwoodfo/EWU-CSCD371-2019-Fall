@@ -67,7 +67,7 @@
         
         <!--R2-->
         <Button Content="Delete From List"
-                Command="{Binding OnDeleteItem}"
+                Command="{Binding DeleteItemCommand}"
                 Visibility="{Binding SelectedItem, Converter={StaticResource ItemVisibilityConverter}}"
                 Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="{Binding SpanAll}"
                 Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
