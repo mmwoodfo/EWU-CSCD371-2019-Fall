@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace ShoppingList
@@ -8,6 +10,15 @@ namespace ShoppingList
     public class MainWindowViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void SetProperty<T>(ref T field, T value, [CallerMemberName]string propertyName = null!)
+        {
+            if (!EqualityComparer<T>.Default.Equals(field, value))
+            {
+                field = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         //--------- STYLE BINDINGS --------------//
         public string Margins { get; } = "10,10,10,10";
@@ -18,18 +29,29 @@ namespace ShoppingList
 
         //--------- COMMAND BINDINGS ------------//
         public ICommand AddItemCommand { get; }
+        public ICommand DeleteItemCommand { get; }
 
         //--------- OTHER BINDINGS --------------//
         public ObservableCollection<Item> ShoppingList { get; } = new ObservableCollection<Item>();
-        public string TextToAddToList { get; set; } = "";
-        public string SelectedItem { get; set; } = "";
-        public string AddItemControls { get; set; } = "Visible";
-        public string SelectedItemControls { get; set; } = "Hidden";
+        
+        private string _TextToAddToList = "";
+        public string TextToAddToList
+        {
+            get => _TextToAddToList;
+            set => SetProperty(ref _TextToAddToList, value);
+        }
+
+        private Item _SelectedItem = null!;
+        public Item SelectedItem {
+            get => _SelectedItem;
+            set => SetProperty(ref _SelectedItem, value);
+        }
 
         //------------ CONSTRUCTOR -------------//
         public MainWindowViewModel()
         {
             AddItemCommand = new Command(OnAddItem);
+            DeleteItemCommand = new Command(OnDeleteItem);
         }
 
         //---------- BINDING FUNCTIONS -----------//
@@ -37,10 +59,21 @@ namespace ShoppingList
         {
             if (!string.IsNullOrEmpty(TextToAddToList))
             {
-                ShoppingList.Add(new Item($"• {TextToAddToList}"));
+                ShoppingList.Add(new Item(TextToAddToList));
                 TextToAddToList = "";
+                SelectedItem = null!;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TextToAddToList)));
+            }
+        }
+
+        private void OnDeleteItem()
+        {
+            if(SelectedItem != null)
+            {
+                ShoppingList.Remove(SelectedItem);
+                SelectedItem = null!;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
             }
         }
     }

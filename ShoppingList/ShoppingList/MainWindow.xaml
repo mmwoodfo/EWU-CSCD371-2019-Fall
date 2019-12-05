@@ -11,6 +11,11 @@
         TextElement.FontSize="20"
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
         Title="Shopping List" Height="450" Width="800">
+
+    <Window.Resources>
+        <local:ItemVisibilityConverter x:Key="ItemVisibilityConverter"/>
+    </Window.Resources>
+        
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -19,6 +24,7 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -33,13 +39,14 @@
             ItemsSource="{Binding ShoppingList}" 
             SelectedItem="{Binding SelectedItem}"
             Grid.Column="0" Grid.RowSpan="{Binding SpanAll}"
-            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Auto"
             Background="{Binding Tomato}" Foreground="White" FontFamily="Ink Free">
 
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type local:Item}">
-                    <StackPanel>
-                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="• "/>
+                        <TextBlock Text="{Binding Name}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -50,35 +57,26 @@
         <!--R0-->
         <TextBox Text="{Binding TextToAddToList}" 
                  Grid.Column="1"
-                 Visibility="{Binding AddItemControls}" 
                  TextWrapping="Wrap" SelectionBrush="{Binding Sandy}" Foreground="{Binding SlateGray}" Margin="{Binding Margins}"/>
 
-        <Button Content="Delete Item" 
-                Command="" Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="{Binding SpanAll}" 
-                Visibility="{Binding SelectedItemControls}" 
-                Foreground="{Binding SlateGray}" Background="{Binding Tomato}" Margin="{Binding Margins}"/>
-        
         <!--R1-->
-        <TextBox Text="{Binding TextToAddToList}" 
-                 Grid.Column="1" Grid.Row="1" 
-                 Visibility="{Binding SelectedItemControls}" 
+        <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="{Binding SpanAll}"
+                 Visibility="{Binding SelectedItem, Converter={StaticResource ItemVisibilityConverter}}"
                  TextWrapping="Wrap" SelectionBrush="{Binding Sandy}" Foreground="{Binding SlateGray}" Margin="{Binding Margins}"/>
+        
+        <!--R2-->
+        <Button Content="Delete From List"
+                Command=""
+                Visibility="{Binding SelectedItem, Converter={StaticResource ItemVisibilityConverter}}"
+                Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="{Binding SpanAll}"
+                Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
 
         <!-- Column 2 LIST CONTROLS -->
         <!--R0-->
         <Button Content="Add To List" 
                 Command="{Binding AddItemCommand}" 
                 Grid.Column="2" Grid.ColumnSpan="{Binding SpanAll}" 
-                Visibility="{Binding AddItemControls}" 
                 Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
-
-        <!--R1-->
-        <Button Content="Update Item" 
-                Command="" 
-                Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="{Binding SpanAll}" 
-                Visibility="{Binding SelectedItemControls}" 
-                Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
-
-
     </Grid>
 </Window>
