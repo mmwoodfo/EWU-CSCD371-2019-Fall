@@ -14,6 +14,22 @@
 
     <Window.Resources>
         <local:ItemVisibilityConverter x:Key="ItemVisibilityConverter"/>
+
+        <Style TargetType="ListBox">
+            <Setter Property="Background" Value="#FFF65158"/> <!--Tomato Color-->
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Ink Free"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+        </Style>
+
+        <DataTemplate DataType="{x:Type local:Item}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="• "/>
+                <TextBlock Text="{Binding Name}"/>
+            </StackPanel>
+        </DataTemplate>
+        
     </Window.Resources>
         
     <Grid>
@@ -38,45 +54,33 @@
         <ListBox 
             ItemsSource="{Binding ShoppingList}" 
             SelectedItem="{Binding SelectedItem}"
-            Grid.Column="0" Grid.RowSpan="{Binding SpanAll}"
-            SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Auto"
-            Background="{Binding Tomato}" Foreground="White" FontFamily="Ink Free">
-
-            <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type local:Item}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="• "/>
-                        <TextBlock Text="{Binding Name}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-
+            Grid.Column="0" Grid.RowSpan="{Binding SpanAll}">
         </ListBox>
 
     <!-- Column 1 LIST CONTROLS -->
         <!--R0-->
         <TextBox Text="{Binding TextToAddToList}" 
                  Grid.Column="1"
-                 TextWrapping="Wrap" SelectionBrush="{Binding Sandy}" Foreground="{Binding SlateGray}" Margin="{Binding Margins}"/>
+                 TextWrapping="Wrap" SelectionBrush="#fbde44" Margin="10,10,10,10"/>
 
         <!--R1-->
         <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" 
                  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="{Binding SpanAll}"
                  Visibility="{Binding SelectedItem, Converter={StaticResource ItemVisibilityConverter}}"
-                 TextWrapping="Wrap" SelectionBrush="{Binding Sandy}" Foreground="{Binding SlateGray}" Margin="{Binding Margins}"/>
+                 TextWrapping="Wrap" SelectionBrush="#fbde44" Margin="10,10,10,10"/>
         
         <!--R2-->
         <Button Content="Delete From List"
                 Command="{Binding DeleteItemCommand}"
                 Visibility="{Binding SelectedItem, Converter={StaticResource ItemVisibilityConverter}}"
                 Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="{Binding SpanAll}"
-                Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
+                Foreground="#fbde44" Margin="10,10,10,10"/>
 
         <!-- Column 2 LIST CONTROLS -->
         <!--R0-->
         <Button Content="Add To List" 
                 Command="{Binding AddItemCommand}" 
-                Grid.Column="2" Grid.ColumnSpan="{Binding SpanAll}" 
-                Foreground="{Binding Sandy}" Background="{Binding SlateGray}" Margin="{Binding Margins}"/>
+                Grid.Column="2" Grid.ColumnSpan="{Binding SpanAll}"
+                Foreground="#fbde44" Margin="10,10,10,10"/>
     </Grid>
 </Window>

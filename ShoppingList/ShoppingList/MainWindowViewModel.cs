@@ -21,10 +21,6 @@ namespace ShoppingList
         }
 
         //--------- STYLE BINDINGS --------------//
-        public string Margins { get; } = "10,10,10,10";
-        public string Tomato { get; } = "#FFF65158";
-        public string Sandy { get; } = "#FFFBDE44";
-        public string SlateGray { get; } = "#FF28324B";
         public short SpanAll { get; } = Int16.MaxValue; //32767
 
         //--------- COMMAND BINDINGS ------------//
@@ -61,10 +57,10 @@ namespace ShoppingList
             {
                 ShoppingList.Add(new Item(TextToAddToList));
                 TextToAddToList = "";
-                SelectedItem = null!;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TextToAddToList)));
             }
+            SelectedItem = null!;
         }
 
         private void OnDeleteItem()
