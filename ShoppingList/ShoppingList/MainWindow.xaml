@@ -79,7 +79,8 @@
         <!--R0-->
         <TextBox Text="{Binding TextToAddToList}" 
                  Grid.Column="1"
-                 TextWrapping="Wrap" SelectionBrush="#fbde44" Margin="10,10,10,10">
+                 TextWrapping="Wrap" SelectionBrush="#fbde44" Margin="10,10,10,10"
+                 GotKeyboardFocus="TextBox_OnGotKeyboardFocus">
             <TextBox.InputBindings>
                 <KeyBinding Key="Enter" Command="{Binding AddItemCommand}"/> <!-- Trying to figure out how to update textbox when focused -->
             </TextBox.InputBindings>

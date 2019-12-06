@@ -40,9 +40,9 @@ namespace ShoppingList
             set => SetProperty(ref _TextToAddToList, value);
         }
 
-        private Item _SelectedItem = null!;
-        public Item SelectedItem {
-            get => _SelectedItem;
+        private Item? _SelectedItem = null;
+        public Item? SelectedItem {
+            get => _SelectedItem!;
             set => SetProperty(ref _SelectedItem, value);
         }
 
@@ -79,7 +79,7 @@ namespace ShoppingList
             if(SelectedItem != null)
             {
                 ShoppingList.Remove(SelectedItem);
-                SelectedItem = null!;
+                SelectedItem = null;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
             }
         }
