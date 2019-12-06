@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
@@ -30,6 +32,7 @@ namespace ShoppingList
         public ICommand MoveItemDownCommand { get; }
         public ICommand CrossOffCommand { get; }
         public ICommand ShowHelpCommand { get; }
+        public ICommand ExportCommand { get; }
 
         //--------- OTHER BINDINGS --------------//
         public ObservableCollection<Item> ShoppingList { get; } = new ObservableCollection<Item>();
@@ -63,6 +66,7 @@ namespace ShoppingList
             MoveItemDownCommand = new Command(OnMoveItemDown);
             CrossOffCommand = new Command(OnCrossOff);
             ShowHelpCommand = new Command(OnShowHelp);
+            ExportCommand = new Command(OnExport);
         }
 
         //---------- BINDING FUNCTIONS -----------//
@@ -156,6 +160,30 @@ namespace ShoppingList
                 ShowPopUp = true;
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowPopUp)));
+        }
+
+        private void OnExport()
+        {
+            if(ShoppingList.Count > 0)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.Filter = "Text File | *.txt";
+                saveFileDialog.Title = "Save a Text File";
+                saveFileDialog.ShowDialog();
+                string shoppingListFilePath = saveFileDialog.FileName;
+
+                if (!string.IsNullOrEmpty(shoppingListFilePath))
+                {
+                    using StreamWriter outputFile = new StreamWriter(shoppingListFilePath);
+                    foreach (Item item in ShoppingList)
+                    {
+                        if (item.CheckedOff)
+                            outputFile.WriteLine($"{item.Name}✔");
+                        else
+                            outputFile.WriteLine(item.Name);
+                    }
+                }
+            }
         }
     }
 }

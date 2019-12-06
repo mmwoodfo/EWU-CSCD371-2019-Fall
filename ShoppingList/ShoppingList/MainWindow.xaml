@@ -83,6 +83,9 @@
                 <Run Text="Selecting/Deselecting an item from your list:" Foreground="#fbde44" FontWeight="Bold"/><LineBreak/>
                 To select an item, simply click the item you want to select. To deselect an item, simply click the selected item again<LineBreak/>
                 <LineBreak/>
+                <Run Text="Export your list" Foreground="#fbde44" FontWeight="Bold"/><LineBreak/>
+                To export your list, be sure you have at least one item on your list, then click the "Export List" button. You will then be able to save your shopping list as a text file.<LineBreak/>
+                <LineBreak/>
                 <Run Text="Editing, Moving, Checking off and Removing from your list" Foreground="#fbde44" FontWeight="Bold"/><LineBreak/>
                 To edit, move, check off or remove an item from your list start by selecting the item from your list.<LineBreak/>
                 <Run Text="Editing:" Foreground="#fbde44" FontWeight="Bold"/> Edit the item name where it appears to the right of the shopping list.<LineBreak/>
@@ -126,6 +129,12 @@
             </TextBox.InputBindings>
         </TextBox>
 
+        <!--R4-->
+        <Button Content="Export List" 
+                Command="{Binding ExportCommand}" 
+                Grid.Column="1" Grid.Row="4"
+                VerticalAlignment="Bottom"/>
+
         <!--R1-->
         <TextBox Text="{Binding SelectedItem.Name, UpdateSourceTrigger=PropertyChanged}" 
                  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="{Binding SpanAll}"
@@ -150,7 +159,7 @@
                 Grid.Column="2" Grid.ColumnSpan="{Binding SpanAll}"/>
 
         <!-- Column 3 LIST CONTROLS -->
-        <!--R0-->
+        <!--R4-->
         <Button Content="?" 
                 Command="{Binding ShowHelpCommand}" 
                 Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="{Binding SpanAll}"
