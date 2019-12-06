@@ -26,6 +26,8 @@ namespace ShoppingList
         //--------- COMMAND BINDINGS ------------//
         public ICommand AddItemCommand { get; }
         public ICommand DeleteItemCommand { get; }
+        public ICommand MoveItemUpCommand { get; }
+        public ICommand MoveItemDownCommand { get; }
 
         //--------- OTHER BINDINGS --------------//
         public ObservableCollection<Item> ShoppingList { get; } = new ObservableCollection<Item>();
@@ -48,6 +50,8 @@ namespace ShoppingList
         {
             AddItemCommand = new Command(OnAddItem);
             DeleteItemCommand = new Command(OnDeleteItem);
+            MoveItemUpCommand = new Command(OnMoveItemUp);
+            MoveItemDownCommand = new Command(OnMoveItemDown);
         }
 
         //---------- BINDING FUNCTIONS -----------//
@@ -60,6 +64,11 @@ namespace ShoppingList
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TextToAddToList)));
             }
+            DeselectListItem();
+        }
+
+        private void DeselectListItem()
+        {
             SelectedItem = null!;
         }
 
@@ -70,6 +79,36 @@ namespace ShoppingList
                 ShoppingList.Remove(SelectedItem);
                 SelectedItem = null!;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
+            }
+        }
+
+        private void OnMoveItemUp()
+        {
+            if(SelectedItem != null)
+            {
+                int index = ShoppingList.IndexOf(SelectedItem);
+                if(index != 0)
+                {
+                    Item tempItem = SelectedItem;
+                    ShoppingList.RemoveAt(index);
+                    ShoppingList.Insert(index - 1, tempItem);
+                    SelectedItem = tempItem;
+                }
+            }
+        }
+
+        private void OnMoveItemDown()
+        {
+            if (SelectedItem != null)
+            {
+                int index = ShoppingList.IndexOf(SelectedItem);
+                if (index != ShoppingList.Count-1)
+                {
+                    Item tempItem = SelectedItem;
+                    ShoppingList.RemoveAt(index);
+                    ShoppingList.Insert(index + 1, tempItem);
+                    SelectedItem = tempItem;
+                }
             }
         }
     }
