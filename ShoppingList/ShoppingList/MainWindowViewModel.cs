@@ -29,6 +29,7 @@ namespace ShoppingList
         public ICommand MoveItemUpCommand { get; }
         public ICommand MoveItemDownCommand { get; }
         public ICommand CrossOffCommand { get; }
+        public ICommand ShowHelpCommand { get; }
 
         //--------- OTHER BINDINGS --------------//
         public ObservableCollection<Item> ShoppingList { get; } = new ObservableCollection<Item>();
@@ -46,6 +47,13 @@ namespace ShoppingList
             set => SetProperty(ref _SelectedItem, value);
         }
 
+        private bool _ShowPopUp = false;
+        public bool ShowPopUp
+        {
+            get => _ShowPopUp;
+            set => SetProperty(ref _ShowPopUp, value);
+        }
+
         //------------ CONSTRUCTOR -------------//
         public MainWindowViewModel()
         {
@@ -54,6 +62,7 @@ namespace ShoppingList
             MoveItemUpCommand = new Command(OnMoveItemUp);
             MoveItemDownCommand = new Command(OnMoveItemDown);
             CrossOffCommand = new Command(OnCrossOff);
+            ShowHelpCommand = new Command(OnShowHelp);
         }
 
         //---------- BINDING FUNCTIONS -----------//
@@ -137,6 +146,16 @@ namespace ShoppingList
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
             }
+        }
+
+        private void OnShowHelp()
+        {
+            if (ShowPopUp)
+                ShowPopUp = false;
+            else
+                ShowPopUp = true;
+
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowPopUp)));
         }
     }
 }

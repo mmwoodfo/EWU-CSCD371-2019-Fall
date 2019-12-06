@@ -38,6 +38,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="0.7*"/>
             <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.3*"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -51,7 +52,29 @@
         <StackPanel Grid.Column="1"/>
         <StackPanel Grid.Column="2"/>
 
-    <!-- Column 0 LIST BOX -->
+        <Popup Margin="10,10,0,10" Width="450" Height="300" IsOpen="{Binding ShowPopUp}"
+               Placement="Relative"
+               PopupAnimation="Scroll"  AllowsTransparency="True">
+
+            <ScrollViewer>
+                <TextBlock Background="#FF28324B" Foreground="White" Padding="10,10,10,10" TextWrapping="Wrap">
+                <Run Text="Adding to your list:" Foreground="#fbde44" FontWeight="Bold"/><LineBreak/>
+                Type your items name on the line to the left of the "Add to list" button and hit ENTER or the Add To List button.<LineBreak/>
+                <LineBreak/>
+                <Run Text="Selecting/Deselecting an item from your list:" Foreground="#fbde44" FontWeight="Bold"/><LineBreak/>
+                To select an item, simply click the item you want to select. To deselect an item, simply click the selected item again<LineBreak/>
+                <LineBreak/>
+                <Run Text="Editing, Moving, Checking off and Removing from your list" Foreground="#fbde44" FontWeight="Bold"/><LineBreak/>
+                To edit, move, check off or remove an item from your list start by selecting the item from your list.<LineBreak/>
+                <Run Text="Editing:" Foreground="#fbde44" FontWeight="Bold"/> Edit the item name where it appears to the right of the shopping list.<LineBreak/>
+                <Run Text="Moving:" Foreground="#fbde44" FontWeight="Bold"/> To move an item up or down in the list simply select the item and click the up/down arrow buttons that appear on the shopping list until the list is in the desiered order.<LineBreak/>
+                <Run Text="Checking Off:" Foreground="#fbde44" FontWeight="Bold"/> To checkoff an item from your list hit the "Cross Off" button. To un check and item, click the "Cross Off" button again.
+                <Run Text="Removing:" Foreground="#fbde44" FontWeight="Bold"/> To remove an item from your list, select the item you wish to remove and click the "Delete From List" button. Be sure you have the correct item selected, as this action cannot be undone.
+                </TextBlock>
+            </ScrollViewer>
+        </Popup>
+
+        <!-- Column 0 LIST BOX -->
         <!--R0-R*-->
         <ListBox 
             x:Name="ShoppingListLstBox"
@@ -78,12 +101,12 @@
 
     <!-- Column 1 LIST CONTROLS -->
         <!--R0-->
-        <TextBox Text="{Binding TextToAddToList}" 
+        <TextBox Text="{Binding TextToAddToList, UpdateSourceTrigger=PropertyChanged}" 
                  Grid.Column="1"
                  TextWrapping="Wrap" SelectionBrush="#fbde44" Margin="10,10,10,10"
                  GotKeyboardFocus="TextBox_OnGotKeyboardFocus">
             <TextBox.InputBindings>
-                <KeyBinding Key="Enter" Command="{Binding AddItemCommand}"/> <!-- Trying to figure out how to update textbox when focused -->
+                <KeyBinding Key="Enter" Command="{Binding AddItemCommand}"/>
             </TextBox.InputBindings>
         </TextBox>
 
@@ -112,6 +135,14 @@
         <Button Content="Add To List" 
                 Command="{Binding AddItemCommand}" 
                 Grid.Column="2" Grid.ColumnSpan="{Binding SpanAll}"
+                Foreground="#fbde44" Margin="10,10,10,10"/>
+
+        <!-- Column 3 LIST CONTROLS -->
+        <!--R0-->
+        <Button Content="?" 
+                Command="{Binding ShowHelpCommand}" 
+                Grid.Column="3" Grid.Row="4" Grid.ColumnSpan="{Binding SpanAll}"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right"
                 Foreground="#fbde44" Margin="10,10,10,10"/>
     </Grid>
 </Window>
