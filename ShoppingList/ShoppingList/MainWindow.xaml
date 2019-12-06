@@ -9,6 +9,7 @@
         MinHeight="350"
         MinWidth="650"
         TextElement.FontSize="20"
+        x:Name="MainWindowSizing"
         d:DataContext="{d:DesignInstance Type=local:MainWindowViewModel}"
         Title="Shopping List" Height="450" Width="800">
 
@@ -52,12 +53,15 @@
         <StackPanel Grid.Column="1"/>
         <StackPanel Grid.Column="2"/>
 
-        <Popup Margin="10,10,0,10" Width="450" Height="300" IsOpen="{Binding ShowPopUp}"
+        <Popup Margin="10,10,0,10" Width="450" Height="{Binding ActualHeight, ElementName=MainWindowSizing}" IsOpen="{Binding ShowPopUp}"
                Placement="Relative"
                PopupAnimation="Scroll"  AllowsTransparency="True">
 
             <ScrollViewer>
                 <TextBlock Background="#FF28324B" Foreground="White" Padding="10,10,10,10" TextWrapping="Wrap">
+                <Run Text="Closing this popup:" Foreground="#fbde44" FontWeight="Bold"/><LineBreak/>
+                Press the "?" button again.<LineBreak/>
+                <LineBreak/>
                 <Run Text="Adding to your list:" Foreground="#fbde44" FontWeight="Bold"/><LineBreak/>
                 Type your items name on the line to the left of the "Add to list" button and hit ENTER or the Add To List button.<LineBreak/>
                 <LineBreak/>
