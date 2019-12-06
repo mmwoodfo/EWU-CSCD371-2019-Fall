@@ -54,6 +54,7 @@
     <!-- Column 0 LIST BOX -->
         <!--R0-R*-->
         <ListBox 
+            x:Name="ShoppingListLstBox"
             ItemsSource="{Binding ShoppingList}" 
             SelectedItem="{Binding SelectedItem}"
             Grid.Column="0" Grid.RowSpan="{Binding SpanAll}">

@@ -96,6 +96,8 @@ namespace ShoppingList
                     ShoppingList.Insert(index - 1, tempItem);
                     SelectedItem = tempItem;
                 }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
             }
         }
 
@@ -111,6 +113,8 @@ namespace ShoppingList
                     ShoppingList.Insert(index + 1, tempItem);
                     SelectedItem = tempItem;
                 }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
             }
         }
 
@@ -118,19 +122,20 @@ namespace ShoppingList
         {
             if(SelectedItem != null)
             {
-                if (SelectedItem.CheckedOff)
-                    SelectedItem.CheckedOff = false;
-                else
-                    SelectedItem.CheckedOff = true;
-
                 int index = ShoppingList.IndexOf(SelectedItem);
 
-                //I'm not sure how else to get it to update - open to suggestions - because I don't like this
-                Item tempItem = SelectedItem;
-                ShoppingList.RemoveAt(index);
-                ShoppingList.Insert(index, tempItem);
+                if (SelectedItem.CheckedOff)
+                    ShoppingList[index].CheckedOff = false;
+                else
+                    ShoppingList[index].CheckedOff = true;
 
-                SelectedItem = tempItem;
+                Item temp = ShoppingList[index];
+                ShoppingList.RemoveAt(index);
+                ShoppingList.Insert(index, temp);
+                SelectedItem = temp;
+
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
             }
         }
     }
