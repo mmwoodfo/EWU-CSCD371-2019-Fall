@@ -28,6 +28,7 @@ namespace ShoppingList
         public ICommand DeleteItemCommand { get; }
         public ICommand MoveItemUpCommand { get; }
         public ICommand MoveItemDownCommand { get; }
+        public ICommand CrossOffCommand { get; }
 
         //--------- OTHER BINDINGS --------------//
         public ObservableCollection<Item> ShoppingList { get; } = new ObservableCollection<Item>();
@@ -52,6 +53,7 @@ namespace ShoppingList
             DeleteItemCommand = new Command(OnDeleteItem);
             MoveItemUpCommand = new Command(OnMoveItemUp);
             MoveItemDownCommand = new Command(OnMoveItemDown);
+            CrossOffCommand = new Command(OnCrossOff);
         }
 
         //---------- BINDING FUNCTIONS -----------//
@@ -109,6 +111,26 @@ namespace ShoppingList
                     ShoppingList.Insert(index + 1, tempItem);
                     SelectedItem = tempItem;
                 }
+            }
+        }
+
+        private void OnCrossOff()
+        {
+            if(SelectedItem != null)
+            {
+                if (SelectedItem.CheckedOff)
+                    SelectedItem.CheckedOff = false;
+                else
+                    SelectedItem.CheckedOff = true;
+
+                int index = ShoppingList.IndexOf(SelectedItem);
+
+                //I'm not sure how else to get it to update - open to suggestions - because I don't like this
+                Item tempItem = SelectedItem;
+                ShoppingList.RemoveAt(index);
+                ShoppingList.Insert(index, tempItem);
+
+                SelectedItem = tempItem;
             }
         }
     }

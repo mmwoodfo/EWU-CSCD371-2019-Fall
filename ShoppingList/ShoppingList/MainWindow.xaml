@@ -14,6 +14,7 @@
 
     <Window.Resources>
         <local:ItemVisibilityConverter x:Key="ItemVisibilityConverter"/>
+        <local:ItemStrikeThroughConverter x:Key="ItemStrikeThroughConverter"/>
 
         <Style TargetType="ListBox">
             <Setter Property="Background" Value="#FFF65158"/> <!--Tomato Color-->
@@ -26,7 +27,7 @@
         <DataTemplate DataType="{x:Type local:Item}">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="• "/>
-                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Text="{Binding Name}" TextDecorations="{Binding CheckedOff, Converter={StaticResource ItemStrikeThroughConverter}}"/>
             </StackPanel>
         </DataTemplate>
         
@@ -91,10 +92,17 @@
                  TextWrapping="Wrap" SelectionBrush="#fbde44" Margin="10,10,10,10"/>
         
         <!--R2-->
+        <Button Content="Cross Off"
+                Command="{Binding CrossOffCommand}"
+                Visibility="{Binding SelectedItem, Converter={StaticResource ItemVisibilityConverter}}"
+                Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="{Binding SpanAll}"
+                Foreground="#fbde44" Margin="10,10,10,10"/>
+
+        <!--R3-->
         <Button Content="Delete From List"
                 Command="{Binding DeleteItemCommand}"
                 Visibility="{Binding SelectedItem, Converter={StaticResource ItemVisibilityConverter}}"
-                Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="{Binding SpanAll}"
+                Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="{Binding SpanAll}"
                 Foreground="#fbde44" Margin="10,10,10,10"/>
 
         <!-- Column 2 LIST CONTROLS -->
