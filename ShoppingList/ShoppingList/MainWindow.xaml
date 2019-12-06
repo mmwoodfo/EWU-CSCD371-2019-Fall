@@ -60,14 +60,14 @@
 
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="0">
             <!--Move Up-->
-            <Button Content="^"
+            <Button Content="⬆"
                 Command="{Binding MoveItemUpCommand}"
                 Visibility="{Binding SelectedItem, Converter={StaticResource ItemVisibilityConverter}}"
                 Grid.Column="1" Grid.Row="3"
                 Foreground="#fbde44" Margin="10,10,10,10"/>
 
             <!--Move Down-->
-            <Button Content="v"
+            <Button Content="⬇"
                 Command="{Binding MoveItemDownCommand}"
                 Visibility="{Binding SelectedItem, Converter={StaticResource ItemVisibilityConverter}}"
                 Grid.Column="2" Grid.Row="3"
