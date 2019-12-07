@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,19 +11,8 @@ using System.Windows.Input;
 
 namespace ShoppingList
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        private void SetProperty<T>(ref T field, T value, [CallerMemberName]string propertyName = null!)
-        {
-            if (!EqualityComparer<T>.Default.Equals(field, value))
-            {
-                field = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
         //--------- STYLE BINDINGS --------------//
         public short SpanAll { get; } = Int16.MaxValue; //32767
 
@@ -41,33 +32,33 @@ namespace ShoppingList
         public string TextToAddToList
         {
             get => _TextToAddToList;
-            set => SetProperty(ref _TextToAddToList, value);
+            set => Set(ref _TextToAddToList, value);
         }
 
         private Item? _SelectedItem = null;
         public Item? SelectedItem
         {
             get => _SelectedItem!;
-            set => SetProperty(ref _SelectedItem, value);
+            set => Set(ref _SelectedItem, value);
         }
 
         private bool _ShowPopUp = false;
         public bool ShowPopUp
         {
             get => _ShowPopUp;
-            set => SetProperty(ref _ShowPopUp, value);
+            set => Set(ref _ShowPopUp, value);
         }
 
         //------------ CONSTRUCTOR -------------//
         public MainWindowViewModel()
         {
-            AddItemCommand = new Command(OnAddItem);
-            DeleteItemCommand = new Command(OnDeleteItem);
-            MoveItemUpCommand = new Command(OnMoveItemUp);
-            MoveItemDownCommand = new Command(OnMoveItemDown);
-            CrossOffCommand = new Command(OnCrossOff);
-            ShowHelpCommand = new Command(OnShowHelp);
-            ExportCommand = new Command(OnExport);
+            AddItemCommand = new RelayCommand(OnAddItem);
+            DeleteItemCommand = new RelayCommand(OnDeleteItem);
+            MoveItemUpCommand = new RelayCommand(OnMoveItemUp);
+            MoveItemDownCommand = new RelayCommand(OnMoveItemDown);
+            CrossOffCommand = new RelayCommand(OnCrossOff);
+            ShowHelpCommand = new RelayCommand(OnShowHelp);
+            ExportCommand = new RelayCommand(OnExport);
         }
 
         //---------- BINDING FUNCTIONS -----------//
