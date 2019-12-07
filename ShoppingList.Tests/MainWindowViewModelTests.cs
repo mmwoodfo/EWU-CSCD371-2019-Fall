@@ -343,5 +343,19 @@ namespace ShoppingList.Tests
             Assert.IsTrue(vm.ShowPopUp);
         }
 
+        //------------------- SAVE FILE COMMAND -----------------------//
+        [TestMethod()]
+        public void SaveFile_ShoppingListNotEmtpy_SaveToTxt()
+        {
+            //Arrange
+            var dialogServiceMock = new Mock<IDialogService>();
+            MainWindowViewModel vm = new MainWindowViewModel(dialogServiceMock.Object);
+
+            //Act
+            
+
+            //Assert
+            
+        }
     }
 }
