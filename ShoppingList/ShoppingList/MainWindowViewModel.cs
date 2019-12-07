@@ -1,18 +1,20 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using System.Windows.Input;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using MvvmDialogs;
+using MvvmDialogs.FrameworkDialogs.SaveFile;
+using IOPath = System.IO.Path;
 
 namespace ShoppingList
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private readonly IDialogService _DialogService;
+
         //--------- STYLE BINDINGS --------------//
         public short SpanAll { get; } = Int16.MaxValue; //32767
 
@@ -49,8 +51,15 @@ namespace ShoppingList
             set => Set(ref _ShowPopUp, value);
         }
 
+        private string _Path = "";
+        public string Path
+        {
+            get => _Path;
+            set => Set( ref _Path, value);
+        }
+
         //------------ CONSTRUCTOR -------------//
-        public MainWindowViewModel()
+        public MainWindowViewModel(IDialogService dialogService)
         {
             AddItemCommand = new RelayCommand(OnAddItem);
             DeleteItemCommand = new RelayCommand(OnDeleteItem);
@@ -59,6 +68,8 @@ namespace ShoppingList
             CrossOffCommand = new RelayCommand(OnCrossOff);
             ShowHelpCommand = new RelayCommand(OnShowHelp);
             ExportCommand = new RelayCommand(OnExport);
+
+            _DialogService = dialogService;
         }
 
         //---------- BINDING FUNCTIONS -----------//
@@ -139,20 +150,20 @@ namespace ShoppingList
 
         private void OnExport()
         {
-            if (ShoppingList.Count > 0)
+            if(ShoppingList.Count > 0)
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog
+                var settings = new SaveFileDialogSettings
                 {
+                    Title = "Save a Text File",
+                    InitialDirectory = IOPath.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!,
                     Filter = "Text File | *.txt",
-                    Title = "Save a Text File"
+                    CheckFileExists = false
                 };
 
-                saveFileDialog.ShowDialog();
-                string shoppingListFilePath = saveFileDialog.FileName;
-
-                if (!string.IsNullOrEmpty(shoppingListFilePath))
+                bool? success = _DialogService.ShowSaveFileDialog(this, settings);
+                if (success == true)
                 {
-                    using StreamWriter outputFile = new StreamWriter(shoppingListFilePath);
+                    using StreamWriter outputFile = new StreamWriter(settings.FileName);
                     foreach (Item item in ShoppingList)
                     {
                         if (item.CheckedOff)
@@ -162,6 +173,30 @@ namespace ShoppingList
                     }
                 }
             }
+
+            //if (ShoppingList.Count > 0)
+            //{
+            //    SaveFileDialog saveFileDialog = new SaveFileDialog
+            //    {
+            //        Filter = "Text File | *.txt",
+            //        Title = "Save a Text File"
+            //    };
+
+            //    saveFileDialog.ShowDialog();
+            //    string shoppingListFilePath = saveFileDialog.FileName;
+
+            //    if (!string.IsNullOrEmpty(shoppingListFilePath))
+            //    {
+            //        using StreamWriter outputFile = new StreamWriter(shoppingListFilePath);
+            //        foreach (Item item in ShoppingList)
+            //        {
+            //            if (item.CheckedOff)
+            //                outputFile.WriteLine($"{item.Name}✔");
+            //            else
+            //                outputFile.WriteLine(item.Name);
+            //        }
+            //    }
+            //}
         }
     }
 }

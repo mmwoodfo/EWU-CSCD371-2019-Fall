@@ -1,16 +1,20 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MvvmDialogs;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 
 namespace ShoppingList.Tests
 {
     [TestClass()]
-    public class MainWindowViewModelTests
-    {
+    public class MainWindowViewModelTests {
+
+        private IDialogService? _Dialog; //figuring out mock objects
+
         //------------------- ADD ITEM COMMAND -----------------------//
         [TestMethod()]
         public void AddItem_TextNotEmpty_AddToList()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             string text = "Apples";
             vm.TextToAddToList = text;
 
@@ -25,7 +29,7 @@ namespace ShoppingList.Tests
         public void AddItem_TextEmpty_DoNotAddToList()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             string text = "";
             vm.TextToAddToList = text;
 
@@ -40,7 +44,7 @@ namespace ShoppingList.Tests
         public void AddItem_TextWhiteSpace_DoNotAddToList()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             string text = "     ";
             vm.TextToAddToList = text;
 
@@ -55,7 +59,7 @@ namespace ShoppingList.Tests
         public void AddItem_TextNull_DoNotAddToList()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             vm.TextToAddToList = null!;
 
             //Act
@@ -70,7 +74,7 @@ namespace ShoppingList.Tests
         public void DeleteItem_NotNull_RemoveFromList()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item = new Item("Apples");
             vm.ShoppingList.Add(item);
             vm.SelectedItem = item;
@@ -86,7 +90,7 @@ namespace ShoppingList.Tests
         public void DeleteItem_Null_RemoveFromList()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item = new Item("Apples");
             vm.ShoppingList.Add(item);
             vm.SelectedItem = null;
@@ -103,7 +107,7 @@ namespace ShoppingList.Tests
         public void MoveItemUp_NotNullOrFirstIndex_IncreaseIndex()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item1 = new Item("Apples");
             Item item2 = new Item("Bread");
             Item item3 = new Item("Milk");
@@ -124,7 +128,7 @@ namespace ShoppingList.Tests
         public void MoveItemUp_FirstIndex_RemainSame()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item1 = new Item("Apples");
             Item item2 = new Item("Bread");
             Item item3 = new Item("Milk");
@@ -145,7 +149,7 @@ namespace ShoppingList.Tests
         public void MoveItemUp_Null_RemainSame()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item1 = new Item("Apples");
             Item item2 = new Item("Bread");
             Item item3 = new Item("Milk");
@@ -169,7 +173,7 @@ namespace ShoppingList.Tests
         public void MoveItemDown_NotNullOrLastIndex_IncreaseIndex()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item1 = new Item("Apples");
             Item item2 = new Item("Bread");
             Item item3 = new Item("Milk");
@@ -190,7 +194,7 @@ namespace ShoppingList.Tests
         public void MoveItemDown_LastIndex_RemainSame()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item1 = new Item("Apples");
             Item item2 = new Item("Bread");
             Item item3 = new Item("Milk");
@@ -211,7 +215,7 @@ namespace ShoppingList.Tests
         public void MoveItemDown_Null_RemainSame()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item1 = new Item("Apples");
             Item item2 = new Item("Bread");
             Item item3 = new Item("Milk");
@@ -235,7 +239,7 @@ namespace ShoppingList.Tests
         public void CrossOff_ItemNotCrossedOff_SetTrue()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item = new Item("Apples");
 
             vm.ShoppingList.Add(item);
@@ -253,7 +257,7 @@ namespace ShoppingList.Tests
         public void CrossOff_ItemCrossedOff_SetFalse()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item = new Item("Apples")
             {
                 CheckedOff = true
@@ -274,7 +278,7 @@ namespace ShoppingList.Tests
         public void CrossOff_SelectedItemNull_DoNothing()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             Item item = new Item("Apples")
             {
                 CheckedOff = true
@@ -296,7 +300,7 @@ namespace ShoppingList.Tests
         public void ShowHelp_IsTrue_SetToFalse()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             vm.ShowPopUp = true;
 
             //Act
@@ -310,7 +314,7 @@ namespace ShoppingList.Tests
         public void ShowHelp_IsFalse_SetToTrue()
         {
             //Arrange
-            MainWindowViewModel vm = new MainWindowViewModel();
+            MainWindowViewModel vm = new MainWindowViewModel(_Dialog!);
             vm.ShowPopUp = false;
 
             //Act

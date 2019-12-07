@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MvvmDialogs;
 
 namespace ShoppingList
 {
@@ -7,17 +8,17 @@ namespace ShoppingList
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindowViewModel ViewModel { get; }
+        //public MainWindowViewModel ViewModel { get; }
 
         public MainWindow()
         {
-            DataContext = ViewModel = new MainWindowViewModel();
+            //DataContext = ViewModel = new MainWindowViewModel(_DialogService);
             InitializeComponent();
         }
 
         private void TextBox_OnGotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
         {
-            ViewModel.SelectedItem = null;
+        //    ViewModel.SelectedItem = null;
         }
     }
 }

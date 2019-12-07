@@ -2,14 +2,28 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:ShoppingList"
+             mc:Ignorable="d"
              StartupUri="MainWindow.xaml">
+    
     <Application.Resources>
+        
         <ResourceDictionary>
+
+            <local:ViewModelLocator
+            x:Key="Locator"
+            d:IsDataSource="True" />
+
             <ResourceDictionary.MergedDictionaries>
+                
                 <materialDesign:CustomColorTheme BaseTheme="Light" PrimaryColor="#FF28324B" SecondaryColor="#FFFBDE44" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
     </Application.Resources>
 
 </Application>
