@@ -1,8 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShoppingList;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ShoppingList.Tests
 {
@@ -20,7 +16,7 @@ namespace ShoppingList.Tests
 
             //Act
             vm.AddItemCommand.Execute(text);
-            
+
             //Assert
             Assert.AreEqual(1, vm.ShoppingList.Count);
         }

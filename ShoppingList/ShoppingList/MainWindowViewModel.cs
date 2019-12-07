@@ -36,7 +36,7 @@ namespace ShoppingList
 
         //--------- OTHER BINDINGS --------------//
         public ObservableCollection<Item> ShoppingList { get; } = new ObservableCollection<Item>();
-        
+
         private string _TextToAddToList = "";
         public string TextToAddToList
         {
@@ -45,7 +45,8 @@ namespace ShoppingList
         }
 
         private Item? _SelectedItem = null;
-        public Item? SelectedItem {
+        public Item? SelectedItem
+        {
             get => _SelectedItem!;
             set => SetProperty(ref _SelectedItem, value);
         }
@@ -76,8 +77,6 @@ namespace ShoppingList
             {
                 ShoppingList.Add(new Item(TextToAddToList));
                 TextToAddToList = "";
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TextToAddToList)));
             }
             DeselectListItem();
         }
@@ -89,28 +88,25 @@ namespace ShoppingList
 
         private void OnDeleteItem()
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
             {
                 ShoppingList.Remove(SelectedItem);
                 SelectedItem = null;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
             }
         }
 
         private void OnMoveItemUp()
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
             {
                 int index = ShoppingList.IndexOf(SelectedItem);
-                if(index != 0)
+                if (index != 0)
                 {
                     Item tempItem = SelectedItem;
                     ShoppingList.RemoveAt(index);
                     ShoppingList.Insert(index - 1, tempItem);
                     SelectedItem = tempItem;
                 }
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
             }
         }
 
@@ -119,21 +115,19 @@ namespace ShoppingList
             if (SelectedItem != null)
             {
                 int index = ShoppingList.IndexOf(SelectedItem);
-                if (index != ShoppingList.Count-1)
+                if (index != ShoppingList.Count - 1)
                 {
                     Item tempItem = SelectedItem;
                     ShoppingList.RemoveAt(index);
                     ShoppingList.Insert(index + 1, tempItem);
                     SelectedItem = tempItem;
                 }
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
             }
         }
 
         private void OnCrossOff()
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
             {
                 int index = ShoppingList.IndexOf(SelectedItem);
 
@@ -146,9 +140,6 @@ namespace ShoppingList
                 ShoppingList.RemoveAt(index);
                 ShoppingList.Insert(index, temp);
                 SelectedItem = temp;
-
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedItem)));
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShoppingList)));
             }
         }
 
@@ -158,13 +149,11 @@ namespace ShoppingList
                 ShowPopUp = false;
             else
                 ShowPopUp = true;
-
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ShowPopUp)));
         }
 
         private void OnExport()
         {
-            if(ShoppingList.Count > 0)
+            if (ShoppingList.Count > 0)
             {
                 SaveFileDialog saveFileDialog = new SaveFileDialog
                 {

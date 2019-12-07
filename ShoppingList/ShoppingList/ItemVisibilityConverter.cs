@@ -8,7 +8,7 @@ namespace ShoppingList
     {
         public object Convert(object? value, Type? targetType = null, object? parameter = null, CultureInfo? culture = null)
         {
-            if (value is Item) 
+            if (value is Item)
                 return "Visible";
 
             return "Hidden";
