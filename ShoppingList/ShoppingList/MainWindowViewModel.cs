@@ -84,7 +84,7 @@ namespace ShoppingList
 
         private void DeselectListItem()
         {
-            SelectedItem = null!;
+            SelectedItem = null;
         }
 
         private void OnDeleteItem()
@@ -166,9 +166,12 @@ namespace ShoppingList
         {
             if(ShoppingList.Count > 0)
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
-                saveFileDialog.Filter = "Text File | *.txt";
-                saveFileDialog.Title = "Save a Text File";
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Text File | *.txt",
+                    Title = "Save a Text File"
+                };
+
                 saveFileDialog.ShowDialog();
                 string shoppingListFilePath = saveFileDialog.FileName;
 
