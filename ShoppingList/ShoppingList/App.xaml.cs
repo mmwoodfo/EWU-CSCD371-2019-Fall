@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using GalaSoft.MvvmLight.Ioc;
+﻿using GalaSoft.MvvmLight.Ioc;
 using MvvmDialogs;
+using System.Windows;
 
 namespace ShoppingList
 {

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using MvvmDialogs;
+using MvvmDialogs.FrameworkDialogs.SaveFile;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Reflection;
 using System.Windows.Input;
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using MvvmDialogs;
-using MvvmDialogs.FrameworkDialogs.SaveFile;
 using IOPath = System.IO.Path;
 
 namespace ShoppingList
@@ -55,7 +55,7 @@ namespace ShoppingList
         public string Path
         {
             get => _Path;
-            set => Set( ref _Path, value);
+            set => Set(ref _Path, value);
         }
 
         //------------ CONSTRUCTOR -------------//
@@ -145,12 +145,12 @@ namespace ShoppingList
             }
         }
 
-        private void OnShowHelp() => 
+        private void OnShowHelp() =>
             ShowPopUp = !ShowPopUp;
 
         private void OnExport()
         {
-            if(ShoppingList.Count > 0)
+            if (ShoppingList.Count > 0)
             {
                 var settings = new SaveFileDialogSettings
                 {

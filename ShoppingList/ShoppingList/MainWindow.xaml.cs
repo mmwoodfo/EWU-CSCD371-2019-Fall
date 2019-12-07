@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using MvvmDialogs;
 
 namespace ShoppingList
 {
@@ -18,7 +17,7 @@ namespace ShoppingList
 
         private void TextBox_OnGotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
         {
-        //    ViewModel.SelectedItem = null;
+            //    ViewModel.SelectedItem = null;
         }
     }
 }

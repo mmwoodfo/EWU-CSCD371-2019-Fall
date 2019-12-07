@@ -1,11 +1,12 @@
-﻿using MvvmDialogs;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MvvmDialogs;
 using Moq;
 
 namespace ShoppingList.Tests
 {
     [TestClass()]
-    public class MainWindowViewModelTests {
+    public class MainWindowViewModelTests
+    {
 
         private IDialogService? _Dialog; //figuring out mock objects
 
