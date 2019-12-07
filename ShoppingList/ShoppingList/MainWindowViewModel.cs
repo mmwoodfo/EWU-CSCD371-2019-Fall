@@ -64,11 +64,11 @@ namespace ShoppingList
         //---------- BINDING FUNCTIONS -----------//
         private void OnAddItem()
         {
-            if (!string.IsNullOrEmpty(TextToAddToList))
+            if (!string.IsNullOrWhiteSpace(TextToAddToList))
             {
                 ShoppingList.Add(new Item(TextToAddToList));
-                TextToAddToList = "";
             }
+            TextToAddToList = "";
             DeselectListItem();
         }
 
@@ -134,13 +134,8 @@ namespace ShoppingList
             }
         }
 
-        private void OnShowHelp()
-        {
-            if (ShowPopUp)
-                ShowPopUp = false;
-            else
-                ShowPopUp = true;
-        }
+        private void OnShowHelp() => 
+            ShowPopUp = !ShowPopUp;
 
         private void OnExport()
         {

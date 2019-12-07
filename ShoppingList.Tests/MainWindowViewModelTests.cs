@@ -37,6 +37,21 @@ namespace ShoppingList.Tests
         }
 
         [TestMethod()]
+        public void AddItem_TextWhiteSpace_DoNotAddToList()
+        {
+            //Arrange
+            MainWindowViewModel vm = new MainWindowViewModel();
+            string text = "     ";
+            vm.TextToAddToList = text;
+
+            //Act
+            vm.AddItemCommand.Execute(text);
+
+            //Assert
+            Assert.AreEqual(0, vm.ShoppingList.Count);
+        }
+
+        [TestMethod()]
         public void AddItem_TextNull_DoNotAddToList()
         {
             //Arrange
