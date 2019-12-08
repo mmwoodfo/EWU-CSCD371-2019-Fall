@@ -1,6 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MvvmDialogs;
 using Moq;
+using MvvmDialogs.FrameworkDialogs.SaveFile;
+using System.ComponentModel;
+using System.IO;
 
 //Creating mock objects (for my future reference)
 //https://intellitect.com/unit-testing-with-mocks/
@@ -344,18 +347,28 @@ namespace ShoppingList.Tests
         }
 
         //------------------- SAVE FILE COMMAND -----------------------//
+        //@Keboo's suggested unit test
         [TestMethod()]
-        public void SaveFile_ShoppingListNotEmtpy_SaveToTxt()
+        public void SaveFile_ShoppingListNotEmpty_SaveFileDialogInvoked()
         {
             //Arrange
             var dialogServiceMock = new Mock<IDialogService>();
             MainWindowViewModel vm = new MainWindowViewModel(dialogServiceMock.Object);
+            vm.ShoppingList.Add(new Item("Foo"));
+
+            dialogServiceMock.Setup(x => x.ShowSaveFileDialog(vm, It.IsAny<SaveFileDialogSettings>()))
+                .Returns(true)
+                .Callback((INotifyPropertyChanged vm, SaveFileDialogSettings settings) =>
+                {
+                    settings.FileName = Path.GetFullPath("Foo.txt");
+                })
+                .Verifiable();
 
             //Act
-            
+            vm.ExportCommand.Execute(null);
 
             //Assert
-            
+            dialogServiceMock.Verify();
         }
     }
 }
