@@ -173,30 +173,6 @@ namespace ShoppingList
                     }
                 }
             }
-
-            //if (ShoppingList.Count > 0)
-            //{
-            //    SaveFileDialog saveFileDialog = new SaveFileDialog
-            //    {
-            //        Filter = "Text File | *.txt",
-            //        Title = "Save a Text File"
-            //    };
-
-            //    saveFileDialog.ShowDialog();
-            //    string shoppingListFilePath = saveFileDialog.FileName;
-
-            //    if (!string.IsNullOrEmpty(shoppingListFilePath))
-            //    {
-            //        using StreamWriter outputFile = new StreamWriter(shoppingListFilePath);
-            //        foreach (Item item in ShoppingList)
-            //        {
-            //            if (item.CheckedOff)
-            //                outputFile.WriteLine($"{item.Name}✔");
-            //            else
-            //                outputFile.WriteLine(item.Name);
-            //        }
-            //    }
-            //}
         }
     }
 }

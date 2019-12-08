@@ -7,13 +7,11 @@ namespace ShoppingList
     /// </summary>
     public partial class MainWindow : Window
     {
-        //public MainWindowViewModel ViewModel { get; }
         public ViewModelLocator ViewModel { get; }
 
         public MainWindow()
         {
             ViewModel = new ViewModelLocator();
-            //DataContext = ViewModel = new MainWindowViewModel(_DialogService);
             InitializeComponent();
         }
 
