@@ -101,14 +101,10 @@ namespace ShoppingList
         {
             if (SelectedItem != null)
             {
+                //refactored after seeing @Fervidusletum's implementation 
                 int index = ShoppingList.IndexOf(SelectedItem);
-                if (index != 0)
-                {
-                    Item tempItem = SelectedItem;
-                    ShoppingList.RemoveAt(index);
-                    ShoppingList.Insert(index - 1, tempItem);
-                    SelectedItem = tempItem;
-                }
+                if (!(SelectedItem is null) && index > 0)
+                    ShoppingList.Move(index, --index);
             }
         }
 
@@ -116,14 +112,10 @@ namespace ShoppingList
         {
             if (SelectedItem != null)
             {
+                //refactored after seeing @Fervidusletum's implementation 
                 int index = ShoppingList.IndexOf(SelectedItem);
-                if (index != ShoppingList.Count - 1)
-                {
-                    Item tempItem = SelectedItem;
-                    ShoppingList.RemoveAt(index);
-                    ShoppingList.Insert(index + 1, tempItem);
-                    SelectedItem = tempItem;
-                }
+                if (!(SelectedItem is null) && index < ShoppingList.Count-1)
+                    ShoppingList.Move(index, ++index);
             }
         }
 
