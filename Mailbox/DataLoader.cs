@@ -7,7 +7,7 @@ namespace Mailbox
 {
     public class DataLoader : IDisposable
     {
-        public Stream Source { get; }
+        private Stream Source { get; }
 
         public DataLoader(Stream source)
         {
@@ -51,18 +51,18 @@ namespace Mailbox
         }
 
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool _DisposedValue = false; // To detect redundant calls
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_DisposedValue)
             {
                 if (disposing)
                 {
                     Source.Dispose();
                 }
 
-                disposedValue = true;
+                _DisposedValue = true;
             }
         }
 

@@ -11,7 +11,7 @@ namespace Mailbox.Tests
         {
             //Arrange
             Sizes size = Sizes.Premium;
-            ValueTuple<int, int> location = new ValueTuple<int, int>(15, 5);
+            (int, int) location = (15, 5);
             Person person = new Person("First Name", "Last Name");
 
             //Act & Assert
