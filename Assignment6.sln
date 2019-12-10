@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment6", "Assignment6\Assignment6.csproj", "{4C7EC39E-FDB6-4D15-89DF-15AB0BADF554}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment6Tests", "Assignment6Tests\Assignment6Tests.csproj", "{ED4BE768-590F-4D8F-97C2-556EB1F30F7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment6.Tests", "Assignment6Tests\Assignment6.Tests.csproj", "{ED4BE768-590F-4D8F-97C2-556EB1F30F7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
