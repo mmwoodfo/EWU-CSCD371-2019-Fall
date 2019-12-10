@@ -287,10 +287,7 @@ namespace Assignment6.Tests
             string[] stringArray = new string[] { "1.3", "2.0", "3.0", "4.4", "20.125", "12.1132", "35.001", "343.0", "11.11119" };
             ArrayCollection<string> items = new ArrayCollection<string>(stringArray);
 
-            //Act
-            var enumerator = items.GetEnumerator();
-
-            //Assert
+            //Act & Assert
             int i = 0;
             foreach (string item in items)
             {
