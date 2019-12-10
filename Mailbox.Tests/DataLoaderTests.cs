@@ -38,14 +38,11 @@ namespace Mailbox.Tests
             }
             ms.Position = 0;
 
-            DataLoader dataLoader = new DataLoader(ms);
+            using DataLoader dataLoader = new DataLoader(ms);
 
 
             //Act & Assert
             Assert.IsNull(dataLoader.Load());
-
-            dataLoader.Dispose();
-
         }
 
         [TestMethod()]
@@ -60,21 +57,14 @@ namespace Mailbox.Tests
             }
             ms.Position = 0;
 
-            DataLoader dataLoader = new DataLoader(ms);
+            using DataLoader dataLoader = new DataLoader(ms);
 
-            try
-            {
-                //Act
-                List<MailBox>? mailboxes = dataLoader.Load();
+            //Act
+            List<MailBox>? mailboxes = dataLoader.Load();
 
-                //Assert
-                Assert.IsNotNull(mailboxes);
-                Assert.AreEqual(_TestMailboxes.Count, mailboxes?.Count);
-            }
-            finally
-            {
-                dataLoader.Dispose();
-            }
+            //Assert
+            Assert.IsNotNull(mailboxes);
+            Assert.AreEqual(_TestMailboxes.Count, mailboxes?.Count);
 
         }
 
@@ -84,31 +74,23 @@ namespace Mailbox.Tests
             //Arrange
             List<MailBox> mailboxes = new List<MailBox>();
             using var ms = new MemoryStream();
-            DataLoader dataLoader = new DataLoader(ms);
+            using DataLoader dataLoader = new DataLoader(ms);
 
-            try
+            //Act
+            dataLoader.Save(_TestMailboxes);
+            string? jsonLine;
+
+            ms.Position = 0;
+            using (StreamReader sr = new StreamReader(ms))
             {
-                //Act
-                dataLoader.Save(_TestMailboxes);
-                string? jsonLine;
-
-                ms.Position = 0;
-                using (StreamReader sr = new StreamReader(ms))
+                while ((jsonLine = sr.ReadLine()) != null)
                 {
-                    while ((jsonLine = sr.ReadLine()) != null)
-                    {
-                        mailboxes.Add(JsonConvert.DeserializeObject<MailBox>(jsonLine));
-                    }
+                    mailboxes.Add(JsonConvert.DeserializeObject<MailBox>(jsonLine));
                 }
-
-                //Assert
-                Assert.AreEqual(3, mailboxes.Count);
-            }
-            finally
-            {
-                dataLoader.Dispose();
             }
 
+            //Assert
+            Assert.AreEqual(3, mailboxes.Count);
         }
     }
 }
