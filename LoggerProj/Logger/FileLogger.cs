@@ -5,23 +5,19 @@ namespace Logger
 {
     public class FileLogger : BaseLogger
     {
-        private string filePath;
+        private string _FilePath;
 
         public FileLogger(string filePath)
         {
-            this.filePath = filePath;
-
-            if (!File.Exists(filePath))
-            {
-                File.Create(filePath).Dispose();
-            }
+            _FilePath = filePath;
+            File.Create(filePath).Dispose();
         }
 
         public override void Log(LogLevel logLevel, string message)
         {
-            string log = $"{DateTime.Now.ToString()} {ClassName} {logLevel} {message}";
+            string log = $"{DateTime.Now} {ClassName} {logLevel} {message}";
 
-            using (StreamWriter sw = new StreamWriter(filePath, true))
+            using (StreamWriter sw = new StreamWriter(_FilePath, true))
             {
                 sw.WriteLine(log);
             }

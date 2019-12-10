@@ -14,7 +14,7 @@ namespace Logger
             }
             else
             {
-                baseLogger.Log(logLevel, String.Format(message, args));
+                baseLogger.Log(logLevel, string.Format(message, args));
             }
         }
 
@@ -28,7 +28,7 @@ namespace Logger
             }
             else
             {
-                baseLogger.Log(logLevel, String.Format(message, args));
+                baseLogger.Log(logLevel, string.Format(message, args));
             }
         }
 
@@ -42,7 +42,7 @@ namespace Logger
             }
             else
             {
-                baseLogger.Log(logLevel, String.Format(message, args));
+                baseLogger.Log(logLevel, string.Format(message, args));
             }
         }
 
@@ -56,7 +56,7 @@ namespace Logger
             }
             else
             {
-                baseLogger.Log(logLevel, String.Format(message, args));
+                baseLogger.Log(logLevel, string.Format(message, args));
             }
         }
     }
