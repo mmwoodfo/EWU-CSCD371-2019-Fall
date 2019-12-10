@@ -6,18 +6,18 @@ namespace Assignment6
 {
     public class ArrayCollection<TCollection> : ICollection<TCollection>
     {
-        private ICollection<TCollection> _Items;
+        private ICollection<TCollection> Items { get; }
 
         public int Capacity { get; }
 
         public ArrayCollection(int capacity)
         {
-            if (capacity <= 0)
+            if (capacity < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(capacity));
             }
             Capacity = capacity;
-            _Items = new List<TCollection>(Capacity);
+            Items = new List<TCollection>(Capacity);
         }
 
         public ArrayCollection(ICollection<TCollection> collection)
@@ -26,18 +26,14 @@ namespace Assignment6
             {
                 throw new ArgumentNullException(nameof(collection));
             }
-            if (collection.Count == 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(collection));
-            }
 
-            _Items = new List<TCollection>(collection);
-            Capacity = _Items.Count;
+            Items = new List<TCollection>(collection);
+            Capacity = Items.Count;
         }
 
-        public int Count => _Items.Count;
+        public int Count => Items.Count;
 
-        public bool IsReadOnly => _Items.IsReadOnly;
+        public bool IsReadOnly => Items.IsReadOnly;
 
         public void Add(TCollection item)
         {
@@ -46,22 +42,22 @@ namespace Assignment6
                 throw new ArgumentNullException(nameof(item));
             }
 
-            if (_Items.Count == Capacity)
+            if (Items.Count == Capacity)
             {
                 throw new ArgumentOutOfRangeException(nameof(item));
             }
 
-            _Items.Add(item);
+            Items.Add(item);
         }
 
         public void Clear()
         {
-            _Items.Clear();
+            Items.Clear();
         }
 
         public bool Contains(TCollection item)
         {
-            return _Items.Contains(item);
+            return Items.Contains(item);
         }
 
         public void CopyTo(TCollection[] array, int arrayIndex)
@@ -72,23 +68,23 @@ namespace Assignment6
             if (arrayIndex > Capacity || arrayIndex < 0 || arrayIndex > array.Length)
                 throw new ArgumentOutOfRangeException(nameof(arrayIndex));
 
-            _Items.CopyTo(array, arrayIndex);
+            Items.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(TCollection item)
         {
-            return _Items.Remove(item);
+            return Items.Remove(item);
         }
 
         public IEnumerator<TCollection> GetEnumerator()
         {
-            foreach (TCollection item in _Items)
+            foreach (TCollection item in Items)
                 yield return item;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _Items.GetEnumerator();
+            return Items.GetEnumerator();
         }
 
         /************************************************************************************/

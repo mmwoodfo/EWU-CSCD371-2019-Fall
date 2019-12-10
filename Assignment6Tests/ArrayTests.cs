@@ -9,7 +9,6 @@ namespace Assignment6.Tests
         /*------------------------------ Array Constructor Tests -------------------------------------------------*/
         [DataTestMethod]
         //Arrange
-        [DataRow(0)]
         [DataRow(-1)]
         [DataRow(-100)]
         [TestMethod()]
@@ -39,26 +38,6 @@ namespace Assignment6.Tests
         {
             //Arrange, Act & Assert
             Assert.ThrowsException<ArgumentNullException>(() => new ArrayCollection<int>(null));
-        }
-
-        [TestMethod()]
-        public void ArrayTest_CollectionParamEmpty_ArgumentOutOfRangeException()
-        {
-            //Arrange
-            int[] intArray = Array.Empty<int>();
-
-            //Act & Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => new ArrayCollection<int>(intArray));
-        }
-
-        [TestMethod()]
-        public void ArrayTest_CollectionParamNotEmpty_NoException()
-        {
-            //Arrange
-            int[] intArray = Array.Empty<int>();
-
-            //Act & Assert
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => new ArrayCollection<int>(intArray));
         }
 
         /*------------------------------ Array Count Test -------------------------------------------------*/
