@@ -32,7 +32,7 @@ namespace Mailbox.Tests
             //Arrange
             Person owner = new Person(new Bogus.DataSets.Name().FirstName(), new Bogus.DataSets.Name().LastName());
             MailBox mailBox = new MailBox(Sizes.Small, (1, 3), owner);
-            string expectedString = $"Mailbox Owner: {owner.ToString()}, Location: x = 1, y = 3, BoxSize: Small";
+            string expectedString = $"Mailbox Owner: {owner}, Location: x = 1, y = 3, BoxSize: Small";
 
             //Act
             string receivedString = mailBox.ToString();
@@ -47,7 +47,7 @@ namespace Mailbox.Tests
             //Arrange
             Person owner = new Person(new Bogus.DataSets.Name().FirstName(), new Bogus.DataSets.Name().LastName());
             MailBox mailBox = new MailBox(Sizes.MediumPremium, (1, 3), owner);
-            string expectedString = $"Mailbox Owner: {owner.ToString()}, Location: x = 1, y = 3, BoxSize: MediumPremium";
+            string expectedString = $"Mailbox Owner: {owner}, Location: x = 1, y = 3, BoxSize: MediumPremium";
 
             //Act
             string receivedString = mailBox.ToString();
@@ -62,7 +62,7 @@ namespace Mailbox.Tests
             //Arrange
             Person owner = new Person(new Bogus.DataSets.Name().FirstName(), new Bogus.DataSets.Name().LastName());
             MailBox mailBox = new MailBox(Sizes.Unspecfied, (1, 3), owner);
-            string expectedString = $"Mailbox Owner: {owner.ToString()}, Location: x = 1, y = 3";
+            string expectedString = $"Mailbox Owner: {owner}, Location: x = 1, y = 3";
 
             //Act
             string receivedString = mailBox.ToString();
