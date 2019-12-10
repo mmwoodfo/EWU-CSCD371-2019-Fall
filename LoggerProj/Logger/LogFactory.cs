@@ -23,7 +23,7 @@
 
         public void ConfigureFileLogger(string filePath)
         {
-            this._FilePath = filePath;
+            _FilePath = filePath;
         }
     }
 }
