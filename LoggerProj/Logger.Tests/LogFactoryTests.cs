@@ -12,10 +12,10 @@ namespace Logger.Tests
             LogFactory logFactory = new LogFactory();
 
             //Act
-            BaseLogger nullBaseLogger = logFactory.CreateLogger("Test");
+            BaseLogger baseLogger = logFactory.CreateLogger("Test");
 
             //Assert
-            Assert.IsNull(nullBaseLogger);
+            Assert.IsNull(baseLogger);
         }
 
         [TestMethod]
