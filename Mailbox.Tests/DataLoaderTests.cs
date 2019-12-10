@@ -9,7 +9,7 @@ namespace Mailbox.Tests
     [TestClass()]
     public class DataLoaderTests
     {
-        private List<MailBox> testMailboxes = new List<MailBox>()
+        private List<MailBox> _TestMailboxes = new List<MailBox>()
         {
             new MailBox(Sizes.LargePremium, (1, 1), new Person("John", "Doe")),
             new MailBox(Sizes.Small, (15, 5), new Person("Jane", "Doe")),
@@ -30,10 +30,10 @@ namespace Mailbox.Tests
         public void LoadTest_ExceptionReturnsNull()
         {
             //Arrange
-            var ms = new MemoryStream();
+            using var ms = new MemoryStream();
             using (StreamWriter sw = new StreamWriter(ms, leaveOpen: true))
             {
-                foreach (MailBox mailbox in testMailboxes)
+                foreach (MailBox mailbox in _TestMailboxes)
                     sw.WriteLine(mailbox.ToString());
             }
             ms.Position = 0;
@@ -52,7 +52,15 @@ namespace Mailbox.Tests
         public void LoadTest_NoException()
         {
             //Arrange
-            DataLoader dataLoader = new DataLoader(GetMemoryStream());
+            using var ms = new MemoryStream();
+            using (StreamWriter sw = new StreamWriter(ms, leaveOpen: true))
+            {
+                foreach (MailBox mailbox in _TestMailboxes)
+                    sw.WriteLine(JsonConvert.SerializeObject(mailbox));
+            }
+            ms.Position = 0;
+
+            DataLoader dataLoader = new DataLoader(ms);
 
             try
             {
@@ -61,7 +69,7 @@ namespace Mailbox.Tests
 
                 //Assert
                 Assert.IsNotNull(mailboxes);
-                Assert.AreEqual(testMailboxes.Count, mailboxes?.Count);
+                Assert.AreEqual(_TestMailboxes.Count, mailboxes?.Count);
             }
             finally
             {
@@ -75,13 +83,13 @@ namespace Mailbox.Tests
         {
             //Arrange
             List<MailBox> mailboxes = new List<MailBox>();
-            var ms = new MemoryStream();
+            using var ms = new MemoryStream();
             DataLoader dataLoader = new DataLoader(ms);
 
             try
             {
                 //Act
-                dataLoader.Save(testMailboxes);
+                dataLoader.Save(_TestMailboxes);
                 string? jsonLine;
 
                 ms.Position = 0;
@@ -101,19 +109,6 @@ namespace Mailbox.Tests
                 dataLoader.Dispose();
             }
 
-        }
-
-        public Stream GetMemoryStream()
-        {
-            var ms = new MemoryStream();
-            using (StreamWriter sw = new StreamWriter(ms, leaveOpen: true))
-            {
-                foreach (MailBox mailbox in testMailboxes)
-                    sw.WriteLine(JsonConvert.SerializeObject(mailbox));
-            }
-            ms.Position = 0;
-
-            return ms;
         }
     }
 }
