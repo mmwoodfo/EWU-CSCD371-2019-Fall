@@ -95,9 +95,16 @@ namespace Mailbox
 
             string ownersList = "";
 
+            HashSet<Person> hashSet = new HashSet<Person>();
+
             foreach (MailBox mailbox in mailboxes)
             {
-                ownersList += mailbox.Owner.ToString() + "\n";
+                hashSet.Add(mailbox.Owner);
+            }
+
+            foreach(Person person in hashSet)
+            {
+                ownersList += person.ToString() + "\n";
             }
 
             return ownersList;
